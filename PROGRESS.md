@@ -38,6 +38,11 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 
 **Q5 (NEXT):** When FIRST setting the immutable Disaster Recovery Wallet address, should the user verify with both Wallet Private Key **and** TongNet Authenticator, or Wallet Private Key alone? No later address/key change is ever allowed. Await user answer.
 
+## Question discovery and tracking
+
+- [x] Started [86-question deep technical/security/logic backlog](docs/DEEP_QUESTIONS.md) on GitHub (2026-10-24).
+- [ ] Work through high-risk questions in order; keep recording decisions and updating next-session handoff.
+
 ## Current disaster recovery work
 - [x] Create dedicated Disaster Recovery Wallet specification and record three key categories.
 - [x] User confirmed one-time Disaster Recovery Key is issued when destination is set, cannot ever be changed or reissued, and must be supplied with Wallet Private Key to execute.
