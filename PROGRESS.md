@@ -18,7 +18,8 @@
 
 ## Still NOT done
 - [x] Resolve Question 1: **Option B — no sender cancellation after Trigger, even for wrong recipient address** (2026-10-24).
-- [ ] Resolve Question 2: lost one-time Authenticator Setup Key during 72-hour enrollment period.
+- [x] **Q2 (2026-10-24):** Wallet never enrolled within 72h is permanently DEAD, with NO future reactivation or initial setup key regeneration.
+- [ ] **Q3:** Decide what happens if an already activated wallet loses its Authenticator Master Key.
 - [ ] Answer remaining key loss, theft, recovery and consent questions (one at a time).
 - [ ] Complete prior-art search.
 - [ ] Prove a decentralised consensus and finality algorithm.
@@ -29,7 +30,7 @@
 
 ## Current next question
 
-**Q2:** If the one-time Authenticator Setup Key is lost before the wallet's initial 72-hour activation deadline, does the user get a secure way to regenerate it, or must that wallet expire and the user create another? No decision yet.
+**Q3:** If an already ACTIVE wallet loses the Authenticator Master Key (or the Authenticator device), but the owner still has the wallet private key, should there be any independent secure recovery route to restore access to BlackBox, or should this access remain permanently locked? Await user answer.
 
 ## Important blockers
 1. Consensus / Byzantine finality / Sybil security not designed.
