@@ -104,19 +104,15 @@ The user's direct instruction: if **ANY** transaction/network task is late due t
 
 This refines earlier Q12/Q14 'strict fixed deadline' **only regarding the adjusted cutoff**, not strict finality. All delay measurements/thresholds, precise eligibility, decentralised clocks, queue fairness, anti-spam, attribution and no-double-credit require design. No working network or audited Network Delay Calculator. Proposed forced reserve forfeiture remains a legal and consumer launch blocker even after adjustment; do not infer consent or permission.
 
-## NEXT SINGLE QUESTION — Q16 / DQ-095
+## NEXT SESSION — Architecture proofs, not unanswered Q16
 
-Ask ONE focused Punjabi question:
+On 2026-10-25 the user chose **Q16 C, Q17 C, Q18 C, Q19 C, Q20 C, Q21 C, Q22 B, Q23 B, Q24 C, Q25 B**, then requested the entire backlog and best safety-first, high-performance answers to be reviewed and batch-saved in GitHub. New master files:
+- **docs/TONGNET_FUTURE_ARCHITECTURE.md:** architecture review with proven BFT research base, parallelisation research, hybrid anti-Sybil validators with optional security bonds/PoS component, delay compensation and strict deadlines, sponsored fees and launch blockers.
+- **docs/MASTER_QA_RECOMMENDATIONS.md:** the 95 original deep questions with written engineering answers and separate explicit user-confirmed status. Candidate recommendations are NOT automatically user-ratified.
 
-"ਹੁਣ ਜਦੋਂ Network Delay Calculator ਹਰ delayed task ਦਾ extra time ਤੈਅ ਕਰੇਗਾ, ਉਸਦੀ calculation **ਕਿਵੇਂ** ਕਰੀਏ? ਮਿਸਾਲ ਵਜੋਂ ਇੱਕ Claim 20 ਮਿੰਟ queue ਵਿੱਚ ਸੀ ਪਰ ਬਾਕੀ network ਔਸਤ 3 ਮਿੰਟ slow ਸੀ।
+Current instruction: do NOT revert to the superseded 'one-question-at-a-time until 95 answered' workflow. User prioritises zero single-party runtime dependency (not literally zero physical dependencies), strong eventual decentralisation (first permissioned phase must be acknowledged), near-zero customer fees with sustainability and honest innovation. They allow rethinking previous suggestions but do not silently revoke previously confirmed wallet entitlement or immutability rules. Forced reserve confiscation is a legal/safety blocker: recommend voluntary sponsors or protected refund, owner acceptance required before a real-money protocol change. No blockchain code, consensus, audited keys, Delay Calculator, live transfer, benchmark or testnet was built from these documents.
 
-**A:** ਹਰ transaction/Claim ਦੀ ਆਪਣੀ verified network-processing delay ਮਾਪ ਕੇ ਉੱਨਾ ਹੀ extra time ਉਸੇ ਨੂੰ ਦਿਓ (20 ਮਿੰਟ, ਜੇ network-caused ਸਾਬਤ ਹੋਵੇ)।
-**B:** ਸਾਰਿਆਂ ਪ੍ਰਭਾਵਿਤ operations ਲਈ network-wide verifiable slowdown/delay ਦਾ ਇੱਕ common time ਵਰਤੋ (ਉਦਾਹਰਨ 3 ਮਿੰਟ), ਭਾਵੇਂ ਕਿਸੇ ਖ਼ਾਸ claim ਦੀ queue ਲੰਬੀ ਸੀ।
-**C:** ਤੁਹਾਡਾ ਹੋਰ ਤਰੀਕਾ।
-
-Private phone/device offline ਜਾਂ ਆਪਣੀ ਮਰਜ਼ੀ ਨਾਲ ਦੇਰ ਕਰਨ ਨੂੰ Network delay ਨਾ ਗਿਣੀਏ।"
-
-Don't decide answer in advance; record to docs after user reply, ask next. Q15 confirmed universal scope, not a choice between absolute timer and protected funds. Keep consumer/legal risk visible.
+**Next engineering work:** 1) canonical escrow/Claim/DEAD state transition table; 2) formal fault and committee membership assumptions, stable epochs; 3) credible exact-once hybrid Delay Calculator and recovery from disputed proofs; 4) simulator invariants; 5) testnet and external review. Do not claim proof or 'world-first'.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
@@ -126,7 +122,7 @@ Don't decide answer in advance; record to docs after user reply, ask next. Q15 c
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Universal Network Delay Calculator design: per-operation versus global attributable time (NEXT Q16); destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
+Formalise hybrid per-operation + global delay credit and secure automatic validator membership (Q16–Q25 answered; engineering still open); destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
