@@ -235,3 +235,7 @@ R opens its own BlackBox and decides. **ACCEPT**: generate the unique unchangeab
 - C/C++ may be used only for audited, technically justified platform interoperability with narrow interfaces; no blanket '100% Rust including every third-party dependency' promise.
 - No single remote SaaS dependency for base settlement; mature cryptographic/open-source libraries are permitted and should be licence-audited and pinned. Language selection by itself doesn't prove superior performance, decentralisation, low fees or security.
 - Canonical review: [TongNet Future Architecture](TONGNET_FUTURE_ARCHITECTURE.md). **Implementation status: NOT STARTED / no evidence of build or benchmarks.**
+
+## Product review reference — 2026-10-25
+
+[Critical Product and Banking Adoption Plan](TONGNET_PRODUCT_CRITIQUE_AND_ADOPTION_PLAN.md) recommends a separate Instant Pay transaction type to enable normal merchant checkout, without altering confirmed Protected Pay rights. Instant Pay, sample 1B TONG denomination, fiat/stablecoin partnerships and reserve reforms are proposals, NOT confirmed rules. Real-money release remains blocked pending safety and legal reviews.
