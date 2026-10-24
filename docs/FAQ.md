@@ -65,7 +65,7 @@ A: **Q7 CONFIRMED — Option A (2026-10-24):** They stay locked until the origin
 A: **Q8/Q9 confirmed 2026-10-24:** The source sends a disaster recovery request from ordinary Wallet settings. Only when the chosen recovery wallet **ACCEPTS** that request inside **its own TongNet BlackBox** is the unique one-use Disaster Recovery Key generated there, NOT in the source wallet's BlackBox. This same key is later presented alongside the original source Wallet Private Key to run the single-use recovery; the source Authenticator/BlackBox is not needed at that time. The key is permanently unreplaceable and the association immutable once complete.
 
 **Q: What if destination REJECTS or ignores disaster recovery request?**  
-A: **Q9 confirmed:** REJECT creates no key or final association, and notifies the source wallet's BlackBox. If destination neither accepts nor rejects, request stays PENDING, there is no key/immutable binding, and source counts as having **NO configured disaster recovery**. Pending request expiry is OPEN Q10.
+A: **Q9 confirmed:** REJECT creates no key or final association, and notifies the source wallet's BlackBox. If destination neither accepts nor rejects, request stays PENDING for **at most 24 hours**, during which there is no key/immutable binding and source is NOT_CONFIGURED. At 24 hours without successful approval, request automatically **EXPIRES** with no key/binding; a late Accept is invalid. Q10 confirmed Option A.
 
 **Q: Does destination-side key generation establish the same person owns both addresses?**  
 A: No. A cryptographic link/approval demonstrates authorization according to the system's rules, not natural-person identity. Merely placing a secret inside R's encrypted inbox is not by itself a signature with R's private key or an explicit acceptance.
@@ -73,8 +73,11 @@ A: No. A cryptographic link/approval demonstrates authorization according to the
 **Q: When does the recovery address become permanently attached?**  
 A: **Only after an explicit ACCEPT from destination BlackBox**. Request initiation alone never attaches it. At ACCEPT the one-time key is created in destination BlackBox and the association becomes irreversible. **Q9 confirmed**.
 
+**Q: How long does an unanswered Disaster Recovery pairing request stay pending?**  
+A: **Q10 confirmed — Option A:** 24 hours. If R has not accepted/rejected by the deadline, the request expires automatically. S has NO active disaster recovery before Accept; no key or irreversible link is created by timeout. Accept after expiry must be rejected; exact network race/clock implementation requires tests.
+
 **Q: What next?**  
-A: **Q10:** What should happen if destination never responds? Should its PENDING request expire at a fixed deadline, or remain pending indefinitely?
+A: **Q11:** During those 24 hours, may S cancel an unanswered PENDING request and send a different one before R accepts, or must S wait for R Reject or automatic expiry? Once accepted, an association and its one-use key can never be changed.
 
 ## Payment flow
 
