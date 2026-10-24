@@ -24,8 +24,8 @@
 | D-011 | Enrolment | Earlier recorded rule: use wallet authority plus one-time setup secret, no BlackBox login required initially |
 | D-012 | 60-second code | Authenticator generates rotating login codes; stable root secret does not rotate |
 | D-013 | Access gate | Wallet-key compromise alone must not permit BlackBox operation/transaction trigger |
-| D-014 | Activation | Earlier recorded requirement: enrol within 72h or wallet permanently DEAD and barred from sending/receiving/claiming (confirm recovery/legal edge cases before shipping) |
-| D-015 | Reset | Earlier recorded proposal: current authenticator secret plus wallet proof needed for re-enrolment |
+| D-014 | Activation | **User reconfirmed 2026-10-24 (Q2):** if TongNet Authenticator is not enrolled within 72h of wallet creation, the wallet becomes **permanently DEAD**, cannot ever reactivate, and cannot send, receive or claim. No owner/admin backdoor or reset after expiry. Any wallet requiring enrollment must be replaced with a newly generated wallet. |
+| D-015 | Reset | Earlier recorded proposal: current authenticator secret plus wallet proof needed for re-enrolment of an already active wallet; this does **not** allow reviving a permanently DEAD wallet. Actual lost-master-secret policy remains OPEN-003. |
 
 ## Payment state machine — Latest known user requirements
 
@@ -58,13 +58,18 @@
 
 - **Q1 answered (Option B)**: Trigger is non-cancellable, even for mistyped/misdirected receiver addresses. This is a high-risk user-experience and loss scenario to clearly warn users about before Trigger. A receiver who validly claims the wrongly addressed payment can keep it according to these protocol rules; no guaranteed refund. No off-protocol administrator override is specified.
 
+## Q2 confirmation — 2026-10-24
+
+- **Permanent expiry:** If initial TongNet Authenticator activation is not completed inside 72h, wallet enters a terminal DEAD state; it never becomes ACTIVE later. A lost one-time setup key has **no regeneration/recovery route** to extend or bypass this deadline.
+- **Protocol feasibility note:** Network can validate an activation deadline, but cannot directly detect physical loss of a key. DEAD means permanently unusable for normal transactions, not deletion of historical records. Since pre-activation receiving is blocked, wallet is intended to contain no funds. Define edge cases before production.
+
 ## Pending / blocked decisions
 
 | ID | Priority | Question / problem |
 |---|---|---|
 | CLOSED-001 | **ANSWERED 2026-10-24** | Option B confirmed: after a successful Trigger, sender CANNOT cancel or emergency-stop the transaction, even if recipient address is wrong. Receiver 24-hour window remains valid; if no receiver claim, sender gets the next 72h for recovery. |
-| OPEN-002 | **NEXT** | Lost one-time Authenticator Setup Key before enrollment and before the initial 72h activation deadline: any secure regeneration option, or must wallet die after 72h? |
-| OPEN-003 | Critical | Lost authenticator root secret: recovery policy without enabling takeover? |
+| CLOSED-002 | **ANSWERED 2026-10-24** | User chose **permanently DEAD** if never enrolled within 72h. No reissuing lost initial Setup Key to save that same wallet under the agreed rule. After expiry no key, support agent or administrator can activate it again. A new wallet is needed. |
+| OPEN-003 | **NEXT** | After *successful* activation, if the Authenticator Master Key/device is lost while wallet private key remains available, should recovery be possible through a secure separate method, or should BlackBox access be permanently unavailable? |
 | OPEN-004 | Critical | If both wallet and second factor compromised: theft prevention, freeze and dispute controls? |
 | OPEN-005 | Critical | Consensus algorithm and finality without PoW/traditional PoS or central trusted operator |
 | OPEN-006 | Critical | Sybil, double spend, partitioning, censorship, replay, validator incentives and spam defence |
