@@ -178,3 +178,16 @@ A: Novelty has not been verified. TongNet may compose distinctive payment/recove
 
 **Q: What replaces all earlier one-by-one questions?**  
 A: [Master architecture research](TONGNET_FUTURE_ARCHITECTURE.md) and [all 95 question-and-answer recommendations](MASTER_QA_RECOMMENDATIONS.md), with explicit user-confirmed vs engineer-proposed labels and real-money hard blockers.
+
+## 2026-10-25 — User-confirmed payment key origin correction
+
+**Q: Where are the TWO ordinary Claim Keys generated?**
+A: BOTH in the **sender's TongNet BlackBox**. Receiver's claim code K_R is generated at transaction setup and Sender gives it to intended receiver. Its 24h use window starts only after final Trigger; K_R + exact addressed Receiver wallet authority both required. There is NO automatic secret delivery to Receiver BlackBox. If unclaimed, K_R expires and a NEW Sender Claim Key K_S is generated in Sender BlackBox after expiry, usable with Sender authority in the following 72h, then expires too (subject to proof-backed network-delay extensions).
+
+**Q: If Sender types WRONG receiver address B and gives code to intended A?**
+A: A has code but not B wallet's signing authority; B has signing authority but not the code, so neither normally can claim. After the adjusted 24h receiver window ends, Sender becomes eligible to manually reclaim during the next 72h with newly generated K_S. This is NOT an automatic refund at 24h. If B obtains correct code or controls A somehow, a valid B claim is possible; no automatic guaranteed recovery.
+
+**Q: Are sender-generated payment keys the Disaster Recovery Key?**
+A: NO. K_R and K_S are transaction-specific normal payment claim credentials. Unrelated permanent Disaster Recovery Key is generated inside the selected RECOVERY WALLET's BlackBox after its accepted pairing.
+
+**Open:** late K_S generation on offline/lost/DEAD Sender BlackBox versus existing Q6 post-disaster Sender Claim Key support needs user decision and protocol proof. See [DECISIONS.md](DECISIONS.md).
