@@ -111,7 +111,7 @@ These are design requirements only. A stolen wallet key together with the recove
 
 - Unanswered destination BlackBox pairing request automatically expires after **24 hours**. It does not generate a one-time Disaster Recovery Key or install an immutable source→destination binding.
 - Pending means recovery is **NOT_CONFIGURED**; Expired also means **NOT_CONFIGURED**. Rejected is another closed, unconfigured state.
-- A destination Accept only succeeds if valid and finalized **before the expiry boundary**; after expiry it is invalid. Accept/Reject/Expiry races, replay, timestamp definitions, offline delivery and network partition ordering must be deterministic and are not yet technically implemented.
+- **Q12 strict Option A:** a destination Accept is successful ONLY if **network-finalized before** the 24-hour expiry boundary. A late-finalized operation is rejected despite a pre-deadline click/submission/relay receipt. Accept/Reject/Expiry races, replay, timestamp definitions, offline delivery and network partition ordering must be deterministic and are not yet technically implemented.
 - Pending expiry must be based on authoritative network-accepted request time, not the local device clock (exact consensus time procedure TBD). The user's rule is a 24-hour window, not a user-selected wall-clock date.
 - The no-change-forever rule applies only **after an ACCEPT is finalized**, not to a request that expired without a key.
 
@@ -121,4 +121,10 @@ A PENDING disaster recovery association cannot be cancelled, withdrawn, replaced
 
 ## Next Q12
 
-If destination presses Accept shortly before the 24-hour expiry, but network finality is recorded afterward, what is the authoritative ordering rule? No local clock or unverified timestamp can decide. Ask user next.
+**Q12 ANSWERED, Option A:** destination BlackBox ACCEPT has to be fully **network-finalized before** its 24-hour request deadline. Even if a user tapped Accept or an intermediate node received the signature before the limit, **post-deadline finality means EXPIRED**; no immutable pairing or one-time recovery secret. Use canonical network finality order, not local clock. Implementation and consensus time model still require research.
+
+**Next Q13:** During a serious TongNet network outage, should the 24h receiver and 72h sender *payment claim* deadlines remain absolute even if claims cannot be finalized, or be suspended under objectively provable network-outage rules?
+
+## Q12 — Recovery pairing confirmation must finalize before deadline
+
+**Option A confirmed, 2026-10-24.** A one-time recovery pairing request submitted by S has 24h. R's BlackBox ACCEPT must attain definitive decentralized network finality before its exact deadline to issue the unique recovery key and commit immutable S→R linking. An event signed, tapped, or relayed earlier but finalized after deadline is EXPIRED: no key, no binding, not configured. A timestamp asserted by a phone or one untrusted relay does not count. Consensus-finality and distributed-time properties require formal design and testing.
