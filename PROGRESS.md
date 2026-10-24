@@ -19,7 +19,8 @@
 ## Still NOT done
 - [x] Resolve Question 1: **Option B — no sender cancellation after Trigger, even for wrong recipient address** (2026-10-24).
 - [x] **Q2 (2026-10-24):** Wallet never enrolled within 72h is permanently DEAD, with NO future reactivation or initial setup key regeneration.
-- [ ] **Q3:** Decide what happens if an already activated wallet loses its Authenticator Master Key.
+- [x] **Q3 (2026-10-24):** Record optional TongNet Disaster Recovery Wallet with wallet-key-only disaster transfer to preconfigured address and permanent original wallet DEAD state (documentation only).
+- [ ] **Q4:** Define authorization for adding/changing disaster recovery address.
 - [ ] Answer remaining key loss, theft, recovery and consent questions (one at a time).
 - [ ] Complete prior-art search.
 - [ ] Prove a decentralised consensus and finality algorithm.
