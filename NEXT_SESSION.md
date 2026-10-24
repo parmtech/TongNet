@@ -126,3 +126,7 @@ Formalise hybrid per-operation + global delay credit and secure automatic valida
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
+
+## Language selection checkpoint — 2026-10-25
+
+User explicitly delegated which programming language is best. **Use Rust as the primary blockchain and wallet core implementation language**; Kotlin/Swift or native UI wrappers only when necessary, shared crypto and transaction authority in Rust. Rationale: memory-safe by default, compiled native performance, concurrency and platform portability. No build or tests have been produced. Next engineering deliverable should be the safely versioned Cargo workspace and deterministic escrow/wallet state machine plus property tests, keeping research architecture and all open release blockers intact.
