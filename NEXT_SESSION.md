@@ -92,13 +92,17 @@ The user said slow or fast network must NOT change how running timers elapse. Un
 
 Open risk: an ALREADY RUNNING receiver/sender Claim period still elapses while a claim is waiting to finalize. Simply queued status doesn't preserve that Claim deadline; whether strict financial Claim finality vs earlier authenticated receipt qualifies remains for Q14. Full decentralized network halt and automatic reserve forfeiture during halt remain unresolved; preserve explicit consumer/legal launch blocker.
 
-## NEXT SINGLE QUESTION — Q14 / DQ-093
+## Q14 answered (2026-10-24) — Option A, strict financial Claim finality
 
-Ask Punjabi ONE question:
+The user confirmed strict expiry for EXISTING receiver and sender Claim deadlines. For triggered transaction tT (Trigger consensus-finality time): Receiver Claim must be NETWORK-FINAL strictly BEFORE tT+24h. If receiver did not claim, the sender's distinct one-time Claim may finalize in the NEXT 72h, strictly BEFORE tT+96h. Clicking, signing, placing an operation in queue or relay receipt before its deadline DOES NOT preserve that entitlement if consensus finality happens after deadline. Late Claim rejected as EXPIRED. This is independent of Q13 rule for starting NEW transaction timers only at first network acceptance/finality. Atomicity and clock correctness unimplemented.
 
-"ਮੰਨ ਲਓ Receiver ਦਾ **24-hour Claim timer** ਪਹਿਲਾਂ ਹੀ ਚੱਲ ਰਿਹਾ ਹੈ। ਉਹ deadline ਤੋਂ **5 ਮਿੰਟ ਪਹਿਲਾਂ** ਆਪਣੀ Claim ਭੇਜ ਦਿੰਦਾ ਹੈ, ਪਰ TongNet slow ਹੋਣ ਕਰਕੇ request queue ਵਿੱਚ ਰਹਿੰਦੀ ਹੈ ਅਤੇ Network ਉਸਨੂੰ **deadline ਤੋਂ 10 ਮਿੰਟ ਬਾਅਦ** final ਕਰਦਾ ਹੈ। ਕੀ **A:** strict rule — Network-final claim deadline ਤੋਂ ਪਹਿਲਾਂ ਨਾ ਹੋਈ ਤਾਂ EXPIRED, ਭਾਵੇਂ ਪਹਿਲਾਂ queue ਵਿੱਚ ਸੀ; **B:** ਜੇ Network ਕੋਲ deadline ਤੋਂ ਪਹਿਲਾਂ signed Claim ਪ੍ਰਾਪਤ ਹੋਣ ਦਾ ਭਰੋਸੇਯੋਗ decentralized proof ਹੈ, ਤਾਂ late finality ਦੇ ਬਾਵਜੂਦ ਉਹ Claim valid ਰਹੇ; **C:** ਤੁਹਾਡਾ ਹੋਰ ਤਰੀਕਾ? ਇਹ ਨਵੀਂ Send ਦੇ timer start ਤੋਂ ਵੱਖਰਾ ਹੈ।"
+**Major safety blocker:** If all TongNet validators stop confirming transactions across a user's claim deadline, even an early queued Claim cannot finalize. Prior user proposed permanent transfer of unclaimed funds to TongNet Network Reserve after 24+72h, but this is potentially confiscatory and a major consumer/legal launch blocker. Q15 asks if post-outage escrow must be preserved rather than automatically forfeited; Q14's elapsed times remain unchanged unless user separately decides otherwise.
 
-After answer, commit updates; do not automatically extend Q12 pairing strictness to payment claims without authorization. Proposed reserve forfeiture cannot be deployed with real assets until proper legal/consumer review.
+## NEXT SINGLE QUESTION — Q15 / DQ-094
+
+Ask ONE Punjabi decision: "ਮੰਨ ਲਓ TongNet ਦਾ ਪੂਰਾ network ਤਿੰਨ-ਚਾਰ ਦਿਨ down ਰਿਹਾ। ਇੱਕ Triggered transaction ਦੀ Receiver 24h ਅਤੇ Sender 72h deadline ਇਸ ਦੌਰਾਨ ਲੰਘ ਗਈ। ਕੋਈ ਵੀ Claim network-final ਨਹੀਂ ਹੋ ਸਕੀ। Network ਵਾਪਸ ਆਉਣ ਤੋਂ ਬਾਅਦ ਉਹ ਬਚੀ ਰਕਮ ਨਾਲ ਕੀ ਕਰੀਏ? **A:** ਪਿਛਲਾ ਨਿਯਮ — total 96h ਮੁੱਕਣ ਕਾਰਨ ਸਿੱਧੀ TongNet Network Reserve ਵਿੱਚ permanently ਚਲੀ ਜਾਵੇ। **B:** network-wide outage ਸਾਬਤ ਹੋਵੇ ਤਾਂ ਇਹ ਰਕਮ Reserve ਨੂੰ ਨਾ ਦੇਈਏ, ਇੱਕ protected escrow ਵਿੱਚ ਰੱਖੀਏ; ਬਾਅਦ ਵਾਲੀ fair recovery procedure ਦਾ ਸਮਾਂ/ਹੱਕ ਵੱਖਰੇ ਸਵਾਲ ਵਿੱਚ ਤੈਅ ਕਰਾਂਗੇ। **C:** ਆਪਣਾ ਤਰੀਕਾ। ਪੁਰਾਣੇ timers ਆਪਣੇ fixed ਹਿਸਾਬ ਨਾਲ ਹੀ ਚੱਲਣਗੇ; ਸਵਾਲ expiry ਤੋਂ ਬਾਅਦ funds ਦੇ ownership ਦਾ ਹੈ।"
+
+After answer commit Decisions, Protocol, FAQ, Security, Deep Questions, Progress, Handoff, Change Log. Do not claim real consensus, audited anti-Sybil scheme or lawful forfeiture.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
@@ -108,7 +112,7 @@ After answer, commit updates; do not automatically extend Q12 pairing strictness
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Payment Claim queued-before-expiry but finalized-after deadline (NEXT Q14); total-network outage & potential reserve forfeiture still open, destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
+Entire-network halt spanning 24+72h claim deadlines and Network Reserve/escrow ownership (NEXT Q15); destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
