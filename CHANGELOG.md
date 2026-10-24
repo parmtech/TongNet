@@ -1,5 +1,12 @@
 # TongNet — Documentation & Project Change Log
 
+## 2026-10-24 — Q10 confirmed: pending pairing request expires after 24 hours
+- User chose **Option A**: unanswered Disaster Recovery pairing request automatically expires after **24 hours**.
+- While PENDING and after EXPIRED the source wallet is NOT_CONFIGURED: no recovery key, no irreversible source→destination binding.
+- Late destination Accept on expired request must be rejected. Exact network clock, accepted-before-expiry finality and concurrent action ordering still need design and tests.
+- Updated disaster recovery requirements, decision register, FAQ, protocol, threat model, backlog, progress, and next-session handoff.
+- **NEXT Q11:** may source withdraw/replace a pending request before destination responds?
+
 ## 2026-10-24 — Q9 confirmed: destination BlackBox Accept/Reject handshake
 - An irreversible disaster recovery address is NOT linked immediately when SOURCE proposes it; S Wallet Private Key + S Authenticator sends an initial request to destination R's encrypted BlackBox.
 - Until R actually ACCEPTS, status remains PENDING/NOT_CONFIGURED; no one-time secret is issued and no immutable source→destination pairing exists.
