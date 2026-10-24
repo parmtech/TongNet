@@ -36,7 +36,7 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 
 ## Current next question
 
-**Q6 (NEXT):** If wallet contains 1,000 TONG total, with 300 TONG already locked in an earlier transfer when the user invokes Disaster Recovery, how should the system handle the 300? Preserve existing receiver rights and sweep unlocked 700 now, redirecting any later rightful refund to preset recovery wallet; or delay whole disaster sweep until all locked transfers settle? **Undecided.**
+**Q7 (NEXT):** If 300 TONG are locked in the **initial 3-hour PENDING_TRIGGER (not Triggered yet)** when Run Disaster Recovery kills the source Wallet, should the compulsory 3h no-trigger auto-refund be paid directly to the immutable pre-bound recovery wallet when due, or must disaster recovery wait for pre-trigger locks to resolve? **Undecided.**
 
 ## Question discovery and tracking
 
@@ -48,8 +48,17 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] User confirmed one-time Disaster Recovery Key is issued when destination is set, cannot ever be changed or reissued, and must be supplied with Wallet Private Key to execute.
 - [x] User confirmed recovery destination cannot ever be changed once set; lost disaster key means that route is unavailable; standard transfers are still possible if the other two keys survive.
 - [x] Q5 resolved — Wallet Private Key + TongNet Authenticator on first/only destination enrollment.
-- [ ] **Q6:** Resolve handling of locked outgoing funds and future recovery entitlement during disaster sweep.
-- [ ] Define what happens to funds already locked in ordinary transactions when Run Disaster Recovery executes.
+- [x] **Q6 (2026-10-24):** While Triggered funds stay escrowed for receiver's 24h claim, immediately rescue only spendable funds; if unclaimed receiver, owner with original one-use Sender Claim Key may claim to the linked Recovery Wallet within next 72h after source disaster recovery (design rule only).
+- [ ] **Q7:** Resolve initial untriggered 3h refund routing after DEAD source.
+- [x] Define Triggered escrow and stored sender claim key delegation after terminal disaster recovery (design only).
+- [ ] Resolve refund routing for a transaction still in PENDING_TRIGGER at time source becomes DEAD, and implement atomic proofs.
+
+## Outstanding safety requirements after Q6
+
+- The original sender Claim Key must already be available to user; Disaster Recovery Key never substitutes for it.
+- Pre-registered wallet destination binding is a cryptographic delegation, not proof that wallets belong to same real-life person.
+- Sender/receiver/reserve race and already Triggered escrow survival still require network-level consensus and test evidence.
+- Initial 3-hour non-triggered refund situation is NEXT Q7.
 
 ## Important blockers
 1. Consensus / Byzantine finality / Sybil security not designed.
