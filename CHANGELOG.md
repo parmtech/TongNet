@@ -1,3 +1,10 @@
+## 2026-10-25 — New manual sender approval for receiver claim
+
+- User explicitly added requirement that receiver's externally shared K_R and wallet signature only submit CLAIM REQUEST. Request returns to Sender BlackBox; Sender manually ACCEPTS; only BFT-final cryptographic approval settles funds to recipient.
+- No manual Reject necessary; lack of acceptance by receiver's adjusted 24h deadline results in Receiver claim expiry and following 72h sender-only reclaim key stage. No automatic 24h refund.
+- Preserved previously confirmed 3h Sender Trigger as distinct until owner explicitly requests merging it with ACCEPT; no extra unilateral cancellation right was introduced.
+- Added transaction-bound final approval, wrong-recipient displayed detail, replay prevention and BFT deadline/race testing gates. No software/security proof has been completed.
+
 ## 2026-10-25 — User-confirmed TWO Claim Keys generated in Sender BlackBox
 
 - User clarified normal transaction receiver claim code K_R originates in Sender BlackBox at setup and is manually given to intended receiver; unlike previous spec it is NOT generated/delivered automatically by Receiver BlackBox. It only becomes usable after final Trigger, for up to 24h by the transaction's addressed receiver wallet + code.
