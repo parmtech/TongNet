@@ -16,7 +16,8 @@
 - [x] Q9: destination BlackBox Accept required before one-time key generation and immutable source→destination pairing; Reject sends source BlackBox notice; Pending means NOT_CONFIGURED (design only)
 - [x] Q10: unanswered destination BlackBox pairing requests auto-expire after 24 hours (design only)
 - [x] Q11: source cannot cancel/replace pending pairing; wait for recipient Reject or 24h Expired (design only)
-- [ ] Q12: decide strict consensus finality vs authenticated earlier receipt for Accept submitted near expiry
+- [x] Q12: strict network finality BEFORE pairing 24h deadline required; earlier tapping/signing is insufficient (design only)
+- [ ] Q13: decide receiver and sender claim deadlines during verifiable network-wide outages
 - [ ] Formalize network clock, acceptance/expiry ordering, no stale key issuance
 - [ ] Define authenticated BlackBox Accept/Reject, request IDs, state conflicts and all-or-nothing key/registration finality
 - [ ] Design secure key commitment, authenticated destination BlackBox issuance and replay protection
