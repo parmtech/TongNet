@@ -116,3 +116,7 @@ Q11 is committed in Decisions, FAQ, Protocol, Disaster Recovery, Security, Deep 
 ## 2026-10-25 Primary implementation language choice
 
 Owner delegated language choice. Rust selected for security-critical TongNet core, networking, BFT state machine, delays and wallets; Kotlin/Swift or UI technology may wrap the same shared Rust library on supported clients. This is design only: no Cargo workspace, code build, tests, benchmarks or deployed protocol resulted. See README and docs/TONGNET_FUTURE_ARCHITECTURE.md.
+
+## 2026-10-25 Product-market fit and critical trust review
+
+Created [Critical TongNet Product/Banking Adoption and Red-team Plan](docs/TONGNET_PRODUCT_CRITIQUE_AND_ADOPTION_PLAN.md). Key finding: original 3h+Trigger+24h Claim is unsuitable as universal merchant payment checkout. **Proposed but NOT user-confirmed:** new Instant Pay mode in parallel with untouched user-confirmed Protected Pay; stable-value asset rails only with regulation; business invoices/receipts and customer-friendly key recovery where product rules allow. Coin amount `1,000,000,000 TONG` (9 decimals) is illustrative, NOT set. No real TONG minted, banks connected, merchant integration proven, code deployed, or BFT benchmark measured. Incumbent fast/cheap payment systems already exist; TongNet differentiator is only hypothesis. Token reserve/forced forfeiture still launch blocker.
