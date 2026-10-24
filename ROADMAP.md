@@ -90,3 +90,11 @@
 - [ ] Design sponsor quota + transparent microfee/anti-spam economics; no unconditional universal zero-cost claim.
 - [ ] Review forced network-reserve confiscation and consumer rights, legal AUSTRAC/ASIC classification, licence/IP novelty, NIST crypto-agility.
 - [ ] Complete independent consensus, wallet, economic and security audits before any real-money mainnet.
+
+## Primary language and repository implementation sequence (2026-10-25)
+
+- [x] Choose primary implementation language: **Rust**, selected at owner's request (architecture only).
+- [ ] Set up version-pinned Rust Cargo workspace: `tongnet-types`, `tongnet-crypto`, `tongnet-state`, `tongnet-consensus`, `tongnet-network`, `tongnet-validator`, `tongnet-delay`, `tongnet-wallet-core`, `tongnet-node`, `tongnet-sim`; select actual audited dependency interfaces later.
+- [ ] Implement strongly typed canonical transaction/state-machine invariants and simulator before multi-node network; no invented consensus cryptography.
+- [ ] Add versioned mobile/desktop bindings and dedicated native UI only after audited shared core APIs exist.
+- [ ] CI lint, format, unit/property/fuzz/integration tests, reproducible builds, software bill of materials, unsafe-code checks, external audit gates.
