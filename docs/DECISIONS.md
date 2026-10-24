@@ -299,3 +299,13 @@ After immutable S→R pairing is ACCEPTED, S's BlackBox records, pending claim m
 6. What happens to original locked sends and late-created Sender K_S when S dies, plus strong pre-activation confidentiality of R's encrypted mirror, remain critical engineering OPEN. Never quietly claim those are solved by replication.
 
 **Decision status:** 1-3 are explicit owner-confirmed UX/protocol direction. 4-6 are safety interpretation and unresolved engineering constraints. No running chain or audited cryptographic key migration exists.
+
+## 2026-10-25 — OWNER CLARIFIED recovery address IS normal wallet until binding acceptance
+
+- R initially is a **NORMAL_ACTIVE wallet**, with its own keys and BlackBox, but must be a fresh virgin candidate with no ordinary financial transaction history, amount/balance or conflicting obligations before binding.
+- Immutable S->R request + explicit **R BlackBox ACCEPT** with BFT finality causes R to **FROZEN/RECOVERY_RESERVED**; S stays Active. While bound/frozen R cannot perform ordinary send/receive/claim or choose its own recovery address. No ordinary independent BlackBox operational activity; encrypted mirror backup of S accumulates continually.
+- Mirror must be **non-readable and non-visible in plaintext** as long as source S remains Active. R should present only recovery status / proof of sync checkpoint, not mirrored codes or messages.
+- Only on **authenticated BFT-final Run Disaster Recovery**, source S becomes permanently DEAD and reserved R becomes full Normal Active successor; encrypted backed-up data may now be decrypted/displayed, retaining source historical provenance. **DEAD alone without this authorized recovery MUST NOT unlock mirror.**
+- An app-level 'hide' isn't strong cryptographic unreadability if R already holds plaintext decrypt key. Real guarded key access before disaster requires separately designed cryptography / key-release system with honest-party assumptions and independent audit. Product intent confirmed, mechanism NOT yet solved. Avoid two active spend authorities or copying funds.
+- Original wallet losing device is different from authorized irreversible disaster recovery. Sender 24h-receiver then 60d-sender reclaim rights continue; late Sender Claim K_S with lost S remains OPEN.
+- Canonical detailed latest supplement: [Recovery Mirror](RECOVERY_MIRROR_PROTOCOL.md).
