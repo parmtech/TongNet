@@ -98,3 +98,9 @@
 - [ ] Implement strongly typed canonical transaction/state-machine invariants and simulator before multi-node network; no invented consensus cryptography.
 - [ ] Add versioned mobile/desktop bindings and dedicated native UI only after audited shared core APIs exist.
 - [ ] CI lint, format, unit/property/fuzz/integration tests, reproducible builds, software bill of materials, unsafe-code checks, external audit gates.
+
+## New payment-product review checkpoint
+
+- [x] Document competitive, consumer, merchant and bank-adoption critique in docs/TONGNET_PRODUCT_CRITIQUE_AND_ADOPTION_PLAN.md.
+- [ ] Get owner approval before adding proposed Instant Pay; preserve confirmed Protected Pay.
+- [ ] Assess supply, sponsorship, merchant testing and applicable banking/VASP regulation before issuing tokens or onboarding users.
