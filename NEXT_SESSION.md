@@ -82,11 +82,15 @@ If R does not Accept or Reject a recovery pairing request within **24 hours**, i
 
 A SOURCE Wallet cannot cancel, withdraw, redirect or replace any pending disaster pairing request during its 24-hour window. It MUST wait for destination BlackBox REJECT or automatic EXPIRED at 24 hours before starting another separately authenticated request. If destination ACCEPTS before expiry, pairing becomes irrevocable and one-use recovery secret is issued into destination BlackBox. While pending, source remains NOT_CONFIGURED; no key or association exists. This is user-confirmed design, not an implementation.
 
-## NEXT SINGLE QUESTION — Q12
+## Q12 confirmed — Option A, strict final network acceptance
 
-Ask one Punjabi technical security question: "ਮੰਨ ਲਓ Recovery Wallet ਵਾਲਾ Accept 24 ਘੰਟੇ ਪੂਰੇ ਹੋਣ ਤੋਂ **10 ਸਕਿੰਟ ਪਹਿਲਾਂ** ਦਬਾ ਦਿੰਦਾ ਹੈ, ਪਰ network ਦੀ ਦੇਰੀ ਕਰਕੇ confirmation **deadline ਤੋਂ 20 ਸਕਿੰਟ ਬਾਅਦ** final ਹੁੰਦੀ ਹੈ। ਕੀ **A:** ਸਿਰਫ਼ deadline ਤੋਂ ਪਹਿਲਾਂ network-finalized Accept ਹੀ valid ਹੋਵੇ; ਦੇਰ ਨਾਲ final ਹੋਵੇ ਤਾਂ request Expire। ਜਾਂ **B:** network ਵਿੱਚ deadline ਤੋਂ ਪਹਿਲਾਂ signed Accept ਪਹੁੰਚਣ ਦਾ authenticated proof ਹੋਵੇ ਤਾਂ final confirmation ਬਾਅਦ ਵਿੱਚ ਵੀ Accept valid ਮੰਨਿਆ ਜਾਵੇ? Phone ਦੇ local ਸਮੇਂ ਨੂੰ proof ਨਹੀਂ ਮੰਨਣਾ। ਜਾਂ **C:** ਤੁਹਾਡਾ ਤਰੀਕਾ?"
+User says any recovery-wallet BlackBox ACCEPT must achieve **decentralized network finality before the original 24-hour pairing deadline**. A signed/tapped/rebroadcast request before deadline that finalizes after deadline is **EXPIRED**. No one-use Disaster Recovery Key and no immutable S→R pairing in that situation. Device/relay arrival timestamps do not qualify. Implementation of consensus time/finality remains unsolved. This is specifically the *recovery pairing request*, not yet a decision for all payment claim expiries.
 
-Do not presume reply. Update decisions, FAQ, Protocol, Security, question backlog, progress, handoff and changelog, commit to GitHub before asking another question.
+## NEXT SINGLE QUESTION — Q13 / DQ-092
+
+Ask in Punjabi, one decision only: "ਮੰਨ ਲਓ ਕਿਸੇ ਨੇ 1,000 TONG ਦੀ Trigger ਕੀਤੀ transaction ਭੇਜੀ ਹੈ; Receiver ਦੇ 24 ਘੰਟੇ ਅਤੇ ਫਿਰ Sender ਦੇ 72 ਘੰਟੇ ਚੱਲ ਰਹੇ ਨੇ। ਪਰ ਪੂਰਾ TongNet Network ਹੀ 8 ਘੰਟੇ ਲਈ down ਹੋ ਜਾਂਦਾ ਹੈ ਤੇ ਕਿਸੇ ਦੀ ਵੀ Claim final ਨਹੀਂ ਹੋ ਸਕਦੀ। ਕੀ **A:** timer ਬਿਨਾਂ ਰੁਕੇ ਚੱਲੇ, ਜਿਸ ਨਾਲ claim window ਮੁੱਕ ਸਕਦੀ ਤੇ ਅਖੀਰ ਪੈਸੇ Network Reserve ਵਿੱਚ ਜਾ ਸਕਦੇ; ਜਾਂ **B:** verifiable network-wide outage ਦੇ ਸਮੇਂ ਲਈ claim deadlines pause/extend ਹੋਣ, ਤਾਂ outage ਕਰਕੇ ਕਿਸੇ ਦਾ ਹੱਕ ਨਾ ਖੁੱਸੇ? ਜਾਂ **C:** ਆਪਣਾ ਤਰੀਕਾ।" Explain separate from Q12 pairing acceptance strictness. Don't decide for user. Keep legal/regulatory risk of reserve forfeiture flagged.
+
+After answer commit full decisions, FAQ, Protocol, Security, backlog, Progress, Handoff, Changelog. Preserve one-question-per-turn.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
@@ -96,7 +100,7 @@ Do not presume reply. Update decisions, FAQ, Protocol, Security, question backlo
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Accept/expiry network-finality race at 24 hours (NEXT Q12), destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
+Network-wide outage and payment claim/forfeiture windows (NEXT Q13), destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
