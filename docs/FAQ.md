@@ -76,8 +76,11 @@ A: **Only after an explicit ACCEPT from destination BlackBox**. Request initiati
 **Q: How long does an unanswered Disaster Recovery pairing request stay pending?**  
 A: **Q10 confirmed — Option A:** 24 hours. If R has not accepted/rejected by the deadline, the request expires automatically. S has NO active disaster recovery before Accept; no key or irreversible link is created by timeout. Accept after expiry must be rejected; exact network race/clock implementation requires tests.
 
+**Q: Can the source cancel a pending recovery setup request?**  
+A: **NO — Q11 Option B confirmed (2026-10-24).** While PENDING the source cannot withdraw, redirect or send a replacement request. It must wait for the destination to REJECT or for automatic EXPIRED after 24 hours. Only then may the source try another recovery address (with fresh initial two-factor approval). If target ACCEPTS the live request, immutable registration takes effect and cannot ever be changed.
+
 **Q: What next?**  
-A: **Q11:** During those 24 hours, may S cancel an unanswered PENDING request and send a different one before R accepts, or must S wait for R Reject or automatic expiry? Once accepted, an association and its one-use key can never be changed.
+A: **Q12:** If a destination owner clicks Accept before the 24h deadline, but the decentralised network finalises it after 24h, should it count as accepted or expired? Define authoritative network ordering, not local phone time.
 
 ## Payment flow
 
