@@ -61,8 +61,14 @@ A: No: a cryptographic, authenticator-approved recovery address registration pro
 **Q: What happens to still-untriggered locked funds after Run Disaster Recovery?**  
 A: **Q7 CONFIRMED — Option A (2026-10-24):** They stay locked until the original 3-hour pre-trigger expiry. Run Disaster Recovery sweeps available funds without waiting and permanently deactivates original sender S. Since S is then DEAD and the still-pending Send cannot be triggered, at its original 3-hour deadline the automatic refund goes directly to previously registered, immutable Disaster Recovery Wallet R. No early cancellation or separate Sender Claim Key is needed in this untriggered refund route. Network must ensure no payout to both wallets.
 
+**Q: Where is the one-time Disaster Recovery Key generated?**  
+A: **Q8 clarified 2026-10-24:** It is generated **inside the designated Disaster Recovery Wallet's own TongNet BlackBox**, after source wallet setup, NOT in the source wallet's BlackBox. This same key is later presented alongside the original source Wallet Private Key to run the single-use recovery; the source Authenticator/BlackBox is not needed at that time. The key is permanently unreplaceable and the association immutable once complete.
+
+**Q: Does destination-side key generation establish the same person owns both addresses?**  
+A: No. A cryptographic link/approval demonstrates authorization according to the system's rules, not natural-person identity. Merely placing a secret inside R's encrypted inbox is not by itself a signature with R's private key or an explicit acceptance.
+
 **Q: What next?**  
-A: **Q8:** When permanently registering R, must its own private key sign a proof that the destination wallet is controlled/consenting, in addition to S's Wallet Private Key and TongNet Authenticator approval, or is checking an address enough?
+A: **Q9:** Is recovery-wallet registration final immediately after SOURCE wallet approval and destination-side secret generation, or only once the destination wallet independently opens its BlackBox and ACCEPTS/confirms its new recovery duty?
 
 ## Payment flow
 
