@@ -1,5 +1,15 @@
 # TongNet — Documentation & Project Change Log
 
+## 2026-10-24 — Q3/Q4 Disaster Recovery immutability and key rules
+- Optional immutable Disaster Recovery Wallet destination registered in normal Wallet Settings; at setup user is issued a distinct optional one-time Disaster Recovery Key.
+- THREE keys: Wallet Private Key, TongNet Authenticator Master Key, optional Disaster Recovery Key.
+- Run Disaster Recovery requires original Wallet Private Key **and** the distinct Disaster Recovery Key; no BlackBox/Authenticator code needed.
+- On successful final settlement, rescue all eligible funds less actual fee to *already recorded* destination, consume the recovery key once and irreversibly mark source wallet DEAD.
+- Destination address and recovery key cannot **ever** be edited, replaced, regenerated or reset. Losing the disaster key means that route cannot be used.
+- If Wallet Private Key and Authenticator Master Key are both accessible, owner can still use normal transfers to send to a different wallet, not change disaster configuration.
+- Still undecided: initial setup authorization, conflicts with already locked/triggered transfers and atomic consensus.
+- **NEXT Q5:** Wallet Private Key alone, or Wallet + TongNet Authenticator for initial recovery address configuration?
+
 ## 2026-10-24 — Question 2 answered and committed
 - User confirmed that failure to activate TongNet Authenticator within the wallet's first 72 hours makes that wallet **permanently DEAD** and it can never be reactivated, irrespective of later possession of its keys.
 - No replacement of the lost first-time Setup Key to bypass the deadline. Wallet must be replaced; initial inactive wallets cannot SEND, RECEIVE or CLAIM.
