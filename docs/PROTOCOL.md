@@ -22,14 +22,14 @@
 
 ## Optional TongNet Disaster Recovery Wallet — Q3
 
-**New key requirement (2026-10-24):** The product has three separately designated key categories: (1) wallet private key, (2) authenticator master key, (3) optional disaster recovery key generated/provisioned if recovery is enabled. Their secret materials and permissions must be distinct. The third key's enforcement role is **UNDECIDED** pending Q4; do not implement a bypass on assumptions. Recovery destination wallet address is separate from recovery key.
+**New key requirement (2026-10-24):** The product has three separately designated key categories: (1) wallet private key, (2) authenticator master key, (3) optional disaster recovery key generated/provisioned if recovery is enabled. Their secret materials and permissions must be distinct. The third key is generated during INITIAL immutable disaster destination registration and is required **together with** original Wallet Private Key for Run Disaster Recovery. It is usable once only. Recovery destination wallet address is separate from recovery key.
 
 
-- Optional destination is registered in normal Wallet settings, not BlackBox; the authentication needed to add/change it remains undecided.
-- When BlackBox/Authenticator is inaccessible but the original wallet private key is available, **Run Disaster Recovery** executes WITHOUT requiring BlackBox access or a rotating Authenticator code.
+- Optional destination is registered **ONCE** in normal Wallet settings, not BlackBox, and a one-use Disaster Recovery Key is then issued. Both address and key are **permanently immutable** thereafter: no replacement, regeneration, reset, or change. Authentication needed for **initial** registration remains undecided.
+- When BlackBox/Authenticator is inaccessible but original Wallet Private Key and the independent Disaster Recovery Key are held, **Run Disaster Recovery** requires BOTH proofs and does NOT require BlackBox access or a rotating Authenticator code. It consumes the disaster key once.
 - Intended outcome: atomic full sweep of **eligible** wallet balance, minus actual applicable fee, to **previously registered** recovery address; then original wallet enters a permanently DEAD state. Recovery never permits arbitrary destination changes at execution.
 - Critical unresolved conflict: pending locked, triggered, and recipient-claimable transfers cannot be cancelled or double spent by a disaster sweep without explicitly reconciling earlier protocol rules.
-- Critical security issue: wallet-key-only recovery plus wallet-key-only changing of destination could bypass the payment's two-factor protection. See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
+- Critical security issue: an attacker who can configure the destination on **first setup** using a stolen Wallet Private Key could register an attacker-controlled address and obtain the one-time disaster key; first-setup authentication must be settled. Destination cannot subsequently be changed. See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
 
 ## Contracted time windows
 
@@ -106,3 +106,7 @@ protocol_version
 Wrong target address is non-cancellable after Trigger (confirmed); account theft during pending transfer; lost root secret; network downtime; blackbox message delivery and acknowledgement; simultaneous valid claims across partitions; payment amount denomination; upgrade governance; fees and cost coverage; validator incentives and Sybil resistance.
 
 No feature is safe to deploy solely because this state chart appears internally consistent.
+
+## Lost one-time disaster key rule (confirmed 2026-10-24)
+
+A lost Disaster Recovery Key cannot be reissued, regenerated, recovered or swapped, and its destination remains immutable. If the owner still has Wallet Private Key **and** Authenticator Master Key, normal sends to a different wallet remain possible under existing Send → 3h Trigger → 24h receiver claim → subsequent 72h sender recovery rules. Do not assume that normal transfers instantly move all locked funds or bypass triggered transactions.
