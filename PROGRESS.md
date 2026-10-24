@@ -90,3 +90,7 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] Q10 settled: maximum 24h unanswered PENDING; expiry keeps wallet NOT_CONFIGURED (documentation only).
 - [x] Q11 resolved — no source cancellation or replacement while PENDING.
 - [ ] Define deterministic Accept-vs-Expiry finality near 24h boundary (Q12).
+
+## Documentation sync note
+
+Q11 is committed in Decisions, FAQ, Protocol, Disaster Recovery, Security, Deep Questions, Roadmap, Next Session, README and Progress. Updating the historical CHANGELOG file was blocked; the Q11 record remains preserved in the canonical Decision Register and other files. The changelog entry can be reconciled in a later edit.
