@@ -42,6 +42,7 @@
 | D-024 | If receiver does not claim, receiver credential expires; sender has **additional 72 hours** for one-use reclaim with sender credential |
 | D-025 | One successful claim/refund consumes entitlement and must atomically prevent any competing payout |
 | D-026 | Latest user intent: unrecovered funds after 24+72h go permanently to TongNet Network Reserve and support **network-only** transaction costs; **not authorised for real-money launch without legal, consent and economic review** |
+| D-027 | **Confirmed 2026-10-24 (Question 1, Option B): After a successful Trigger, there is NO sender cancellation, emergency stop, or reversal, including when the recipient address was entered incorrectly. A valid addressed receiver may still claim in the 24h window; sender recovery is possible only after non-claim and expiry of that window.** |
 
 ## Historical/superseded
 
@@ -53,12 +54,16 @@
 - Concept-origin year mistakenly listed 2016 → **corrected by creator to 2015**.
 - AUD 1:1 peg discussed only as an **illustration**, not a confirmed tokenomics decision.
 
+## Decision follow-up 2026-10-24
+
+- **Q1 answered (Option B)**: Trigger is non-cancellable, even for mistyped/misdirected receiver addresses. This is a high-risk user-experience and loss scenario to clearly warn users about before Trigger. A receiver who validly claims the wrongly addressed payment can keep it according to these protocol rules; no guaranteed refund. No off-protocol administrator override is specified.
+
 ## Pending / blocked decisions
 
 | ID | Priority | Question / problem |
 |---|---|---|
-| OPEN-001 | **NEXT** | After Trigger, if recipient address is incorrect, can sender emergency-stop an unclaimed transfer, or must recipient window be immutable? |
-| OPEN-002 | Critical | Lost setup code within 72h: any regeneration? |
+| CLOSED-001 | **ANSWERED 2026-10-24** | Option B confirmed: after a successful Trigger, sender CANNOT cancel or emergency-stop the transaction, even if recipient address is wrong. Receiver 24-hour window remains valid; if no receiver claim, sender gets the next 72h for recovery. |
+| OPEN-002 | **NEXT** | Lost one-time Authenticator Setup Key before enrollment and before the initial 72h activation deadline: any secure regeneration option, or must wallet die after 72h? |
 | OPEN-003 | Critical | Lost authenticator root secret: recovery policy without enabling takeover? |
 | OPEN-004 | Critical | If both wallet and second factor compromised: theft prevention, freeze and dispute controls? |
 | OPEN-005 | Critical | Consensus algorithm and finality without PoW/traditional PoS or central trusted operator |
