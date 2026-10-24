@@ -61,4 +61,4 @@ The repository is **private** at initialisation. No licence file is intentionall
 
 **Maintained by ParmTech · Original concept and development by Manjinder Singh.**
 
-**Q11 decision:** Source cannot cancel or replace a pending recovery setup request. It must wait for destination rejection or the unchanged 24-hour expiry. Q12 is about acceptance submitted before expiry but finalized late.
+**Q11 decision:** Source cannot cancel or replace a pending recovery setup request. It must wait for destination rejection or the unchanged 24-hour expiry. **Q12 confirmed:** the recipient Recovery Wallet's Accept must be network-finalized before the original 24-hour pairing deadline; early button press but late finality is EXPIRED. **NEXT Q13:** payment claims during a network-wide outage.
