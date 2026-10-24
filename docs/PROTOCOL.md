@@ -20,6 +20,14 @@
 - An unauthenticated network cannot detect a person's lost physical key: only completed enrolment, deadline and state are verifiable.
 - Exact distributed deadline semantics, activation replay protection and network partition safety remain engineering questions.
 
+## Optional TongNet Disaster Recovery Wallet — Q3
+
+- Optional destination is registered in normal Wallet settings, not BlackBox; the authentication needed to add/change it remains undecided.
+- When BlackBox/Authenticator is inaccessible but the original wallet private key is available, **Run Disaster Recovery** executes WITHOUT requiring BlackBox access or a rotating Authenticator code.
+- Intended outcome: atomic full sweep of **eligible** wallet balance, minus actual applicable fee, to **previously registered** recovery address; then original wallet enters a permanently DEAD state. Recovery never permits arbitrary destination changes at execution.
+- Critical unresolved conflict: pending locked, triggered, and recipient-claimable transfers cannot be cancelled or double spent by a disaster sweep without explicitly reconciling earlier protocol rules.
+- Critical security issue: wallet-key-only recovery plus wallet-key-only changing of destination could bypass the payment's two-factor protection. See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
+
 ## Contracted time windows
 
 Let `t0` = network-accepted transfer initiation, `tt` = network-accepted Trigger. Network clock and boundary rules **TBD**.
