@@ -1,0 +1,53 @@
+# TongNet — Proof of Transaction Participation (PoTP): owner-originated idea, research proposal
+
+**Date:** 2026-10-25 Australia/Sydney. **Status:** PROPOSAL FOR DISCUSSION ONLY; user has NOT selected a final consensus algorithm, PoW, work schedule, or reward policy. No running chain, code, formal proof or audits. Keep owner-established Bitcoin-like **single TONG coin / no dApps** scope and manual three-event payment.
+**Provenance:** Owner proposes using **INITIATE -> Receiver CLAIM_REQUEST -> Sender BlackBox FINAL_ACCEPT** actions as opportunities to perform cryptographically verifiable contributions to blockchain validation or 'Proof of Work' so every real transaction helps the network, rather than conventional mining-only activity. Evaluate precise differences instead of dismissing the intent.
+
+## Direct answer: three meanings of 'work'
+1. **Payment authorisation and cryptographic evidence**: source wallet signature on initiating lock, claim-wallet signature plus proof of possession of out-of-band sender-created K_R, and sender BlackBox signature on exact bounded final acceptance. Those signatures and commitments increase confidence that the particular transaction met TongNet's payment rules, but are NOT external economic scarcity/PoW or independent network consensus.
+2. **Transaction-local computational PoW or state checks**: at each state transition the phone/client (or authorised helper) computes a nonce satisfying a network difficulty for a domain-separated hash of that action (anti-spam) and/or checks previous FINAL ledger proof / transaction validity evidence, attaches proof to action. The workload is extra, cheap to verify, maybe mildly expensive to generate; it can constrain mass submission and raise abuse cost. It is NOT sufficient for decentralized agreement on ordering, validator honesty, chain history or preventing double spends.
+3. **Independent consensus**: online, Sybil-resistant nodes must agree on which INITIATE locks exist, which receiver claim and sender final accepts are eligible before deadlines, whether balances can be spent once, what happens during network forks and timeouts. The sender and receiver both might be Sybil-controlled, so their contribution to validating 'their own work' is NOT independent majority attestation. Require independently secured PoW ledger or BFT voting/certificates/other proven economic security, until and unless a formally scrutinized transaction-derived security mechanism is demonstrated.
+
+## Relevant prior art: don't falsely claim novel invention
+- Earlier **IOTA Tangle (historical)** asked incoming transactions to choose and approve two previous transactions and solve lightweight PoW. See https://files.iota.org/papers/Coordicide_WP.pdf and https://blog.iota.org/on-the-tangle-white-papers-proofs-airplanes-and-local-modifiers-44683aff8fea/. Vulnerable to economic/adversarial tip-selection, fake traffic and conflict issues under flawed traffic-majority assumptions. **IOTA mainnet changed architecture in its 2025 Rebased upgrade to delegated PoS with Move smart contracts**; do not suggest original IOTA still runs this model. See https://blog.iota.org/iota-2025-review/.
+- **Nano**: each account-state block/transaction includes user-generated small PoW for spam prioritization, while **Open Representative Voting** is the independent consensus/finality mechanism; PoW does not establish anti-Sybil ledger finality. See https://docs.nano.org/what-is-nano/overview/ and https://docs.nano.org/protocol-design/orv-consensus/.
+- **Bitcoin**: expensive PoW is attached to miner-built block headers chained to previous blocks; the number of signed transactions alone is not chain-security work. https://bitcoin.org/en/faq and https://bitcoindevelopers.org/docs/developer-guides/mining/.
+
+## TongNet PoTP layered experiment (not user-approved implementation)
+Potential transaction action types and useful bounded work, preserving native two-party manual release.
+
+| Event | User action required (owner-confirmed) | Extra OPTIONAL proposed verifiable work, beyond ordinary signatures | Consensus mandatory |
+|---|---|---|---|
+| INITIATE | Sender signs exact receiver address+asset+amount, and Sender BlackBox creates private one-use K_R which Sender shares out-of-band | Bind one small nonce-puzzle to (chain_id, tx_id, version, action_type, signed request hash, finalized-state reference), or verify one or more older finalized checkpoint certificates (not necessarily new real validation) | Independent nodes verify balance and escrow LOCK, publish BFT-final lock and canonical timeout t0 (start-anchor still awaiting owner ratification) |
+| CLAIM_REQUEST | Only chosen receiver wallet signs + proves K_R knowledge without leaking K_R public plaintext | Bound modest puzzle and/or authenticated check of a referenced finalized ledger receipt. Never make third parties learn K_R or require unrelated peers to participate | Validators attest request validity; request alone NEVER settles funds |
+| FINAL_ACCEPT | Sender BlackBox signs precisely matching receiver wallet+tx+amount+request-id and deadline | Bounded/minimal puzzle at most; avoid latency/time-window violation. Record immutable signed action receipt and maybe independently verifiable snapshot contribution | Finality BEFORE receiver 24h adjusted cutoff; no approved acceptance -> NO receiver payout |
+
+**Alternative mode:** Challenge from finalized state could pick random older finalized records to verify and include a compact proof. This improves *audit participation* but not necessarily security: a lightweight client may only verify a small proof from an already trustworthy quorum and cannot independently validate global state. Full nodes, not phones, must perform all state checks. It is therefore a research credit system or anti-spam resource use, not 'proof that the network agrees' or 'work that mines the next block'.
+
+## Easy example
+The sender makes a 20 TONG lock. In addition to the signature, the wallet finds a small nonce satisfying `Hash("TONG-POTP-V1" || action_hash || nonce) < target`. A validator checks the signature, uniqueness/nullifier and fast hash threshold, independently verifies current UTXO/account state and BFT-finalizes LOCK. Receiver submits a separate domain-bound proof plus Claim Request; Sender BlackBox FINAL_ACCEPT signs exact claim; independent nodes finalise settlement before the adjusted deadline.
+No code-bearing nonce reveals secret claim code. **Security caveat**: anyone, including a malicious attacker with many wallets, can cheaply create unlimited self-transfers and nonces relative to real PoW expenditure. A trivial hash per action cannot establish Sybil-resistant voting weight. Raising difficulty to expensive Bitcoin-like mining level harms mobile battery and fast transaction finality; economics never free.
+
+## Fundamental attack and availability tests
+- **Cheap fake transactions / collusion**: one operator controls 1,000 wallet keypairs and issues fake S->R claims/accepts. If each gives consensus votes/work points/coin rewards, attacker captures committee or mines inflation. Rate-limits, fees/bonds, and independent resources still necessary. No PoTP-vote-from-each-payment without provable Sybil resistance.
+- **No transactions**: low usage overnight, system startup and outages: blocks must still be verified, reorg attempts rejected, recovery windows work and wallet-to-wallet transfers complete. Network liveness MUST NOT depend on future users independently initiating more transactions. Independent validator/miner/committee network continues.
+- **Do not delay FINAL_ACCEPT**: sender only has 24h nominal receiver window from an as-yet unratified anchor; extra puzzle time may cause otherwise valid claim to miss finality. Never treat queue entry or PoTP completion as equivalent to BFT finality.
+- **Forks/censorship/reorg/double spends**: two users each produce valid per-action hashes on conflicting spends; local PoTP cannot choose the canonical one.
+- **No raw codes in hashes**: a naïve `hash(K_R)` may create offline code-guessing oracle if short; high-entropy, domain-separated zero-knowledge/hiding commitments required and confidential delivery preserved.
+- **Accessibility and mobile limits**: weak phones, disabled users, battery limits, offline or expensive connectivity; service-assisted or optional PoTP allowed only with explicit replay-safe delegation, privacy controls and anti-spam costs elsewhere. Never require fingerprint for users to pay.
+- **No direct pay-per-action TONG minting** absent owner-approved finite monetary supply economics, real work-cost audit and fraud prevention.
+- **Inflation of on-chain state**: 3 lifecycle events can cost more bandwidth/storage than conventional 1 transfer; optimize with authenticated off-chain Claim Request transport where safe while preserving verifiable on-chain escrow and settlement receipts.
+- **Recovery**: late K_S issuance under lost S BlackBox, mirrors, receipt and deadline rules remain unresolved; PoTP doesn't solve them.
+
+## Candidate choice for TongNet
+**Recommended to PROTOTYPE (not commit as launch requirement):** a small per-action anti-spam PoW/receipt/audit contribution **plus truly independent consensus (candidate BFT economic validators)**, or use non-PoW economic rate-limiting if PoTP harms speed. Separate "payments help validate" as opt-in client-side checkpoint validation/sampling without treating that as consensus power.
+
+**Do NOT use:** three actions themselves as majority voting power or proof of human uniqueness. No fake claims that Bitcoin PoW is replaced just by clicking Accept. If owner wishes a pure minerless per-transaction validated DAG with no economically independent validators, require a full adversarial threat model, formal analysis, working simulations of Sybil/collusion/partitions and third-party review before accepting.
+
+## Open owner decision
+Is the goal primarily:
+(A) **Every action does verifiable lightweight anti-spam/proof work, with independent validators deciding chain finality**, or
+(B) **Every action directly *secures consensus* so dedicated validators/miners can be removed?**
+(A) is feasible conceptually and has prior art; (B) is much harder and has security/liveness challenges, not yet known safe with the current three-action 24h/60-day manual payment flow.
+
+**Context:** Source and R code, rescue and reserve issues remain as in docs/TONGNET_BITCOIN_LIKE_SCOPE.md, docs/SECURE_P2P_V3_RECOVERY_DECISIONS.md and docs/ACTIVE_RECOVERY_MIRROR_V4.md. **Attribution:** ParmTech; original creator Manjinder Singh (origin year claimed 2015, first public claim 2026; not independently verified).
