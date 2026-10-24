@@ -31,7 +31,7 @@ Core concepts:
 
 ## Emergency recovery (new proposal)
 
-An **optional TongNet Disaster Recovery Wallet** address may be preconfigured in ordinary wallet settings. If BlackBox or Authenticator access is lost, a user with the original Wallet private key may initiate a one-way **Run Disaster Recovery**, without BlackBox or Authenticator, to move all eligible funds (less any applicable fee) to the preconfigured destination and permanently deactivate the old wallet. Critical destination-update and locked-transfer rules remain unresolved. See [docs/DISASTER_RECOVERY.md](docs/DISASTER_RECOVERY.md).
+An **optional TongNet Disaster Recovery Wallet** address may be preconfigured in ordinary wallet settings. When first configured, the destination becomes **permanently immutable** and a distinct optional **one-time Disaster Recovery Key** is issued. To run recovery, the owner needs **both Wallet Private Key and Disaster Recovery Key**, without BlackBox or TongNet Authenticator; successful atomic sweep of eligible funds (less actual fee) moves value to the fixed destination and permanently marks the source wallet DEAD. Disaster key and address can never be changed/reset/reissued; losing that key makes this route unavailable. Initial registration authorization and already locked-transfer handling remain OPEN. See [docs/DISASTER_RECOVERY.md](docs/DISASTER_RECOVERY.md).
 
 ## Read before doing work
 
