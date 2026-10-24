@@ -164,3 +164,23 @@ Request state transitions are PENDING_ACCEPTANCE → ACCEPTED, REJECTED or EXPIR
 ## Q12 — Strict network-finality cutoff on disaster request Accept
 
 User confirmed Option A. For each pending pairing request with canonical creation-finality timestamp t_req, define deadline D=t_req+24 hours. Valid ACCEPT requires proof that the acceptance entered **final network consensus state with finality_time < D** (strictly earlier); only then may the target's BlackBox securely generate one-use Disaster Recovery Key and S→R permanent pair be committed. A device click, cryptographic signature, or relay receipt time alone must NOT qualify. If finality at or after D, request is EXPIRED and no key or irreversible link may be issued. Treat expiry as idempotent and prohibit replay/late approval resurrection. Actual blockchain time and deterministic finality function are NOT specified or deployed. Do not silently apply this pairing rule to payments until their own timing rules are explicitly decided (next Q13).
+
+## Q13 — Network queue and timer semantics (user intent + recommended implementation)
+
+**User-defined goals 2026-10-24:** network load, whether fast or slow, must NOT change running timers; under congestion tasks and transaction requests may be queued and load-balanced; a NEW transaction's timer only starts once the **network accepts it**, not when user taps Send.
+
+**Engineering proposal to be accepted/tested, not implemented:**
+
+```text
+CREATED_LOCAL -> SIGNED -> QUEUED_NONFINAL -> CONSENSUS_ACCEPTED_FINAL
+                                              -> timer_start = consensus_final_time
+QUEUED_NONFINAL -> REJECTED/DROPPED/RETRYABLE (no payment accepted; no new timer)
+```
+
+- Queue entries are requests, **not final transfers**. Do not debit final spendable balance/credit receiver, establish a permanent credential, or display CONFIRMED based on queue admission. Upon final network acceptance, verify signatures/nonces, current balance/state, perform atomic state transition, and establish the proper timer(s).
+- **New Send:** 3h Trigger timeout starts at canonical final network acceptance of Send. **Triggered payment:** receiver 24h starts at final Trigger; following sender 72h derives from the same final Trigger time. **Recovery-pairing request:** its 24h pending deadline starts at final acceptance of the pairing REQUEST; R's later ACCEPT must finalize before deadline as Q12 prescribes.
+- **Existing timers are unaffected by queue length.** A claim submitted during an active 24h/72h window is NOT automatically preserved merely because it joined a queue. Whether payment claim finality after the deadline is accepted is NEXT Q14; don't conflate with QUEUED-to-ACCEPTED start for a new transaction.
+- Proposed implementation: bounded and persistent queues, request IDs/nonces/idempotency, per-account fairness and anti-spam rate limiting, separate processing lanes for claims/expiry/recovery, safe backpressure, signed status receipts, retriable delivery and multi-node redundant submission. Validate again at consensus finality to prevent stale/double spending; queue order alone cannot guarantee safety.
+- Severe outage can make consensus acceptance impossible. A queue during downtime cannot offer guaranteed eventual payment if funds/claim rights expire meanwhile. Exact full-outage exception vs strict continuing deadlines and proposed Network Reserve forfeiture remain unresolved and subject to legal/consumer safety review.
+
+**Next Q14:** decide whether a claim queued with a provable before-expiry receipt but finalized after its pre-existing 24h/72h deadline may still succeed. Q12 strict recovery pairing ACCEPT is a different operation.
