@@ -1,5 +1,12 @@
 # TongNet — Documentation & Project Change Log
 
+## 2026-10-24 — Q9 confirmed: destination BlackBox Accept/Reject handshake
+- An irreversible disaster recovery address is NOT linked immediately when SOURCE proposes it; S Wallet Private Key + S Authenticator sends an initial request to destination R's encrypted BlackBox.
+- Until R actually ACCEPTS, status remains PENDING/NOT_CONFIGURED; no one-time secret is issued and no immutable source→destination pairing exists.
+- R BlackBox ACCEPT generates the unique one-use Disaster Recovery Key INSIDE R BlackBox and permanently confirms the binding. REJECT generates no key/link and sends a rejection response into S's BlackBox. Ignoring the request leaves it PENDING and unconfigured.
+- Actual authenticated Accept proofs, atomic finality, and request replay/races need implementation and audit; this is not proof of shared human identity.
+- **NEXT Q10:** how long can unanswered pairing request remain pending before it expires?
+
 ## 2026-10-24 — Q8 clarification: one-time key generated inside DESTINATION BlackBox
 - Source wallet owner initiates optional irreversible disaster destination association from normal Wallet Settings, with source Private Key and TongNet Authenticator as already confirmed.
 - User specifies the unique, immutable one-time Disaster Recovery Key MUST be generated within the selected recovery DESTINATION Wallet's own TongNet BlackBox, not the source BlackBox.
