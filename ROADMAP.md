@@ -8,7 +8,9 @@
 - [x] Initialise user decisions, FAQ, transaction flow, security list and session handoff
 - [ ] Ask all unresolved product and security questions one by one and commit each answer
 - [x] Document Q3: optional Disaster Recovery Wallet and permanent source-wallet DEAD state (design only)
-- [ ] Resolve safe destination registration/change and treatment of locked payments under disaster recovery
+- [x] Document immutable disaster destination, one-use/nonreplaceable Disaster Recovery Key, and lost-key policy (design requirements)
+- [ ] Resolve security of **initial** one-time recovery destination registration (not changing, which is prohibited)
+- [ ] Resolve treatment of already locked or triggered payments under disaster recovery
 - [ ] Identify all contradictions and create versioned, reviewable spec decisions
 - [ ] Preserve evidence and clarify publication/licensing strategy
 
