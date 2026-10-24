@@ -13,7 +13,9 @@
 - [x] Record Q6: Triggered escrow rights survive terminal rescue; receiver 24h then sender key used through linked rescue wallet within 72h if unclaimed (design only)
 - [x] Q7: confirmed immutable recovery wallet receives automatic pre-trigger refund at original 3h timeout after source DEAD (design only)
 - [x] Q8 clarification: one-use recovery secret is generated inside the DESTINATION recovery wallet's encrypted BlackBox (design only)
-- [ ] Q9: decide whether destination BlackBox owner must approve source→destination irreversible pairing before finality
+- [x] Q9: destination BlackBox Accept required before one-time key generation and immutable source→destination pairing; Reject sends source BlackBox notice; Pending means NOT_CONFIGURED (design only)
+- [ ] Q10: choose expiry policy for unanswered recovery pairing requests
+- [ ] Define authenticated BlackBox Accept/Reject, request IDs, state conflicts and all-or-nothing key/registration finality
 - [ ] Design secure key commitment, authenticated destination BlackBox issuance and replay protection
 - [ ] Prove single-use, destination-binding and atomic settlement under concurrent receiver/sender/reserve operations
 - [ ] Identify all contradictions and create versioned, reviewable spec decisions
