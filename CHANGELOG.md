@@ -1,3 +1,10 @@
+## 2026-10-25 — Q15 confirmed: universal network-delay compensation across EVERY timed operation
+- User expanded the rule explicitly beyond Claims: **every** TongNet transaction/task with a network-affected deadline must get one-for-one extra allowed time equal to network-induced verified delay, using a proposed Network Delay Calculator. Included Send/Trigger, receiver and sender claims, recovery setup/BlackBox acceptance and other time-bound operations.
+- Running clocks remain normal; compensated **effective deadlines** move. Q12 and Q14 still require consensus finality strictly before the adjusted deadline. Newly submitted tasks' clocks start only upon network acceptance, with queue wait before start not double-credited.
+- Dependencies must shift deterministically: do not start sender reclaim while receiver's delay-adjusted priority survives, do not issue a 3h refund while Trigger remains eligible, and do not forfeit escrow to Network Reserve while a legitimate adjusted claim remains.
+- Actual delay attribution, per-task vs network-wide calculation, Sybil resistance, validator consensus time and outage measurement are NOT yet resolved or implemented; legal/consumer safeguards on reserve forfeiture remain an absolute launch blocker.
+- **NEXT Q16:** per-operation verifiable queue delay versus common network-wide slowdown calculation.
+
 ## 2026-10-24 — Q14: Strict claim finality before financial expiry
 - User selected Option A: original 24h Receiver Claim and subsequent 72h Sender reclaim each require network consensus FINALITY strictly BEFORE their established deadline. A pre-deadline click, signature, relay receipt or placement in queue does not stop expiry if finality arrives late. A late-finalized Claim is EXPIRED.
 - This is distinct from new Send timer starting upon initial network acceptance as discussed in Q13; no running protocol has yet implemented either rule. Validators must implement atomic ordering, replay protection and deadline checks.
