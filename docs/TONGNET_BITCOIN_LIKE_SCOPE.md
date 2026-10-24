@@ -1,0 +1,35 @@
+# TongNet — Owner-confirmed Bitcoin-like single-coin blockchain scope
+
+**Decision date:** 2026-10-25 (Australia/Sydney).
+**Authority:** Explicit owner correction to assistant's earlier idea of a "general-purpose blockchain" with future third-party tokens/dApps; that assistant proposal was NOT approved and is now superseded.
+**State:** Design/specification only; there is no launched TongNet, running node, mainnet/testnet, minted TONG, audited consensus, or proven advantage over Bitcoin.
+
+## Product vision — OWNER CONFIRMED
+
+**TongNet is its own independent, native-coin-only cryptocurrency blockchain**, conceptually akin to Bitcoin, aiming to improve secure money transfer, recipient authorization, settlement performance, disaster recovery and user control. Its native digital currency is **TONG**. The priority is a lean, dedicated monetary network and its integrated secure bilateral P2P payment protocol, **NOT a general-purpose programmable application blockchain** like Ethereum.
+
+**OUT OF SCOPE by owner decision:** public smart-contract virtual machine (EVM or equivalent), arbitrary user-created tokens, third-party coin/token deployment, dApp/app ecosystems, app marketplace and a general-purpose blockchain application-development platform. Do not list speculative features as product commitments, and do not silently expand architecture or promise an upcoming token platform. Wallet/front-end, BlackBox, Authenticator, blockchain explorer, node tooling and encrypted backup clients are **necessary native wallet/network interfaces**, not third-party dApps.
+
+## The native chain must implement real base-layer functions
+
+1. **Genesis and chain identity:** independent chain ID and genesis block/state, block history, verifiable network parameters, supply/distribution/issuance and monetary schedule. **No final TONG supply, cap, divisibility, premine, emission curve or coin rewards have been approved**; historic placeholders are examples only. Nothing is "minted" merely by naming a currency or writing documentation.
+2. **Single TONG monetary asset:** canonical total-supply conservation, accurate accounting, signature verification, no double spend. Evaluate a minimal **Bitcoin-inspired UTXO accounting model** rather than automatically choosing Ethereum-style accounts. The choice of UTXO versus account model is a technical proposal, not an owner decision. Either can support a dedicated currency.
+3. **P2P network and independent full nodes:** peer discovery, mempool/transaction relay, replicated append-only ledger, syncing, validation, chain upgrades and adversarial tests.
+4. **Consensus & validator/miner security:** Bitcoin uses PoW and probabilistic confirmation, while earlier TongNet research preferred fast deterministic BFT finality with economic validator eligibility. **The owner has now specified Bitcoin-*like purpose*, not unambiguously mandated PoW**. Do NOT assume that copying Bitcoin PoW is the goal, nor that BFT is automatically more secure. PoW mining issuance vs bonded PoS/BFT rewards, independent committee/Sybil resistance, fork choice/finality guarantees, attack costs, scale, speed and permissionlessness must be explicitly compared and approved. Faster block production is not a security proof; evaluate settlement safety under network partitions and economic attacks. Bitcoin-like coin can be built with either, but cannot casually claim greater security than Bitcoin.
+5. **Purpose-built bounded payment conditions, not arbitrary dApps:** native network-validated transaction types and restricted escrow state for `LOCK -> Receiver Signed CLAIM_REQUEST(K_R proof) -> Sender BlackBox Signed FINAL_ACCEPT -> final Receiver payout` and, after **first receiver 24h**, **next 60 DAYS sender reclaim** via valid K_S or recovery-authorized proof. No separate 3-hour Trigger; no auto-payment merely from a code. Timestamp/deadline anchor from consensus-final LOCK is a PROPOSAL awaiting explicit owner approval. Do not put private codes in public chain. The proposed 60-day forfeiture to Network Reserve is an OWNER INTENT subject to legal and user-safety blockers, not automatically deployable.
+6. **Self-custody wallet, separate BlackBox authorization, Authenticator and optional recovery:** preserve latest Active Recovery Mirror V4: R is independently NORMAL_ACTIVE even while it mirrors S's sealed, encrypted and permanently parent-provenanced BlackBox *only*, not S's old on-chain transactions. If R becomes network-final DEAD, revoke S->R binding immediately, S has no recovery until user pairs a new active R. Other unresolved cryptographic release and late K_S problems remain.
+7. **Supply and economics:** user-facing near-zero fee is a goal not an achieved promise; specify anti-spam economic incentives, state storage, backup network costs, validator rewards and monetary policy without minting arbitrary tokens or commandeering user escrow contrary to law.
+8. **Narrow protocol first:** fixed/finite native instruction set plus controlled upgrades and stable wire format; no Turing-complete untrusted contracts. Native multisignature/condition checks required for TongNet BlackBox are core consensus transaction rules, not a third-party smart-contract platform.
+9. **Performance benchmarking:** Compare verified settlement-to-finality latency, fee, uptime, censorship resistance, number/independence of validators, replay resistance, difficulty to reorg, attack-cost, data availability and clients. Do not claim "faster/more secure than Bitcoin" without reproducible security model, economic cost benchmarks and external audit.
+
+## Bitcoin comparison, grounded
+
+Bitcoin uses proof of work with miners and chain confirmations (see https://developer.bitcoin.org/devguide/ and https://bitcoin.org/en/faq). Bitcoin developer guide uses UTXOs and restrictive spending conditions (https://developer.bitcoin.org/devguide/transactions.html). A BFT-style consensus such as CometBFT relies on >2/3 voting commitments under an honest-committee threshold (https://github.com/cometbft/cometbft/blob/main/spec/consensus/consensus.md). These models have different assumptions; "better" is not automatic.
+
+## Architecture decision requiring OWNER input
+
+**Does "Bitcoin-like" mean just a dedicated independent currency chain OR must TONG itself be generated by open Bitcoin-style Proof-of-Work mining?** This matters because prior TongNet proposed Hybrid PoS+BFT deterministic finality; if owner explicitly requires PoW, design has to be re-evaluated (issuance, mining economics, finality, speed and security).
+
+**Do not change anything without approval.** Still OPEN: final monetary policy, initial distribution, PoW vs BFT, UTXO vs account, 24h starting clock and BlackBox key-release/reclaim failure states.
+
+**Attribution:** Project author ParmTech; original concept creator/developer Manjinder Singh. 2015 idea origin and 2026 first public disclosure per creator, not independently evidenced.
