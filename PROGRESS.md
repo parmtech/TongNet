@@ -36,7 +36,7 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 
 ## Current next question
 
-**Q16 (NEXT):** User confirmed Q15 universal 1:1 Network Delay Calculator credit for every affected timed task, including Send/Trigger, Claims and Recovery requests. Determine whether time credit is calculated from each operation's own verifiable network processing delay or one common measured network-wide slowdown. Strict finality before adjusted deadline remains required. No calculator implementation exists.
+**LATEST 2026-10-25:** User confirmed Q16 C HYBRID per-operation/global delay, Q17 C independent validation, Q18 C evidence consensus/Protected Mode, Q19 C anti-Sybil committees, Q20 C hybrid decentralisation evolution, Q21 C automated validator governance, Q22 B quarantine/review, Q23 B backup validators, Q24 C quorum for partitions and Q25 B precommitted safe rotation. The 95 question backlog now has candidate answers in MASTER_QA_RECOMMENDATIONS.md, but no working blockchain/consensus implementation or audit exists. NEXT: formal safety model and prototype engineering gates, not re-asking Q16.
 
 ## Question discovery and tracking
 
@@ -61,7 +61,11 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] **Q13 direction (2026-10-24):** user wants immutable rate of running timers regardless of slow/fast network, queue new tasks under congestion, and start NEW transaction timers only at network acceptance; implementation recommendation: define acceptance as consensus finality. Full outage claim-loss details still open.
 - [x] **Q14 (2026-10-24 Option A):** both receiver 24h and subsequent sender 72h claims require network finality strictly BEFORE expiry; queued/signature/relay proof alone does not qualify. Late-finalized claim is EXPIRED (design only).
 - [x] **Q15 (2026-10-25):** user broadened 1:1 compensation to ALL time-sensitive tasks delayed by network. Effective deadline gains exactly verifiable network delay, while clocks maintain normal cadence. Q12/Q14 require consensus finality strictly before adjusted deadline, not an early queue ticket (design only).
-- [ ] **Q16:** specify per-task versus network-wide Delay Calculator proof and anti-manipulation.
+- [x] **Q16:** user chose HYBRID per-operation and global Delay Calculator input; implementation proof/anti-manipulation remains open.
+- [x] **Q17–Q25:** user-confirmed network delay verification, protected state, decentralised validator automation/quarantine/backup/partition rules (specification only).
+- [x] **95 questions:** reviewed all with candidate engineering answers; NOT all user-ratified; see docs/MASTER_QA_RECOMMENDATIONS.md.
+- [x] **Architecture review:** versioned long-term design proposal in docs/TONGNET_FUTURE_ARCHITECTURE.md.
+- [ ] Formal protocol specification/proofs, BFT integration, Sybil eligibility/clock rules, code, testnets and audits.
 - [x] Define Triggered escrow and stored sender claim key delegation after terminal disaster recovery (design only).
 - [x] Specify refund destination for PENDING_TRIGGER when source DEAD (Q7 design only).
 - [ ] Implement/test strict Trigger-vs-DEAD-vs-timeout ordering and no double settlement.
@@ -98,9 +102,13 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] Record Q13 queue/timer approach and distinguish admission from acceptance (documentation only).
 - [x] Q14 strict claim-finality boundary chosen; no pre-deadline queue priority override.
 - [x] Q15 user intent: affected deadlines grow by verified network delay; reserve transfer cannot preempt properly adjusted rights.
-- [ ] Q16 objective delay calculation, full network outage, duplicate credits, anti-Sybil clock proofs and consensus remain unsolved.
+- [x] Q16 input model chosen: HYBRID; exact delay algorithm, full network outage, duplicate credits, anti-Sybil clock proofs and consensus IMPLEMENTATION remain unsolved.
 - [ ] Real-money Network Reserve forfeiture remains a consumer-protection/legal launch blocker.
 
 ## Documentation sync note
 
 Q11 is committed in Decisions, FAQ, Protocol, Disaster Recovery, Security, Deep Questions, Roadmap, Next Session, README and Progress. Updating the historical CHANGELOG file was blocked; the Q11 record remains preserved in the canonical Decision Register and other files. The changelog entry can be reconciled in a later edit.
+
+## 2026-10-25 Master architecture checkpoint
+
+[Review of all 95 DQ questions](docs/MASTER_QA_RECOMMENDATIONS.md) and [TongNet Future Architecture](docs/TONGNET_FUTURE_ARCHITECTURE.md) have been saved. Evidence-based research references include CometBFT, high-throughput DAG literature, NIST PQC and Australian AUSTRAC/ASIC obligations. Claims of being faster, cryptographically sound, fully decentralised, strictly fee-free or novel are UNSUBSTANTIATED until measured/reviewed. Forced Network Reserve forfeiture remains a consumer/legal hard launch blocker; no mainnet or end-user fund custody is authorised.
