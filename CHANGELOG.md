@@ -1,3 +1,9 @@
+## 2026-10-24 — Q12: Strict network-finalized acceptance before expiry
+- User selected **Option A**: a Disaster Recovery Wallet request must receive an ACCEPT with definitive network finality strictly before its original 24-hour request deadline. Earlier button press, signature or intermediate network receipt cannot override late finality.
+- If confirmation is finalized late, request remains EXPIRED and NO Disaster Recovery Key or permanent link is issued. Consensus clock, network partitions and deterministic race handling remain unimplemented and untested.
+- The rule is specific to recovery-pairing registration; separate **Q13** will resolve receiver and sender payment-claim deadlines during network-wide outages.
+- Canonical decision register, FAQ, protocol, threat model, deep question backlog, progress and next-session handoff revised.
+
 # TongNet — Documentation & Project Change Log
 
 ## 2026-10-24 — Q10 confirmed: pending pairing request expires after 24 hours
