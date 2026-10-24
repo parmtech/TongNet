@@ -20,7 +20,10 @@
 - [x] Q13 network-queue intent: immutable timer speed, queue overload requests, NEW timers start after network acceptance (design documented; consensus finality is recommendation)
 - [x] Q14: strict Claim consensus finality required before receiver/sender cutoff, even if queue admission occurred earlier (design only)
 - [x] Q15: user-confirmed universal one-for-one network delay compensation for every affected time-limited operation (design only)
-- [ ] Q16: choose per-operation versus network-wide verifiable Delay Calculator measurement
+- [x] Q16: HYBRID per-operation AND global network delay evidence (user confirmed C); consensus-safe verification remains to implement
+- [x] Q17–Q25 user choices documented: fake-delay proof, protected suspense, anti-Sybil, staged validator openness, automated governance, quarantine, standbys, safe quorums and precommitted rotations
+- [x] 95 original deep questions reviewed in docs/MASTER_QA_RECOMMENDATIONS.md (recommendations, not all user ratified)
+- [x] Research architecture spec saved in docs/TONGNET_FUTURE_ARCHITECTURE.md (not audited or deployed)
 - [ ] Implement deterministic adjusted deadline computation and exclusive claim-window transitions
 - [ ] Prove prevention of fictitious network delay, duplicate credits and expiry-vs-finality races
 - [ ] Forced reserve forfeiture requires legal/informed-consent/consumer safety review regardless of adjusted deadlines
@@ -76,3 +79,14 @@
 - [ ] Production roll-out only if legal, security and economic gates are satisfied
 
 **Development rule:** keep test money and experimental simulations separate from real user assets until all release gates pass.
+
+## Research-gated TongNet Quorum Fabric roadmap — 2026-10-25
+
+- [ ] Prove BFT epoch reconfiguration, automated Sybil eligibility and quorum intersection incl. 60/40 partitions and standby activation.
+- [ ] Implement deterministic signed operation/health evidence and interval-union Network Delay Calculator in simulator.
+- [ ] Prove exact-once adjusted deadline, no conflicting receiver/sender/refund/reserve rights and finite Protected Suspense exit.
+- [ ] Validate reproducible 3h/24h/72h tests, optional irreversible disaster recovery and DEAD wallet conditions.
+- [ ] Benchmark healthy/Byzantine regional latency, throughput, storage, committee scale and full sustained cost-per-transaction.
+- [ ] Design sponsor quota + transparent microfee/anti-spam economics; no unconditional universal zero-cost claim.
+- [ ] Review forced network-reserve confiscation and consumer rights, legal AUSTRAC/ASIC classification, licence/IP novelty, NIST crypto-agility.
+- [ ] Complete independent consensus, wallet, economic and security audits before any real-money mainnet.
