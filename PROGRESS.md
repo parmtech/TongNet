@@ -36,7 +36,7 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 
 ## Current next question
 
-**Q13 (NEXT):** If TongNet network cannot finalize ANY claims for an extended outage while a triggered payment's 24h receiver/72h sender deadlines run, should deadlines run absolutely (possibly causing reserve loss), or pause under an independently verifiable outage policy? Undecided; legal implications of forfeiture remain blocked.
+**Q14 (NEXT):** A receiver/sender Claim request is signed and QUEUED before its already-running 24h/72h claim deadline but network finality occurs AFTER the deadline. Should strict finality make it EXPIRED, or should an independently verifiable pre-deadline network receipt protect it? The choice is UNDECIDED. Full-outage/forfeiture fairness remains separate.
 
 ## Question discovery and tracking
 
@@ -58,7 +58,8 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] **Q10 (2026-10-24, Option A):** Unanswered pairing request automatically expires after 24 hours, without recovery Key/link. Pending/Expired means NOT_CONFIGURED; stale Accept invalid.
 - [x] **Q11 (2026-10-24, Option B):** Source cannot cancel, withdraw or replace a PENDING pairing request, must wait for R REJECT or 24-hour EXPIRED before retrying (design rule only).
 - [x] **Q12 (2026-10-24, Option A):** Accepted disaster pairing MUST be network-final BEFORE 24h cutoff; a late-finalized Accept is EXPIRED, regardless of earlier signing/submission.
-- [ ] **Q13:** How payment-claim timers behave in prolonged network-wide downtime.
+- [x] **Q13 direction (2026-10-24):** user wants immutable rate of running timers regardless of slow/fast network, queue new tasks under congestion, and start NEW transaction timers only at network acceptance; implementation recommendation: define acceptance as consensus finality. Full outage claim-loss details still open.
+- [ ] **Q14:** choose claim expiry eligibility when a queued claim finalizes late.
 - [x] Define Triggered escrow and stored sender claim key delegation after terminal disaster recovery (design only).
 - [x] Specify refund destination for PENDING_TRIGGER when source DEAD (Q7 design only).
 - [ ] Implement/test strict Trigger-vs-DEAD-vs-timeout ordering and no double settlement.
@@ -92,7 +93,8 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] Q11 resolved — no source cancellation or replacement while PENDING.
 - [x] Q12 rule decided: finality timestamp strictly before 24h deadline for acceptance; no grace period (documentation only).
 - [ ] Specify consensus clock, stable ordering and race tests; technical proof still outstanding.
-- [ ] Q13 network downtime vs receiver/sender claim deadlines remains open.
+- [x] Record Q13 queue/timer approach and distinguish admission from acceptance (documentation only).
+- [ ] Resolve total network outage and proposed reserve forfeiture without wrongful loss; Q14 first determines late claim finality semantics.
 
 ## Documentation sync note
 
