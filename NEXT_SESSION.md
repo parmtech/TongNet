@@ -86,11 +86,19 @@ A SOURCE Wallet cannot cancel, withdraw, redirect or replace any pending disaste
 
 User says any recovery-wallet BlackBox ACCEPT must achieve **decentralized network finality before the original 24-hour pairing deadline**. A signed/tapped/rebroadcast request before deadline that finalizes after deadline is **EXPIRED**. No one-use Disaster Recovery Key and no immutable S→R pairing in that situation. Device/relay arrival timestamps do not qualify. Implementation of consensus time/finality remains unsolved. This is specifically the *recovery pairing request*, not yet a decision for all payment claim expiries.
 
-## NEXT SINGLE QUESTION — Q13 / DQ-092
+## Q13 user direction recorded (2026-10-24) — network queue and timers
 
-Ask in Punjabi, one decision only: "ਮੰਨ ਲਓ ਕਿਸੇ ਨੇ 1,000 TONG ਦੀ Trigger ਕੀਤੀ transaction ਭੇਜੀ ਹੈ; Receiver ਦੇ 24 ਘੰਟੇ ਅਤੇ ਫਿਰ Sender ਦੇ 72 ਘੰਟੇ ਚੱਲ ਰਹੇ ਨੇ। ਪਰ ਪੂਰਾ TongNet Network ਹੀ 8 ਘੰਟੇ ਲਈ down ਹੋ ਜਾਂਦਾ ਹੈ ਤੇ ਕਿਸੇ ਦੀ ਵੀ Claim final ਨਹੀਂ ਹੋ ਸਕਦੀ। ਕੀ **A:** timer ਬਿਨਾਂ ਰੁਕੇ ਚੱਲੇ, ਜਿਸ ਨਾਲ claim window ਮੁੱਕ ਸਕਦੀ ਤੇ ਅਖੀਰ ਪੈਸੇ Network Reserve ਵਿੱਚ ਜਾ ਸਕਦੇ; ਜਾਂ **B:** verifiable network-wide outage ਦੇ ਸਮੇਂ ਲਈ claim deadlines pause/extend ਹੋਣ, ਤਾਂ outage ਕਰਕੇ ਕਿਸੇ ਦਾ ਹੱਕ ਨਾ ਖੁੱਸੇ? ਜਾਂ **C:** ਆਪਣਾ ਤਰੀਕਾ।" Explain separate from Q12 pairing acceptance strictness. Don't decide for user. Keep legal/regulatory risk of reserve forfeiture flagged.
+The user said slow or fast network must NOT change how running timers elapse. Under overload, tasks/transactions may be queued or load-balanced until processing returns to normal. Crucially a NEW transaction's timer starts ONLY once the NETWORK ACCEPTS the transaction; not merely when the user submits it. Technical recommendation (not a separately ratified requirement): use consensus FINALITY as the acceptance boundary; QUEUED_NONFINAL does not debit/credit settled balance, mint a claim key, create final registration or start a new payment timer. Once new Send final: three-hour Trigger countdown starts; once Trigger final: receiver 24h, sender following 72h. Existing disaster pairing request's 24h starts when REQUEST is final; Q12 requires its destination ACCEPT to be final before deadline.
 
-After answer commit full decisions, FAQ, Protocol, Security, backlog, Progress, Handoff, Changelog. Preserve one-question-per-turn.
+Open risk: an ALREADY RUNNING receiver/sender Claim period still elapses while a claim is waiting to finalize. Simply queued status doesn't preserve that Claim deadline; whether strict financial Claim finality vs earlier authenticated receipt qualifies remains for Q14. Full decentralized network halt and automatic reserve forfeiture during halt remain unresolved; preserve explicit consumer/legal launch blocker.
+
+## NEXT SINGLE QUESTION — Q14 / DQ-093
+
+Ask Punjabi ONE question:
+
+"ਮੰਨ ਲਓ Receiver ਦਾ **24-hour Claim timer** ਪਹਿਲਾਂ ਹੀ ਚੱਲ ਰਿਹਾ ਹੈ। ਉਹ deadline ਤੋਂ **5 ਮਿੰਟ ਪਹਿਲਾਂ** ਆਪਣੀ Claim ਭੇਜ ਦਿੰਦਾ ਹੈ, ਪਰ TongNet slow ਹੋਣ ਕਰਕੇ request queue ਵਿੱਚ ਰਹਿੰਦੀ ਹੈ ਅਤੇ Network ਉਸਨੂੰ **deadline ਤੋਂ 10 ਮਿੰਟ ਬਾਅਦ** final ਕਰਦਾ ਹੈ। ਕੀ **A:** strict rule — Network-final claim deadline ਤੋਂ ਪਹਿਲਾਂ ਨਾ ਹੋਈ ਤਾਂ EXPIRED, ਭਾਵੇਂ ਪਹਿਲਾਂ queue ਵਿੱਚ ਸੀ; **B:** ਜੇ Network ਕੋਲ deadline ਤੋਂ ਪਹਿਲਾਂ signed Claim ਪ੍ਰਾਪਤ ਹੋਣ ਦਾ ਭਰੋਸੇਯੋਗ decentralized proof ਹੈ, ਤਾਂ late finality ਦੇ ਬਾਵਜੂਦ ਉਹ Claim valid ਰਹੇ; **C:** ਤੁਹਾਡਾ ਹੋਰ ਤਰੀਕਾ? ਇਹ ਨਵੀਂ Send ਦੇ timer start ਤੋਂ ਵੱਖਰਾ ਹੈ।"
+
+After answer, commit updates; do not automatically extend Q12 pairing strictness to payment claims without authorization. Proposed reserve forfeiture cannot be deployed with real assets until proper legal/consumer review.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
@@ -100,7 +108,7 @@ After answer commit full decisions, FAQ, Protocol, Security, backlog, Progress, 
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Network-wide outage and payment claim/forfeiture windows (NEXT Q13), destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
+Payment Claim queued-before-expiry but finalized-after deadline (NEXT Q14); total-network outage & potential reserve forfeiture still open, destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
