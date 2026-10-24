@@ -1,5 +1,11 @@
 # TongNet — Documentation & Project Change Log
 
+## 2026-10-24 — Question 1 answered and committed
+- User explicitly chose **Option B** for wrong receiver address after Trigger: **no cancellation, no emergency stop, even for erroneous address**.
+- Receiving address still has 24h to claim; sender can recover during subsequent 72h **only if no receiver claim succeeds**.
+- Updated decision register, FAQ, draft protocol, threat model, progress and session handoff.
+- **Next Q2:** lost one-time Authenticator Setup Key before completing 72-hour activation.
+
 ## 2026-10-24 — Initial project documentation on GitHub
 - Verified `manbir6-ux/TongNet` is a private repository accessible for writing.
 - Replaced placeholder README with branded TongNet scope and official credits.
