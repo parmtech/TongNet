@@ -79,3 +79,7 @@ S requests a designated recovery address with S Wallet Private Key + S Authentic
 ## Q10 — Pairing request expiry security
 
 Unanswered destination BlackBox recovery-pairing requests have a confirmed 24-hour lifetime. At deadline the network must mark pending request EXPIRED and disallow later ACCEPT, key issuance or irreversible binding. Pending and expired never count as configured recovery. Authoritative deadline/time computation, accepting at boundary, forged timestamps, duplicate messages and temporary network outages all need explicit consensus and adversarial tests. This user decision does not authorise source withdrawal/replacement while still pending (Q11 open).
+
+## Q11 — No source-side cancellation of pending disaster setup
+
+The user confirmed Option B. Once a source wallet makes a disaster recovery pairing request, it cannot cancel, withdraw, replace or redirect that pending request. It must wait for the target BlackBox to reject or for the original 24-hour deadline to expire. Until accepted, recovery is not configured. After acceptance, the binding remains permanent. Implementation must reject parallel replacement and prevent replayed or competing requests. Q12 remains open: agreement on Accept at the expiry boundary.
