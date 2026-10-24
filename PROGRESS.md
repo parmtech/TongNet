@@ -36,7 +36,7 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 
 ## Current next question
 
-**Q9 (NEXT):** When registering the irreversible recovery address, should pairing remain pending until destination wallet opens its own BlackBox and explicitly accepts/approves it, or become final immediately after source Wallet Private Key + Authenticator approve while destination BlackBox receives/generates the one-use key? **Undecided.**
+**Q10 (NEXT):** If destination Wallet BlackBox never accepts/rejects a recovery pairing request, when should PENDING expire? Until destination accepts it is NOT_CONFIGURED; no permanent link/key exists. Await user answer.
 
 ## Question discovery and tracking
 
@@ -54,7 +54,8 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] **Q6 (2026-10-24):** While Triggered funds stay escrowed for receiver's 24h claim, immediately rescue only spendable funds; if unclaimed receiver, owner with original one-use Sender Claim Key may claim to the linked Recovery Wallet within next 72h after source disaster recovery (design rule only).
 - [x] **Q7 (2026-10-24, Option A):** If an untriggered transfer survives a terminal source disaster recovery, preserve original 3h lock, then automatic refund directly to prebound recovery wallet after timeout (no early cancellation).
 - [x] **Q8 clarification (2026-10-24):** The third one-use Disaster Recovery Key is GENERATED in the DESTINATION Recovery Wallet's own BlackBox, not source Wallet, and later consumed with source Wallet Private Key (specification only).
-- [ ] **Q9:** Destination-side explicit acceptance/consent or instant irreversible pairing after source approval.
+- [x] **Q9:** Destination BlackBox must Accept request before immutable pairing and key generation. Reject notifies source BlackBox; pending counts NOT_CONFIGURED (documentation only).
+- [ ] **Q10:** Pending request expiry duration and policy.
 - [x] Define Triggered escrow and stored sender claim key delegation after terminal disaster recovery (design only).
 - [x] Specify refund destination for PENDING_TRIGGER when source DEAD (Q7 design only).
 - [ ] Implement/test strict Trigger-vs-DEAD-vs-timeout ordering and no double settlement.
@@ -77,3 +78,11 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - Describe each item as `planned`, `proposed`, `implemented`, `tested`, or `audited` with evidence.
 - Never mark checkboxes done merely because they appear in documentation.
 - Include actual links to code commits and tests once those exist.
+
+## Q9 request status confirmation (2026-10-24)
+
+- [x] Capture user-confirmed PENDING, ACCEPTED, REJECTED flow in GitHub specification.
+- [x] Record no key and no permanent association until DESTINATION BlackBox ACCEPT.
+- [x] Record REJECT response to source BlackBox.
+- [ ] Implement and verify authenticated Accept/Reject, atomic key issuance, race and replay safety.
+- [ ] Decide how long unanswered requests stay pending (Q10).
