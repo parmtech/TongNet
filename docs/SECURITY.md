@@ -65,3 +65,9 @@ Disaster recovery moves available funds only. Triggered funds remain in escrow u
 ## Q7: Automatic timeout after disaster recovery
 
 When the original wallet becomes permanently DEAD while an older outgoing transfer remains untriggered, its existing 3-hour lock still expires normally. Its automatic refund is delivered to the immutable registered recovery wallet. No early release is permitted. Network consensus must order the deadline and any earlier trigger or recovery operation consistently, and allow only one settlement. This is a design requirement, not an audited guarantee.
+
+## Q8 — Disaster secret location and recovery destination acknowledgement
+
+The user specified that the optional single-use disaster recovery secret is created in the **destination Recovery Wallet's encrypted TongNet BlackBox**, not in the original source wallet. Initial registration still needs the source wallet's private-key authorization and TongNet Authenticator approval. The later rescue action uses source Wallet Private Key plus the SAME destination-BlackBox-issued one-use disaster secret, without source BlackBox/Authenticator. At successful finalization, the key is consumed, the source's available balance is swept to its immutable destination, and the source becomes DEAD; Q6/Q7 apply to in-flight escrow.
+
+Creating a secret inside R's BlackBox alone does not prove that R has explicitly signed or accepted the permanently irreversible association, nor does a link prove that both addresses have the same human owner. Open threat cases: unsolicited association to the wrong destination, inaccessible receiver BlackBox, mailbox spoofing or withholding, replay, loss of source Authenticator before setup finality, and binding of secret commitments to exact (S,R,action,nonce). Only encrypted storage holds the secret; nodes must use proof/commitments, not plaintext. **Q9:** should the destination independently accept/sign before S→R immutable binding becomes final?
