@@ -106,3 +106,11 @@
 - [ ] Design verified receiver-issued one-time signed Receive Request and get owner decision on mandatory versus optional.
 - [ ] Test fast two-sided online handshake, wrong-destination warnings, transfer finality, BlackBox claim delivery and race/expiry conditions.
 - [ ] Assess supply, sponsorship, merchant testing and applicable banking/VASP regulation before issuing tokens or onboarding users.
+
+## 2026-10-25 — Confirmed Sender-originated two-key payment claim flow
+
+- [x] Record user correction: BOTH K_R and K_S originate in SENDER BlackBox, NOT Receiver BlackBox; Sender privately shares K_R and only designated receiver wallet + code can claim.
+- [x] Record exact chronology: K_R generated at transaction setup but valid only after final Trigger during 24h; then expires; NEW K_S created in Sender BlackBox for following 72h only; eligible network delay extends adjusted cutoffs.
+- [ ] Resolve Q6 disaster source-DEAD / inaccessible Sender BlackBox conflict with literal late K_S generation. Do NOT assume an early key without explicit user approval.
+- [ ] Implement/verify code commitment, expiry, transaction/receiver binding, brute-force resistance, safe manual sharing, no key leakage to validators/receiver BlackBox, and no conflicting claims.
+- [ ] Test wrong-address A/B scenario: A receives code but not bound wallet signing authority; B owns wallet but lacks code; recovery only after receiver window, NOT automatic refund at 24h.
