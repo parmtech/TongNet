@@ -29,6 +29,10 @@ Core concepts:
 6. If unclaimed, the recipient credential expires; only the sender can reclaim during the following **72-hour recovery window**.
 7. The creator's current proposed rule sends funds still unclaimed after that window to the **TongNet Network Reserve** to subsidise network transaction costs. **This forfeiture rule must NOT be deployed with real money until consent, ownership, regulatory and consumer-protection issues are resolved.**
 
+## Emergency recovery (new proposal)
+
+An **optional TongNet Disaster Recovery Wallet** address may be preconfigured in ordinary wallet settings. If BlackBox or Authenticator access is lost, a user with the original Wallet private key may initiate a one-way **Run Disaster Recovery**, without BlackBox or Authenticator, to move all eligible funds (less any applicable fee) to the preconfigured destination and permanently deactivate the old wallet. Critical destination-update and locked-transfer rules remain unresolved. See [docs/DISASTER_RECOVERY.md](docs/DISASTER_RECOVERY.md).
+
 ## Read before doing work
 
 1. [NEXT_SESSION.md](NEXT_SESSION.md) — where to resume and the next unanswered question.
