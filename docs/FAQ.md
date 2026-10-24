@@ -61,14 +61,20 @@ A: No: a cryptographic, authenticator-approved recovery address registration pro
 **Q: What happens to still-untriggered locked funds after Run Disaster Recovery?**  
 A: **Q7 CONFIRMED — Option A (2026-10-24):** They stay locked until the original 3-hour pre-trigger expiry. Run Disaster Recovery sweeps available funds without waiting and permanently deactivates original sender S. Since S is then DEAD and the still-pending Send cannot be triggered, at its original 3-hour deadline the automatic refund goes directly to previously registered, immutable Disaster Recovery Wallet R. No early cancellation or separate Sender Claim Key is needed in this untriggered refund route. Network must ensure no payout to both wallets.
 
-**Q: Where is the one-time Disaster Recovery Key generated?**  
-A: **Q8 clarified 2026-10-24:** It is generated **inside the designated Disaster Recovery Wallet's own TongNet BlackBox**, after source wallet setup, NOT in the source wallet's BlackBox. This same key is later presented alongside the original source Wallet Private Key to run the single-use recovery; the source Authenticator/BlackBox is not needed at that time. The key is permanently unreplaceable and the association immutable once complete.
+**Q: Where and when is the one-time Disaster Recovery Key generated?**  
+A: **Q8/Q9 confirmed 2026-10-24:** The source sends a disaster recovery request from ordinary Wallet settings. Only when the chosen recovery wallet **ACCEPTS** that request inside **its own TongNet BlackBox** is the unique one-use Disaster Recovery Key generated there, NOT in the source wallet's BlackBox. This same key is later presented alongside the original source Wallet Private Key to run the single-use recovery; the source Authenticator/BlackBox is not needed at that time. The key is permanently unreplaceable and the association immutable once complete.
+
+**Q: What if destination REJECTS or ignores disaster recovery request?**  
+A: **Q9 confirmed:** REJECT creates no key or final association, and notifies the source wallet's BlackBox. If destination neither accepts nor rejects, request stays PENDING, there is no key/immutable binding, and source counts as having **NO configured disaster recovery**. Pending request expiry is OPEN Q10.
 
 **Q: Does destination-side key generation establish the same person owns both addresses?**  
 A: No. A cryptographic link/approval demonstrates authorization according to the system's rules, not natural-person identity. Merely placing a secret inside R's encrypted inbox is not by itself a signature with R's private key or an explicit acceptance.
 
+**Q: When does the recovery address become permanently attached?**  
+A: **Only after an explicit ACCEPT from destination BlackBox**. Request initiation alone never attaches it. At ACCEPT the one-time key is created in destination BlackBox and the association becomes irreversible. **Q9 confirmed**.
+
 **Q: What next?**  
-A: **Q9:** Is recovery-wallet registration final immediately after SOURCE wallet approval and destination-side secret generation, or only once the destination wallet independently opens its BlackBox and ACCEPTS/confirms its new recovery duty?
+A: **Q10:** What should happen if destination never responds? Should its PENDING request expire at a fixed deadline, or remain pending indefinitely?
 
 ## Payment flow
 
