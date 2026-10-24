@@ -102,5 +102,7 @@
 ## New payment-product review checkpoint
 
 - [x] Document competitive, consumer, merchant and bank-adoption critique in docs/TONGNET_PRODUCT_CRITIQUE_AND_ADOPTION_PLAN.md.
-- [ ] Get owner approval before adding proposed Instant Pay; preserve confirmed Protected Pay.
+- [x] User REJECTED proposed Instant Pay; preserve existing mandatory Sender Send/BlackBox Trigger + Receiver BlackBox Claim secure P2P (specification only).
+- [ ] Design verified receiver-issued one-time signed Receive Request and get owner decision on mandatory versus optional.
+- [ ] Test fast two-sided online handshake, wrong-destination warnings, transfer finality, BlackBox claim delivery and race/expiry conditions.
 - [ ] Assess supply, sponsorship, merchant testing and applicable banking/VASP regulation before issuing tokens or onboarding users.
