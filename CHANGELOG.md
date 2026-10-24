@@ -3,7 +3,7 @@
 ## 2026-10-24 — Question 2 answered and committed
 - User confirmed that failure to activate TongNet Authenticator within the wallet's first 72 hours makes that wallet **permanently DEAD** and it can never be reactivated, irrespective of later possession of its keys.
 - No replacement of the lost first-time Setup Key to bypass the deadline. Wallet must be replaced; initial inactive wallets cannot SEND, RECEIVE or CLAIM.
-- Updated decisions, FAQ, protocol, security, progress and next-session handoff. This is a requirement, not yet an implemented or tested safety property.
+- Updated decisions, FAQ, protocol, progress and next-session handoff. Security threat-model update is still pending because the GitHub edit was blocked; no production protection is implemented or tested.
 - **Next Q3:** loss of Authenticator Master Key/device after a wallet has successfully activated.
 
 ## 2026-10-24 — Question 1 answered and committed
