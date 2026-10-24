@@ -4,12 +4,12 @@
 
 ## Product and three independent keys
 
-The user can optionally set **one** disaster recovery destination address in **normal Wallet Settings**, **not inside TongNet BlackBox**. At that moment a distinct, optional, one-time-use **Disaster Recovery Key** is issued.
+The user can optionally set **one** disaster recovery destination address in **normal Wallet Settings**, **not inside TongNet BlackBox**. When the destination is registered, the one-time **Disaster Recovery Key is GENERATED INSIDE THE DESTINATION RECOVERY WALLET'S TongNet BlackBox**, not in the source wallet's BlackBox. It is separate from that recovery wallet's own private key and Authenticator Master Key.
 
 The project now has three secret-key categories:
 1. **Wallet Private Key** — ordinary wallet access and initiating payment.
 2. **TongNet Authenticator Master Key** — independent TongNet BlackBox authorization factor (60-second changing access codes, not a rotating master key).
-3. **Disaster Recovery Key** — exists only for wallets whose disaster recovery option was configured; a **one-use secret** required for emergency sweeping. It is NOT the backup wallet's address or its private key.
+3. **Disaster Recovery Key** — exists only for wallets whose disaster recovery option was configured; a **one-use secret GENERATED IN THE DESTINATION WALLET'S BLACKBOX** at initial setup, required later to authorize emergency sweep from source. It is NOT the backup wallet's address, wallet private key, or Authenticator Master Key.
 
 ## Permanent configuration rules — confirmed by user
 
@@ -22,9 +22,9 @@ The project now has three secret-key categories:
 
 ## One-time emergency execution — confirmed
 
-1. Owner has access to source **Wallet Private Key** but lost the Authenticator Master Key / BlackBox access.
+1. Owner has access to source **Wallet Private Key** but lost the SOURCE Authenticator Master Key / SOURCE BlackBox access. The separate destination wallet's BlackBox originally holds the recovery key, which the user must have obtained securely.
 2. Open source Wallet using Wallet Private Key.
-3. Select **Run Disaster Recovery** and enter the **one-time Disaster Recovery Key**.
+3. Select **Run Disaster Recovery** and enter the **one-time Disaster Recovery Key** originally generated in the DESTINATION Recovery Wallet's own BlackBox.
 4. **Both** source Wallet Private Key authorization **AND** the independent Disaster Recovery Key must be verified. **No TongNet BlackBox or Authenticator code is required.**
 5. Network settles all **eligible** funds, minus any actual transaction fee, to **only the permanently registered destination** and atomically consumes the one-time key.
 6. In the same atomic irreversible state transition, the original source Wallet becomes **DEAD** forever; it cannot be reactivated.
@@ -57,7 +57,9 @@ The project now has three secret-key categories:
 
 **Q7 ANSWERED (Option A, 2026-10-24):** A lock from an **untriggered** outgoing Send is NOT swept early. The original 3h timer continues. If Run Disaster Recovery has finalized in the meantime, source is DEAD and cannot authorise any new Trigger; when its original deadline arrives, the automatic untriggered refund must be paid **directly to the pre-registered bound Disaster Recovery Wallet**, not to DEAD source and not to receiver. Disaster Recovery does not wait. Atomically settle once; preserve original no-manual-cancel rule.
 
-**NEXT Q8:** Is a signed proof of possession of the **recovery destination wallet's private key** mandatory at the instant it is first irreversibly registered, in addition to the already required source Wallet Private Key + TongNet Authenticator? Or can the owner register any valid recipient address and confirm visually?
+**Q8 new clarification (2026-10-24):** The one-time Disaster Recovery Key originates **inside the registered DESTINATION wallet's own BlackBox**, rather than being minted or shown in the SOURCE wallet. This is a custody/delivery rule, but is **not by itself a cryptographic destination private-key signature** or proof the same natural person controls both addresses.
+
+**NEXT Q9:** Is the immutable source→destination registration accepted as FINAL immediately upon source Wallet Private Key + TongNet Authenticator approval, with the new secret waiting in destination BlackBox, OR is it only FINAL after the destination owner opens their own BlackBox and independently ACCEPTS/confirms that association? An explicit destination acceptance can protect against irreversible wrong-address registration.
 
 ## Security warning
 
@@ -76,3 +78,12 @@ These are design requirements only. A stolen wallet key together with the recove
 - If a Trigger had already become final **before** the source turned DEAD, treat that payment under Q6 receiver-claim/sender-reclaim rules instead. Define deterministic ordering for simultaneous Trigger vs DEAD vs expiry; prove no double-payment.
 - No fresh credential is needed for untriggered **automatic** expiry refund. This rule must not be confused with a **Trigger-confirmed** transaction that requires the original sender Claim Key to reclaim after receiver nonclaim.
 - The original three-hour lock remains noncancellable, cannot be accelerated by disaster recovery, and creates no recipient Claim Key in the untriggered path.
+
+## Q8 — Where the one-use disaster secret is created (confirmed 2026-10-24)
+
+- First setup is initiated in the SOURCE wallet's ordinary settings and requires SOURCE Wallet Private Key plus its TongNet Authenticator. The target recovery address is permanently bound to the source once setup is final.
+- **The one-time Disaster Recovery Key is generated within the TARGET/RECOVERY WALLET'S OWN TongNet BlackBox** on initial successful registration, not within the original source wallet and not as an ordinary unsecured screen response. The key is meant to be accessed and backed up securely by whoever controls the target's BlackBox.
+- In a later emergency, the original source wallet may lack its own Authenticator; the user proves source Wallet Private Key plus the SAME one-time Disaster Recovery Key from the destination BlackBox to invoke recovery. This execution requires neither source BlackBox nor a current source Authenticator code.
+- The network must maintain a protected, verifiable commitment linking the one-use key to **this specific source wallet, exact immutable destination wallet and this particular recovery action**. Do not store the plaintext secret in public state or GitHub; only the destination's authorized encrypted vault should hold/display it.
+- Destination BlackBox key generation and a **cryptographic signature by destination wallet private key** are different mechanisms. The owner's answer explicitly specifies the former. Whether destination must separately ACCEPT/sign, and when the irreversible link becomes final, is the NEXT question (Q9).
+- Do not confuse the **Disaster Recovery Key** with one-time Sender Claim Keys from ordinary outgoing transactions. Different operations; different state/commitments.
