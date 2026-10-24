@@ -33,3 +33,7 @@ Bitcoin uses proof of work with miners and chain confirmations (see https://deve
 **Do not change anything without approval.** Still OPEN: final monetary policy, initial distribution, PoW vs BFT, UTXO vs account, 24h starting clock and BlackBox key-release/reclaim failure states.
 
 **Attribution:** Project author ParmTech; original concept creator/developer Manjinder Singh. 2015 idea origin and 2026 first public disclosure per creator, not independently evidenced.
+
+## 2026-10-25 — Proposed PoTP transaction-action validation (RESEARCH ONLY)
+
+Owner asked whether Sender INITIATE, Receiver CLAIM_REQUEST and Sender BlackBox FINAL_ACCEPT can each perform verifiable work for TongNet, possibly replacing standalone PoW. NO CONSENSUS DECISION YET. Per-action nonce PoW, transaction-receipt checks and state-proof sampling are plausible spam/audit contributions but CANNOT independently stop Sybil/fake self-transfers, settle conflicts or replace economically independent consensus. Earlier IOTA Tangle and Nano provide prior art, with IOTA since moved to delegated PoS. Low-volume periods must not halt the ledger. Sender final acceptance must not be delayed beyond strict receiver window. See [PoTP action-work research](PROOF_OF_TRANSACTION_PARTICIPATION_RESEARCH.md). Preserve single native TONG and previous manual BlackBox flow.
