@@ -1,10 +1,10 @@
 # TongNet — Deep Technical, Logical & Security Question Backlog
 
-**Status:** Active discovery backlog, now 88 tracked questions (original 86 + new Q7 and Q9), initially prepared 2026-10-24. **Not evidence that these answers exist.**
+**Status:** Active discovery backlog, now 89 tracked questions (original 86 + new Q7, Q9 and Q10), initially prepared 2026-10-24. **Not evidence that these answers exist.**
 
 **Workflow:** Ask one meaningful unresolved question at a time in easy Punjabi; user answers → record as a decision in docs/DECISIONS.md → amend FAQ / protocol / security docs → update PROGRESS.md, NEXT_SESSION.md, this backlog and CHANGELOG.md → commit to connected GitHub → ask next question.
 
-**Q5 ANSWERED (2026-10-24):** Initial immutable Disaster Recovery Wallet setup requires Wallet Private Key and TongNet Authenticator. **Q6 ANSWERED (2026-10-24):** Immediately rescue *unlocked* balance; Triggered escrow stays locked for receiver's 24h right, then sender's 72h window. After completed disaster recovery, sender's same one-use Claim Key (if possessed) may claim via immutably linked recovery wallet. No automatic claim without key. **Q7 ANSWERED (Option A, 2026-10-24):** Untriggered 3h lock stays until original deadline and its automatic refund goes to the prebound disaster wallet after source DEAD, with no manual cancel or early release. **Q8 CLARIFIED 2026-10-24:** Single-use Disaster Recovery Key is GENERATED in recovery destination's own encrypted BlackBox during enrollment, not in source BlackBox. This does not itself establish that the destination privately signed/accepted. **NEXT Q9:** Should enrollment become final immediately on source approval or only after destination BlackBox independently acknowledges/accepts the binding?
+**Q5 ANSWERED (2026-10-24):** Initial immutable Disaster Recovery Wallet setup requires Wallet Private Key and TongNet Authenticator. **Q6 ANSWERED (2026-10-24):** Immediately rescue *unlocked* balance; Triggered escrow stays locked for receiver's 24h right, then sender's 72h window. After completed disaster recovery, sender's same one-use Claim Key (if possessed) may claim via immutably linked recovery wallet. No automatic claim without key. **Q7 ANSWERED (Option A, 2026-10-24):** Untriggered 3h lock stays until original deadline and its automatic refund goes to the prebound disaster wallet after source DEAD, with no manual cancel or early release. **Q8 CLARIFIED 2026-10-24:** Single-use Disaster Recovery Key is GENERATED in recovery destination's own encrypted BlackBox during enrollment, not in source BlackBox. This does not itself establish that the destination privately signed/accepted. **Q9 ANSWERED (2026-10-24):** Source approval creates only a pending request in R BlackBox; R ACCEPT triggers one-use key generation there and permanent binding. REJECT notifies S BlackBox with no setup; pending/not accepted means NOT_CONFIGURED. **NEXT Q10:** deadline for unanswered pairing requests.
 
 **Do not re-ask settled decisions:** 3h noncancellable pre-trigger; 24h receiver claim after Trigger; following 72h sender recovery; permanent 72h unenrolled DEAD wallet; no cancellation after Trigger even wrong address; optional immutable disaster destination and one-use Disaster Recovery Key plus Wallet Private Key to execute, with no BlackBox/Authenticator; one-way old-wallet DEAD.
 
@@ -15,7 +15,7 @@
 ## Recovery key, wallet lifecycle and physical security
 
 - [x] **DQ-001** Initial immutable Disaster Recovery Wallet address registration: **Option A, Wallet Private Key AND TongNet Authenticator**, confirmed 2026-10-24. See docs/DECISIONS.md.
-- [ ] **DQ-002 [REFINED: NEXT Q9]** Destination BlackBox will generate the single-use disaster key. Does source-to-recovery association become IRREVERSIBLY FINAL only after destination BlackBox independently accepts it, potentially with destination wallet signature, or immediately following source-factor approval?
+- [x] **DQ-002 [Q9 CONFIRMED 2026-10-24]** Only R BlackBox explicit ACCEPT makes S→R recovery pairing permanently final and creates one-time secret in R. Source request alone is PENDING and NOT_CONFIGURED; REJECT sends notice to source BlackBox. Exact proof technology remains to design.
 - [ ] **DQ-003** If a typo enters the irreversible recovery destination and its key is created, should the entire original wallet be flagged as unsafe and user advised to migrate by ordinary transfers?
 - [x] **DQ-004 (triggered escrow portion — Q6)** Preserve receiver's 24h claim; sweep only unlocked; then permit sender Claim Key via linked recovery wallet during next 72h after completed disaster recovery, if unclaimed.
 - [x] **DQ-087 / Q7 (2026-10-24, Option A)** While a transfer is PENDING_TRIGGER and disaster recovery makes source DEAD, keep lock until original 3h timeout, then automatically refund into prebound disaster recovery wallet; no early cancellation.
@@ -114,7 +114,8 @@
 - [ ] **DQ-085** How will critical vulnerabilities be privately reported and patched after public release?
 - [ ] **DQ-086** What hard launch blockers should prevent any real-money adoption until solved?
 
-- [ ] **DQ-088 [NEXT Q9]** What proves destination user consents to an irrevocable recovery association before key issuance/link finality: signed destination wallet acceptance, or automatic enrollment when source approves?
+- [x] **DQ-088 [Q9 ANSWERED 2026-10-24]** Destination R must ACCEPT from its own BlackBox; issue key there and finalize irreversible binding only after acceptance. No acceptance means NOT_CONFIGURED. Cryptographic signature/proof engineering pending.
+- [ ] **DQ-089 [NEXT Q10]** What happens if destination R never Accepts or Rejects a Disaster Recovery Wallet request: auto-expire after a fixed timeout, or leave pending indefinitely? How are expired request IDs and retries handled?
 
 ## Answer log
 
@@ -122,4 +123,5 @@
 - **2026-10-24 — Q6/DQ-004 (triggered):** User confirmed only unlocked funds sweep now. Already-triggered receiver window survives; sender may use original one-use Sender Claim Key from previously linked rescue wallet after completed disaster recovery in the following 72h. No sender key, no claim. Deadline/race proofs still needed.
 - **2026-10-24 — Q7/DQ-087:** Option A selected. A still-untriggered lock waits out its original 3h; if S is now DEAD after recovery, its automatic refund is credited once to prebound rescue address R. No acceleration, manual cancellation or Trigger by DEAD S.
 - **2026-10-24 — Q8 clarification:** The one-use disaster secret is minted inside destination wallet's own BlackBox during registration and is used later with source private key for the irreversible one-time recovery. No destination private-key signature requirement has been chosen.
-- **NEXT Q9/DQ-002:** destination's explicit acceptance vs instant immutable registration following source approval.
+- **2026-10-24 — Q9 / DQ-002 + DQ-088:** R receives a recovery setup request in its BlackBox and independently ACCEPTS/REJECTS. ACCEPT generates one-time key in R's BlackBox and finalizes immutable link; REJECT sends message to S's BlackBox; ignored PENDING request creates NO setup/key.
+- **NEXT Q10 / DQ-089:** deadline for unanswered recovery linking requests.
