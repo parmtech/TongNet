@@ -155,3 +155,12 @@ A: **NO — Q14 CONFIRMED, Option A (2026-10-24).** A Receiver must have its Cla
 
 **Q: What if network-wide downtime makes all Claims impossible until after expiry?**  
 A: **OPEN — NEXT Q15.** Running countdown and claim finality rules are defined, but whether expired unclaimed escrow is automatically assigned to Network Reserve or protected pending a network-restoration review/grace policy is not agreed. A forced forfeiture is a serious launch blocker without informed consent and legal review.
+
+**Q: Is the network-delay time credit only for Claim operations?**  
+A: **NO — Q15 broadened by user (2026-10-25).** The TongNet Network Delay Calculator must add one-to-one extra time for **every affected time-bound network operation**: Send/Trigger, receiver Claim, sender reclaim, disaster recovery requests/approvals and similar timed tasks. Clocks don't change speed; their effective deadlines move by verifiable network-attributable delay. Q12 and Q14 still require final network confirmation **before their adjusted deadline**. A queued action is not a finalized action.
+
+**Q: How does this affect the original 3h, 24h, 72h windows?**  
+A: Their nominal base duration remains. A proven 20-minute eligible delay grants a 20-minute deadline credit to the affected operation; dependent receiver/sender/refund/reserve stages must shift so two parties never have overlapping exclusive rights. Queue delay on a brand-new transaction BEFORE it receives first network acceptance cannot count twice (timer has not started). Exact consensus proof and attribution are NEXT Q16.
+
+**Q: What happens to funds during a delay dispute?**  
+A: The system cannot safely forfeit escrow to Network Reserve before all verified/applicable deadline credits have been included. The proposed automatic transfer of unclaimed funds to Reserve remains blocked for real users pending consent, legal review, consensus-liveness and consumer safeguards.
