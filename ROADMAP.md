@@ -12,7 +12,9 @@
 - [ ] Resolve security of **initial** one-time recovery destination registration (not changing, which is prohibited)
 - [x] Record Q6: Triggered escrow rights survive terminal rescue; receiver 24h then sender key used through linked rescue wallet within 72h if unclaimed (design only)
 - [x] Q7: confirmed immutable recovery wallet receives automatic pre-trigger refund at original 3h timeout after source DEAD (design only)
-- [ ] Q8: decide destination wallet's own signature/proof of control at irreversible setup
+- [x] Q8 clarification: one-use recovery secret is generated inside the DESTINATION recovery wallet's encrypted BlackBox (design only)
+- [ ] Q9: decide whether destination BlackBox owner must approve source→destination irreversible pairing before finality
+- [ ] Design secure key commitment, authenticated destination BlackBox issuance and replay protection
 - [ ] Prove single-use, destination-binding and atomic settlement under concurrent receiver/sender/reserve operations
 - [ ] Identify all contradictions and create versioned, reviewable spec decisions
 - [ ] Preserve evidence and clarify publication/licensing strategy
