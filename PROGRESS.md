@@ -19,8 +19,9 @@
 ## Still NOT done
 - [x] Resolve Question 1: **Option B — no sender cancellation after Trigger, even for wrong recipient address** (2026-10-24).
 - [x] **Q2 (2026-10-24):** Wallet never enrolled within 72h is permanently DEAD, with NO future reactivation or initial setup key regeneration.
-- [x] **Q3 (2026-10-24):** Record optional TongNet Disaster Recovery Wallet with wallet-key-only disaster transfer to preconfigured address and permanent original wallet DEAD state (documentation only).
-- [ ] **Q4:** Define authorization for adding/changing disaster recovery address.
+- [x] **Q3 (2026-10-24):** Record optional TongNet Disaster Recovery Wallet; recovery execution requires Wallet Private Key **plus** one-use Disaster Recovery Key (no BlackBox/Authenticator), sweeping eligible funds to fixed destination and permanently DEAD source wallet (documentation only).
+- [x] **Q4:** Confirm third optional Disaster Recovery Key's one-time execution role, irrevocably immutable address/key and lost-key handling (documentation only).
+- [ ] **Q5:** Decide authentication needed for *initial* recovery address registration (Wallet Private Key only or Wallet Private Key plus TongNet Authenticator).
 - [ ] Answer remaining key loss, theft, recovery and consent questions (one at a time).
 - [ ] Complete prior-art search.
 - [ ] Prove a decentralised consensus and finality algorithm.
@@ -35,7 +36,14 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 
 ## Current next question
 
-**Q3:** If an already ACTIVE wallet loses the Authenticator Master Key (or the Authenticator device), but the owner still has the wallet private key, should there be any independent secure recovery route to restore access to BlackBox, or should this access remain permanently locked? Await user answer.
+**Q5 (NEXT):** When FIRST setting the immutable Disaster Recovery Wallet address, should the user verify with both Wallet Private Key **and** TongNet Authenticator, or Wallet Private Key alone? No later address/key change is ever allowed. Await user answer.
+
+## Current disaster recovery work
+- [x] Create dedicated Disaster Recovery Wallet specification and record three key categories.
+- [x] User confirmed one-time Disaster Recovery Key is issued when destination is set, cannot ever be changed or reissued, and must be supplied with Wallet Private Key to execute.
+- [x] User confirmed recovery destination cannot ever be changed once set; lost disaster key means that route is unavailable; standard transfers are still possible if the other two keys survive.
+- [ ] Decide initial destination setup authentication (Q5).
+- [ ] Define what happens to funds already locked in ordinary transactions when Run Disaster Recovery executes.
 
 ## Important blockers
 1. Consensus / Byzantine finality / Sybil security not designed.
