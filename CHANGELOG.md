@@ -1,5 +1,12 @@
 # TongNet — Documentation & Project Change Log
 
+## 2026-10-24 — Q6 answered: rescue spendable funds; preserve Triggered escrow
+- User confirms terminal Disaster Recovery immediately transfers only available funds to immutable bound rescue wallet (minus any applicable fee), leaving all previously Triggered/locked escrow untouched.
+- Receiver keeps original 24-hour claim priority; if unclaimed, during the next 72 hours the **same existing, unspent sender Claim Key** can be used from **the immutably linked rescue wallet**, but only if original source disaster recovery has already finalized.
+- User must still possess that sender Claim Key; BlackBox loss does not magically reissue it. The sender claim remains single-use and original time window stays unchanged. If unclaimed at final deadline, creator-proposed reserve path remains a legal/consumer-protection blocker.
+- The bound wallet address is cryptographically authorised; do NOT pretend it proves both wallet addresses belong to the same person.
+- **Open Q7:** an original payment still in 3h PENDING_TRIGGER (not yet Triggered) must auto-refund. Where should its money go once the original wallet is DEAD?
+
 ## 2026-10-24 — Q5 answered: initial disaster setup is two-factor
 - User selected **Option A**: immutable recovery wallet address can be registered only with BOTH Wallet Private Key and TongNet Authenticator approval.
 - This applies to ONE-TIME initial registration, not to later Run Disaster Recovery (which still requires Wallet Private Key + Disaster Recovery Key, not Authenticator).
