@@ -22,6 +22,9 @@
 
 ## Optional TongNet Disaster Recovery Wallet — Q3
 
+**New key requirement (2026-10-24):** The product has three separately designated key categories: (1) wallet private key, (2) authenticator master key, (3) optional disaster recovery key generated/provisioned if recovery is enabled. Their secret materials and permissions must be distinct. The third key's enforcement role is **UNDECIDED** pending Q4; do not implement a bypass on assumptions. Recovery destination wallet address is separate from recovery key.
+
+
 - Optional destination is registered in normal Wallet settings, not BlackBox; the authentication needed to add/change it remains undecided.
 - When BlackBox/Authenticator is inaccessible but the original wallet private key is available, **Run Disaster Recovery** executes WITHOUT requiring BlackBox access or a rotating Authenticator code.
 - Intended outcome: atomic full sweep of **eligible** wallet balance, minus actual applicable fee, to **previously registered** recovery address; then original wallet enters a permanently DEAD state. Recovery never permits arbitrary destination changes at execution.
