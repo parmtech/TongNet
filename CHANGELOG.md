@@ -1,5 +1,12 @@
 # TongNet — Documentation & Project Change Log
 
+## 2026-10-24 — Q8 clarification: one-time key generated inside DESTINATION BlackBox
+- Source wallet owner initiates optional irreversible disaster destination association from normal Wallet Settings, with source Private Key and TongNet Authenticator as already confirmed.
+- User specifies the unique, immutable one-time Disaster Recovery Key MUST be generated within the selected recovery DESTINATION Wallet's own TongNet BlackBox, not the source BlackBox.
+- Owner later supplies this very key together with source Wallet Private Key to execute Run Disaster Recovery once; source BlackBox and Authenticator are not needed at execution.
+- Distinguish delivery/creation of a secret from a signed proof that recovery destination actually approved the pairing. No cryptographic destination acceptance requirement confirmed yet.
+- **NEXT Q9:** Pairing final only after independent destination BlackBox acceptance, or immediately after source approval and destination-side key generation?
+
 ## 2026-10-24 — Q7 answered: original 3-hour expiry refund goes to bound recovery wallet
 - User selected **Option A**. If original wallet becomes DEAD after a successful disaster sweep while a separate outgoing payment is **locked but NOT Triggered**, do not cancel or accelerate the original 3h window.
 - At original t0+3h, automatically refund its untriggered locked amount directly to already-authenticated Disaster Recovery Wallet R, not DEAD source S. S cannot Trigger after DEAD; race order and atomic finality need formal proof.
