@@ -35,17 +35,17 @@
 | ID | Rule |
 |---|---|
 | D-016 | Sending a payment **locks** funds; initiation is not recipient settlement |
-| D-017 | Sender must separately **Trigger** it within authenticated BlackBox |
-| D-018 | **NO sender manual cancellation** in the pre-trigger phase |
-| D-019 | If not triggered by **3 hours after Send**, automatic full refund to sender |
-| D-020 | **SUPERSEDED BY 2026-10-25:** Sender BlackBox creates Receiver Claim Code at transaction initiation; unusable until a successful Trigger, with 24h window from Trigger finality |
+| D-017 | **SUPERSEDED:** independent Trigger removed. Sender BlackBox FINAL_ACCEPT for receiver Claim Request is the sole final release approval (2026-10-25). |
+| D-018 | **OBSOLETE:** no distinct pre-trigger 3h period exists in Secure P2P v2. |
+| D-019 | **REMOVED:** no 3-hour Trigger/automatic refund in Secure P2P v2. |
+| D-020 | **LATEST:** Sender BlackBox creates Receiver Claim Code K_R on INITIATE/LOCK; receiver submits signed Claim Request; no separate Trigger. Proposed 24h starts after final LOCK, pending exact-clock approval. |
 | D-021 | **2026-10-25 CONFIRMED:** Sender BlackBox generates Receiver Claim Code; Sender privately gives code to intended recipient. Final Trigger activates its usability for the cryptographically bound on-chain recipient only, NOT automatic plaintext delivery to Receiver BlackBox |
 | D-022 | **2026-10-25 strengthened:** Receiver submits Claim Request within 24h after Trigger using K_R and bound wallet authority; FINAL receiver settlement additionally requires Sender's distinct signed ACCEPT in Sender BlackBox and network finality strictly within adjusted receiver deadline |
 | D-023 | Sender cannot reclaim during recipient's 24-hour window |
 | D-024 | After receiver's adjusted 24h Claim expires, a **NEW Sender Claim Key is generated in the original Sender BlackBox**, usable only with sender authority in the **following 72h** (adjusted only for verified network delay); after that it expires |
 | D-025 | One successful claim/refund consumes entitlement and must atomically prevent any competing payout |
 | D-026 | Latest user intent: unrecovered funds after 24+72h go permanently to TongNet Network Reserve and support **network-only** transaction costs; **not authorised for real-money launch without legal, consent and economic review** |
-| D-027 | **Confirmed 2026-10-24 (Question 1, Option B): After a successful Trigger, there is NO sender cancellation, emergency stop, or reversal, including when the recipient address was entered incorrectly. A valid addressed receiver may still claim in the 24h window; sender recovery is possible only after non-claim and expiry of that window.** |
+| D-027 | **HISTORIC 2026-10-24:** Trigger-based rights replaced by 2026-10-25 two-party manual final ACCEPT. Correct-code receiver cannot claim without authentic Sender approval. Already BFT-final approved transfer remains irreversible. |
 
 ## Historical/superseded
 
