@@ -164,3 +164,17 @@ A: Their nominal base duration remains. A proven 20-minute eligible delay grants
 
 **Q: What happens to funds during a delay dispute?**  
 A: The system cannot safely forfeit escrow to Network Reserve before all verified/applicable deadline credits have been included. The proposed automatic transfer of unclaimed funds to Reserve remains blocked for real users pending consent, legal review, consensus-liveness and consumer safeguards.
+
+## 2026-10-25 architecture revision FAQ
+
+**Q: What was confirmed in Q16–Q25?**  
+A: Q16 **C** combined independently proven per-task and network-wide delay (no double counting); Q17 **C** anti-fabrication; Q18 **C** consensus evidence or Protected Suspense; Q19 **C** decentralised Anti-Sybil committee; Q20 **C** phased hybrid evolution; Q21 **C** fully automated validator administration; Q22 **B** quarantine/investigate/restore-or-remove; Q23 **B** backup validators; Q24 **C** secure quorum on partitions; Q25 **B** preverified rotation that cannot create contradictory quorums. These are confirmed product choices only, not implemented or formally verified.
+
+**Q: Is TongNet guaranteed 100% decentralised and completely free?**  
+A: NO. Physical networks have dependencies and each transaction consumes node resources. Target no indispensable owner/cloud and affordable or sponsored user-visible payments, with a transparent minimal-fee fallback. Phase 1 verified-validator onboarding has real trust assumptions, to be openly disclosed; fully permissionless security must earn independent proof.
+
+**Q: Is this an original novel algorithm not used anywhere else?**  
+A: Novelty has not been verified. TongNet may compose distinctive payment/recovery/delay features; use reviewed BFT/crypto rather than invent risky primitives, check licences, and get prior-art review before saying 'world-first'.
+
+**Q: What replaces all earlier one-by-one questions?**  
+A: [Master architecture research](TONGNET_FUTURE_ARCHITECTURE.md) and [all 95 question-and-answer recommendations](MASTER_QA_RECOMMENDATIONS.md), with explicit user-confirmed vs engineer-proposed labels and real-money hard blockers.
