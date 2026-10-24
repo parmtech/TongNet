@@ -29,7 +29,7 @@ A: No. User wants separate security boundaries, with a separate TongNet Authenti
 A: Earlier recorded specification: use wallet private-key authorisation plus one-time setup credential, without requiring initial BlackBox login. The setup credential becomes invalid after enrolment. **RECORDED REQUIREMENT, cryptographic details OPEN.**
 
 **Q: What if enrolment does not occur within 72 hours?**  
-A: Earlier consolidated requirement: wallet becomes permanently DEAD, cannot send/receive/claim, and cannot be reactivated. **RECORDED DESIGN REQUIREMENT; impacts and exceptions require confirmation before deployment.**
+A: **CONFIRMED again in Question 2 (2026-10-24):** when the first 72 hours after wallet creation end without completed TongNet Authenticator activation, wallet becomes permanently **DEAD**. It can never be reactivated, including through any administrator or later possession of the old keys. SEND, RECEIVE and CLAIM remain unavailable. A new wallet must be generated. Real implementation still requires protocol tests and expiry boundary definition.
 
 **Q: Does the master secret change every minute?**  
 A: No: a stable, separate authenticator root secret yields **60-second rotating access codes**. A code is not itself a robust transaction signature. **CONFIRMED BEHAVIOUR; implementation OPEN.**
@@ -40,8 +40,11 @@ A: Requirement is **no**, as long as other cryptographic factors are required. P
 **Q: How is the authenticator reset?**  
 A: Prior recorded design proposes requiring current authenticator master secret plus wallet private-key proof, then issuing a fresh one-time enrolment secret. **RECORDED REQUIREMENT; loss recovery OPEN.**
 
-**Q: If setup or master keys are lost?**  
-A: **OPEN.** Next specific decision: if the one-time Authenticator Setup Key is lost before enrolment within the initial 72 hours, can the owner regenerate it securely, or does the original activation deadline force a new wallet? No approved procedure established.
+**Q: If the initial one-time Authenticator Setup Key is lost before activation?**  
+A: **CONFIRMED — Question 2 (2026-10-24):** no new/replacement setup key is issued to save that wallet. If activation has not completed by the original 72-hour deadline, that wallet becomes forever DEAD and cannot be made active again. The protocol observes non-activation and expiry; it cannot detect a missing physical key. Create a new wallet instead.
+
+**Q: What if the Authenticator Master Key is lost AFTER successful activation?**  
+A: **OPEN — NEXT QUESTION.** We still need to decide whether a distinct secure recovery option should exist or access becomes permanently lost.
 
 ## Payment flow
 
