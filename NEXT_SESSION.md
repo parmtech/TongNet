@@ -44,11 +44,21 @@ See [docs/DISASTER_RECOVERY.md](docs/DISASTER_RECOVERY.md), [docs/DECISIONS.md](
 ## Q5 confirmed (2026-10-24)
 **Option A:** INITIAL Disaster Recovery Wallet address registration requires BOTH Wallet Private Key proof AND TongNet Authenticator approval. Once set, both destination and Disaster Recovery Key are permanently immutable. Later Run Disaster Recovery still needs Wallet Private Key + one-use Disaster Recovery Key, not BlackBox/Authenticator. See docs/DECISIONS.md.
 
-## NEXT SINGLE QUESTION (unanswered — Q6)
+## Q6 answered (2026-10-24) — Triggered escrow and recovery-wallet sender claims
 
-**Punjabi:** "ਮੰਨ ਲਓ Wallet ਵਿੱਚ 1,000 TONG ਨੇ। 300 TONG ਪਹਿਲਾਂ ਦੀ transaction ਵਿੱਚ lock ਨੇ, ਤੇ 700 available ਨੇ। ਹੁਣ ਤੁਸੀਂ Disaster Recovery ਚਲਾਉਂਦੇ ਹੋ ਤੇ ਪੁਰਾਣਾ Wallet ਹਮੇਸ਼ਾ ਲਈ DEAD ਹੋਣਾ ਹੈ। 300 locked TONG ਦਾ ਕੀ ਕਰੀਏ? **A:** 700 ਹੁਣ backup wallet ਨੂੰ ਭੇਜੀਏ; 300 ਲਈ receiver ਦੇ ਪੁਰਾਣੇ ਹੱਕ ਜਿਉਂ ਦੇ ਤਿਉਂ ਰਹਿਣ, ਤੇ ਜੇ ਬਾਅਦ ਵਿੱਚ refund sender ਨੂੰ ਬਣੇ ਤਾਂ ਉਹ backup wallet ਵਿੱਚ ਜਾਵੇ। **B:** ਜਦ ਤੱਕ 300 ਵਾਲੀ transaction final ਨਹੀਂ ਹੁੰਦੀ, ਸਾਰੀ Disaster Recovery wait ਕਰੇ। ਜਾਂ ਤੁਹਾਡਾ ਹੋਰ ਤਰੀਕਾ?"
+1. Run Disaster Recovery immediately moves **only available/unlocked** wallet value (less any fee) into immutable pre-registered Disaster Recovery Wallet and marks source permanently DEAD. Funds previously Triggered stay locked in their **original escrow** (e.g. 300 locked + 700 unlocked → 700 rescued now, 300 remains conditional).
+2. The receiver retains their **full 24h claim right** since Trigger. If receiver claims, it settles forever, no source recovery of that escrow.
+3. If receiver fails to claim, original sender has the next **72h** opportunity. If owner already possesses the original **sender's one-time Claim Key** (normally in source BlackBox), they can submit **same key from linked Disaster Recovery Wallet** after the source's Run Disaster Recovery has actually finalized. The network validates immutable address-binding + destination wallet control + original transaction-scoped entitlement and time window. No new claim key is minted or copied.
+4. If the user lost the sender Claim Key with inaccessible source BlackBox, they cannot use disaster recovery to bypass it. After expiry, the creator's proposed reserve forfeiture rule remains, subject to legal/consumer analysis.
+5. A cryptographically pre-registered link does **NOT** prove the two wallets belong to the same human, only that the original wallet authorised this destination. Correctness and race handling remain unaudited.
 
-Do not assume the answer. Await user.
+**Special unresolved state:** Q6 dealt with payments already Triggered. A transaction only LOCKED but NOT yet Triggered is still inside initial 3h deadline and auto-refunds without a Claim Key if no Trigger. That case is NEXT Q7.
+
+## NEXT SINGLE QUESTION (unanswered — Q7)
+
+**Punjabi:** "ਮੰਨ ਲਓ Wallet ਵਿੱਚੋਂ 300 TONG ਕਿਸੇ ਨੂੰ Send ਕਰਕੇ lock ਕੀਤੇ ਹੋਏ ਨੇ, ਪਰ Sender ਨੇ BlackBox ਤੋਂ ਹਾਲੇ Trigger ਨਹੀਂ ਕੀਤਾ। ਉਹ 3-ਘੰਟੇ ਵਾਲੀ Pending transaction ਹੈ। ਇਸ ਦੌਰਾਨ ਤੁਸੀਂ Run Disaster Recovery ਕਰਕੇ ਪੁਰਾਣਾ Wallet DEAD ਕਰ ਦਿੱਤਾ। 3 ਘੰਟੇ ਪੂਰੇ ਹੋਣ ’ਤੇ 300 TONG ਦਾ automatic refund ਕਿੱਥੇ ਜਾਵੇ? **A:** ਸਿੱਧਾ ਪਹਿਲਾਂ ਤੋਂ bound Disaster Recovery Wallet ਵਿੱਚ। **B:** ਇਸ ਕਿਸਮ ਦੀ pending transaction ਮੁੱਕਣ ਤੱਕ Disaster Recovery ਨੂੰ ਰੋਕੀਏ। ਜਾਂ ਹੋਰ ਤਰੀਕਾ?"
+
+Wait for answer. Do not assume. After answer record in decisions, protocol, security, FAQ, backlog, progress, change log and handoff; commit.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
@@ -58,7 +68,7 @@ Do not assume the answer. Await user.
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Initial disaster address setup security; treatment of locked funds in disaster sweep; lost-key policy for different factors; wallet/authenticator simultaneous compromise; reserve forfeiture and consent; consensus/Sybil resistance; network race conditions.
+Untriggered three-hour auto-refund into a now DEAD wallet (NEXT Q7); sender Claim Key loss and expiry handling; receiver-vs-sender races; wallet/authenticator compromise; reserve forfeiture legality; consensus/Sybil resistance; network partitions.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
