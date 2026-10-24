@@ -69,9 +69,10 @@
 |---|---|---|
 | CLOSED-001 | **ANSWERED 2026-10-24** | Option B confirmed: after a successful Trigger, sender CANNOT cancel or emergency-stop the transaction, even if recipient address is wrong. Receiver 24-hour window remains valid; if no receiver claim, sender gets the next 72h for recovery. |
 | CLOSED-002 | **ANSWERED 2026-10-24** | User chose **permanently DEAD** if never enrolled within 72h. No reissuing lost initial Setup Key to save that same wallet under the agreed rule. After expiry no key, support agent or administrator can activate it again. A new wallet is needed. |
-| CLOSED-003 | **ANSWERED 2026-10-24** | User chose optional TongNet Disaster Recovery Wallet, configured in normal Wallet settings, NOT BlackBox. An original-wallet-private-key holder can Run Disaster Recovery WITHOUT BlackBox/Authenticator; intend full eligible-balance sweep less any applicable fee to preconfigured recovery address, followed by permanently DEAD source wallet. Does NOT restore BlackBox. Pending treatment of already locked funds. |
-| OPEN-016 | CRITICAL / AFTER Q4 | Is TongNet Authenticator approval required when registering/changing Disaster Recovery destination, or can a wallet private key alone change it? |
-| OPEN-019 | **NEXT / CRITICAL** | User added an OPTIONAL third **Disaster Recovery Key** distinct from Wallet Private Key and Authenticator Master Key. Specify if this third key is needed for executing a recovery sweep or only setting/changing recovery destination; earlier Q3 says no BlackBox/Auth code required. |
+| CLOSED-003 | **ANSWERED / REFINED 2026-10-24** | Optional TongNet Disaster Recovery Wallet in normal Wallet settings, NOT BlackBox. Run Disaster Recovery requires **original Wallet Private Key + distinct one-use Disaster Recovery Key**, NO BlackBox/Authenticator. Atomic sweep of eligible balance (less actual fee) to immutable preconfigured destination; old wallet permanently DEAD. Locked-fund treatment unresolved. |
+| OPEN-016 | **NEXT / CRITICAL** | Does INITIAL one-time disaster destination registration require Wallet Private Key **and** TongNet Authenticator, or Wallet Private Key alone? Configuration is immutable after setup. |
+| CLOSED-019 | **ANSWERED 2026-10-24** | Optional one-use Disaster Recovery Key is issued when destination is first configured; Run Disaster Recovery requires BOTH Wallet Private Key **and** Disaster Recovery Key, but NO BlackBox/Authenticator code. Key consumed once and source wallet permanently DEAD after atomic sweep. |
+| D-028 | **CONFIRMED — IMMUTABILITY** | Once set, disaster destination address and Disaster Recovery Key can NEVER be changed, reset, regenerated or replaced. If disaster key is lost, this feature cannot be used. If Wallet Private Key and Authenticator Master Key both remain, normal transactions to another wallet may continue; old recovery configuration remains unchanged. |
 | OPEN-017 | Critical | Define whether pending/triggered/escrow funds may be swept without violating receiver claim or sender expiry rules. |
 | OPEN-018 | High | Destination address confirmation, change delays, ownership proof, attack resistance, atomic sweep and fees. |
 | OPEN-004 | Critical | If both wallet and second factor compromised: theft prevention, freeze and dispute controls? |
@@ -93,11 +94,20 @@
 
 - **Confirmed:** (1) Wallet Private Key, (2) TongNet Authenticator Master Key, (3) optional Disaster Recovery Key if recovery is enabled.
 - **Recovery wallet address is not itself the Disaster Recovery Key.** Keep both conceptually separate.
-- **Open:** what exact action requires the third key? Earlier user said executing recovery needs no BlackBox or Authenticator and can be initiated from wallet; new third-key clarification may add a separate recovery check. Do not decide without user.
+- **Resolved:** the third key is generated on registering disaster address and required *together with* Wallet Private Key to Run Disaster Recovery; can be used once. No BlackBox/Authenticator is needed for execution.
+- **Resolved:** Recovery destination and recovery key are immutable from initial setup; losing this key permanently disables this particular recovery path. Standard send may still work with both Wallet Private Key and Authenticator Master Key.
+- **Still OPEN:** security factor to authorise *initial* immutable setup; handling funds already locked in ongoing transactions.
 
 ## Q3 — Disaster Recovery Wallet (2026-10-24)
 - Optional, pre-registered second wallet address in ordinary wallet settings.
-- Recovery executable using wallet private-key authority alone, without BlackBox or Authenticator factor.
+- Recovery executable using **Wallet Private Key AND one-use Disaster Recovery Key**, without BlackBox or Authenticator factor.
 - Sweep entire eligible source balance to fixed destination less any applicable fee, then permanently DEAD source wallet.
-- **Security risk:** if stolen wallet key can also change recovery destination, an attacker can drain funds. Destination registration/update authorization is undecided.
+- **Security risk:** if stolen wallet key can configure the destination during *first setup*, an attacker can permanently pre-authorise their own address and obtain its key; **initial setup authorization** is undecided. Once registered, destination and key are immutable.
 - **Protocol conflict:** in-flight locked transfers might have receiver claim rights; treatment undecided. See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
+
+## Immutable disaster backup rule — confirmation 2026-10-24
+
+- User explicitly ruled out changing the recovery address or recovering/changing the once-generated key under any circumstances after initial setup.
+- Lost disaster key means disaster recovery cannot run. If both normal wallet and Authenticator secrets survive, user may use ordinary transactions to move their funds elsewhere, but cannot change the configured disaster address/key.
+- User requires Run Disaster Recovery to consume the single-use disaster secret and terminally kill the wallet.
+- **NEXT:** how initial once-only address setup is authorised; and later how already-locked balances can coexist with emergency sweep.
