@@ -1,3 +1,9 @@
+## 2026-10-24 — Q14: Strict claim finality before financial expiry
+- User selected Option A: original 24h Receiver Claim and subsequent 72h Sender reclaim each require network consensus FINALITY strictly BEFORE their established deadline. A pre-deadline click, signature, relay receipt or placement in queue does not stop expiry if finality arrives late. A late-finalized Claim is EXPIRED.
+- This is distinct from new Send timer starting upon initial network acceptance as discussed in Q13; no running protocol has yet implemented either rule. Validators must implement atomic ordering, replay protection and deadline checks.
+- Outstanding launch risk: a complete network outage can make all Claims impossible and allow the proposed 96h reserve forfeiture to take away funds. No legal or consumer protection clearance is established. **NEXT Q15:** what happens to unclaimed escrow after a long network outage?
+- Updated Decisions, Protocol, FAQ, Security, deep question backlog, Progress, next-session handoff, Roadmap, README and Disaster Recovery cross-reference.
+
 ## 2026-10-24 — Q13: queue requests; new timers start on network acceptance (user direction)
 - User wants already-started timers to run at their original rate independent of slow/fast network; load-balancing and transaction/task queueing are desirable.
 - A NEW transaction timer must begin only when the NETWORK ACCEPTS the new operation. Technical recommendation: define acceptance as network consensus finality, not local/relay queue-admission receipt. Proposed stages LOCAL → SIGNED → QUEUED_NONFINAL → CONSENSUS_FINAL, with timer starting only at finality.
