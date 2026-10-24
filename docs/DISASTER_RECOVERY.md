@@ -78,7 +78,7 @@ Actual protocol must make destination acceptance, final binding, and key commitm
 
 **Q8 new clarification (2026-10-24):** The one-time Disaster Recovery Key originates **inside the registered DESTINATION wallet's own BlackBox**, rather than being minted or shown in the SOURCE wallet. This is a custody/delivery rule, but is **not by itself a cryptographic destination private-key signature** or proof the same natural person controls both addresses.
 
-**Q9 ANSWERED:** no pairing or key while pending; destination must explicitly ACCEPT in its own BlackBox; after acceptance key is generated there and irreversible link is committed. On REJECT, send notification to source BlackBox; no configuration. **NEXT Q10:** how long may a request remain unanswered before it expires (or does it remain pending indefinitely)?
+**Q9 ANSWERED:** no pairing or key while pending; destination must explicitly ACCEPT in its own BlackBox; after acceptance key is generated there and irreversible link is committed. On REJECT, send notification to source BlackBox; no configuration. **Q10:** unanswered pairing requests expire after 24 hours. **Q11:** source cannot cancel a pending request; wait for Reject or Expired.
 
 ## Security warning
 
@@ -115,6 +115,10 @@ These are design requirements only. A stolen wallet key together with the recove
 - Pending expiry must be based on authoritative network-accepted request time, not the local device clock (exact consensus time procedure TBD). The user's rule is a 24-hour window, not a user-selected wall-clock date.
 - The no-change-forever rule applies only **after an ACCEPT is finalized**, not to a request that expired without a key.
 
-## Next open question Q11
+## Q11 confirmed — Option B
 
-If S has already sent one PENDING disaster recovery request to R, can S **cancel it and submit another request** before R accepts, or must S wait for R Reject or the 24-hour automatic expiry? Also separately define acceptance-vs-withdrawal race ordering. No rule has been decided yet.
+A PENDING disaster recovery association cannot be cancelled, withdrawn, replaced or redirected by its SOURCE wallet. The source must wait for the destination to REJECT or for the original 24-hour deadline to EXPIRE, before trying a new association. If destination ACCEPTS a valid request, the immutable link is final and cannot ever be changed. PENDING still means NOT_CONFIGURED.
+
+## Next Q12
+
+If destination presses Accept shortly before the 24-hour expiry, but network finality is recorded afterward, what is the authoritative ordering rule? No local clock or unverified timestamp can decide. Ask user next.
