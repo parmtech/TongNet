@@ -19,8 +19,11 @@ Speak simple, conversational **Punjabi**. Ask **exactly one product/security que
 5. If no receiver claim, receiver credential expires; original sender has **additional 72 hours** to reclaim once.
 6. Creator's proposed final rule: unreclaimed sum permanently transferred to TongNet Network Reserve for network-only expenses. **Potential forfeiture and legal risk: do not implement with real money before consent/legal review.**
 
+## Last question answered
+**Q1, Option B, confirmed 2026-10-24:** After Trigger, a sender cannot cancel or emergency-stop, **even for an incorrect recipient address**. The recipient retains the 24-hour claim window. If unclaimed, sender-only recovery during the next 72h applies. No guarantee of recovery if wrong receiver claims.
+
 ## NEXT SINGLE QUESTION (unanswered)
-**Punjabi:** "ਮੰਨ ਲਓ ਤੁਸੀਂ ਗਲਤ receiver address ਉੱਤੇ ਪੈਸੇ ਭੇਜੇ ਅਤੇ ਆਪਣੇ BlackBox ਤੋਂ Trigger ਵੀ ਕਰ ਦਿੱਤਾ। ਜੇ receiver ਨੇ ਹਾਲੇ Claim ਨਹੀਂ ਕੀਤਾ, ਤਾਂ ਕੀ ਤੁਸੀਂ ਕੋਈ emergency Stop option ਚਾਹੁੰਦੇ ਹੋ, ਜਾਂ 24 ਘੰਟੇ ਵਾਲਾ rule ਬਿਨਾਂ ਕਿਸੇ exception ਦੇ ਚੱਲੇ?"
+**Punjabi:** "ਮੰਨ ਲਓ Wallet ਬਣਾਉਣ ਵੇਲੇ ਮਿਲੀ One-Time Authenticator Setup Key ਗੁੰਮ ਹੋ ਗਈ, ਅਤੇ 72 ਘੰਟੇ ਹਾਲੇ ਪੂਰੇ ਨਹੀਂ ਹੋਏ। ਕੀ Wallet Private Key ਨਾਲ ਨਵੀਂ Setup Key ਲੈਣ ਦਾ ਕੋਈ secure ਤਰੀਕਾ ਹੋਵੇ, ਜਾਂ ਉਹ wallet 72 ਘੰਟਿਆਂ ਬਾਅਦ DEAD ਹੋ ਜਾਵੇ ਤੇ ਨਵਾਂ wallet ਬਣਾਉਣਾ ਪਵੇ?"
 
 Do **not** assume the answer. Await the user.
 
@@ -32,7 +35,7 @@ Do **not** assume the answer. Await the user.
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Lost one-time setup code within 72 hours; lost master secret; wallet/authenticator simultaneous compromise; reserve forfeiture and consent; Sybil-proof consensus; transaction race boundaries; backup and device loss.
+Lost authenticator master secret; wallet/authenticator simultaneous compromise; reserve forfeiture and consent; Sybil-proof consensus; transaction race boundaries; backup and device loss.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
