@@ -1,10 +1,10 @@
 # TongNet — Deep Technical, Logical & Security Question Backlog
 
-**Status:** Active discovery backlog, 86 explicit questions; initially prepared 2026-10-24. **Not evidence that these answers exist.**
+**Status:** Active discovery backlog, now 87 tracked questions (original 86 + newly identified Q7), initially prepared 2026-10-24. **Not evidence that these answers exist.**
 
 **Workflow:** Ask one meaningful unresolved question at a time in easy Punjabi; user answers → record as a decision in docs/DECISIONS.md → amend FAQ / protocol / security docs → update PROGRESS.md, NEXT_SESSION.md, this backlog and CHANGELOG.md → commit to connected GitHub → ask next question.
 
-**Q5 ANSWERED (2026-10-24):** Option A — Initial one-time setup of immutable Disaster Recovery Wallet address requires BOTH Wallet Private Key and TongNet Authenticator. The address and one-time recovery key can never change/reset. **NEXT Q6:** If outgoing funds are already locked, what may a terminal Disaster Recovery sweep, and what happens to later refunds without violating receiver rights?
+**Q5 ANSWERED (2026-10-24):** Initial immutable Disaster Recovery Wallet setup requires Wallet Private Key and TongNet Authenticator. **Q6 ANSWERED (2026-10-24):** Immediately rescue *unlocked* balance; Triggered escrow stays locked for receiver's 24h right, then sender's 72h window. After completed disaster recovery, sender's same one-use Claim Key (if possessed) may claim via immutably linked recovery wallet. No automatic claim without key. **NEXT Q7:** What happens to an untriggered transfer's mandatory 3h auto-refund if source wallet is now permanently DEAD?
 
 **Do not re-ask settled decisions:** 3h noncancellable pre-trigger; 24h receiver claim after Trigger; following 72h sender recovery; permanent 72h unenrolled DEAD wallet; no cancellation after Trigger even wrong address; optional immutable disaster destination and one-use Disaster Recovery Key plus Wallet Private Key to execute, with no BlackBox/Authenticator; one-way old-wallet DEAD.
 
@@ -17,7 +17,8 @@
 - [x] **DQ-001** Initial immutable Disaster Recovery Wallet address registration: **Option A, Wallet Private Key AND TongNet Authenticator**, confirmed 2026-10-24. See docs/DECISIONS.md.
 - [ ] **DQ-002** Should an initial recovery-wallet destination require a signed proof that the owner controls the destination private key, or is a checksum/address confirmation enough?
 - [ ] **DQ-003** If a typo enters the irreversible recovery destination and its key is created, should the entire original wallet be flagged as unsafe and user advised to migrate by ordinary transfers?
-- [ ] **DQ-004 [NEXT Q6]** What if disaster recovery is invoked while some funds are already locked in PENDING_TRIGGER or a receiver has an active 24h claim? Sweep only spendable funds with eventual refunds redirected to recovery wallet, or wait for all unsettled transfers to finish?
+- [x] **DQ-004 (triggered escrow portion — Q6)** Preserve receiver's 24h claim; sweep only unlocked; then permit sender Claim Key via linked recovery wallet during next 72h after completed disaster recovery, if unclaimed.
+- [ ] **DQ-087 [NEXT Q7]** If some funds remain in initial three-hour PENDING_TRIGGER and disaster recovery makes source DEAD, should the mandatory automatic refund at 3h credit the pre-bound recovery destination immediately when due, or should disaster recovery wait for these locks to resolve?
 - [ ] **DQ-005** What if disaster recovery starts while a receiver has a valid 24-hour claim on a triggered transfer? Must the receiver's entitlement survive?
 - [ ] **DQ-006** What if user has a sender-only recovery entitlement for an unclaimed outgoing transfer when their original wallet turns DEAD? Where can the eventual returned money legally and technically go?
 - [ ] **DQ-007** What happens to future incoming transfers attempted to a permanently DEAD address: reject before debit, refund, or burn? Which consensus evidence proves DEAD?
@@ -116,4 +117,5 @@
 ## Answer log
 
 - **2026-10-24 — DQ-001/Q5**: Option A confirmed. INITIAL recovery destination setup requires Wallet Private Key and TongNet Authenticator; immutable thereafter. Full decision in docs/DECISIONS.md.
-- **Next Q6:** Locked fund treatment during one-way Disaster Recovery; no decision yet.
+- **2026-10-24 — Q6/DQ-004 (triggered):** User confirmed only unlocked funds sweep now. Already-triggered receiver window survives; sender may use original one-use Sender Claim Key from previously linked rescue wallet after completed disaster recovery in the following 72h. No sender key, no claim. Deadline/race proofs still needed.
+- **NEXT Q7/DQ-087 (pre-trigger):** Where does initial 3h auto-refund go if source became DEAD?
