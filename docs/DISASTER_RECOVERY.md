@@ -179,3 +179,9 @@ After immutable S→R pairing is ACCEPTED, S's BlackBox records, pending claim m
 6. What happens to original locked sends and late-created Sender K_S when S dies, plus strong pre-activation confidentiality of R's encrypted mirror, remain critical engineering OPEN. Never quietly claim those are solved by replication.
 
 **Decision status:** 1-3 are explicit owner-confirmed UX/protocol direction. 4-6 are safety interpretation and unresolved engineering constraints. No running chain or audited cryptographic key migration exists.
+
+## 2026-10-25 — Frozen Mirror access semantics confirmed by owner
+
+Recovery target R **STARTS NORMAL** with independent key/BlackBox but must be fresh/never financially used before pairing. R BlackBox acceptance and BFT-final immutable S->R attachment **atomically freezes R** as `RECOVERY_RESERVED_FROZEN`. Only R's own narrow protocol/backup operations remain; no ordinary financial transaction or own business data. The reserved BlackBox continuously receives encrypted append-only mirrors of S's history, inbox, claim codes, requests, status, and proofs, but it displays no readable source plaintext before successful authorized disaster recovery.
+
+On BFT-final `RUN_DISASTER_RECOVERY(S,R)` with original source key + R-issued one-use disaster recovery secret, S becomes DEAD and R becomes NORMAL_ACTIVE; backed-up ciphertext is verified/decrypted and appears in R, old ledger remains immutable with provenance links, and successor can set a new fresh recovery C. Do NOT release mirrors on an unrelated S DEAD state. Cryptographic unreadability requires not merely hiding UI but actual key-release control; a holder of complete decrypt key can read offline before recovery. Mechanism pending approval/audit. See [Recovery Mirror Protocol](RECOVERY_MIRROR_PROTOCOL.md).
