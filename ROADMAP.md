@@ -114,3 +114,10 @@
 - [ ] Resolve Q6 disaster source-DEAD / inaccessible Sender BlackBox conflict with literal late K_S generation. Do NOT assume an early key without explicit user approval.
 - [ ] Implement/verify code commitment, expiry, transaction/receiver binding, brute-force resistance, safe manual sharing, no key leakage to validators/receiver BlackBox, and no conflicting claims.
 - [ ] Test wrong-address A/B scenario: A receives code but not bound wallet signing authority; B owns wallet but lacks code; recovery only after receiver window, NOT automatic refund at 24h.
+
+## 2026-10-25 — Sender must final-ACCEPT Receiver Claim Request
+
+- [x] Record latest owner confirmation: Receiver K_R + bound-wallet authority only raises CLAIM_REQUEST; mandatory independently signed Sender BlackBox ACCEPT before settlement; no ACCEPT until adjusted Receiver expiry means claim expires with no payout, then sender 72h recover eligibility.
+- [ ] Formally specify separate 3h Trigger and late manual ACCEPT, protect under adjusted 24h and 72h windows; owner approval needed if later combining them.
+- [ ] Prove atomic request+accept settlement before deadline; no replay/claim double-spend, fraudulent Sender Accept impersonation, false address display, malicious metadata, and bounded DoS.
+- [ ] Build encrypted authenticated Claim Request delivery to Sender BlackBox, offline queue, clear safe confirmation, no public plaintext receiver code; test compromised Sender/Receiver, wrong destination A/B, auto-expiry and dynamic network delay.
