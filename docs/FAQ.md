@@ -191,3 +191,13 @@ A: A has code but not B wallet's signing authority; B has signing authority but 
 A: NO. K_R and K_S are transaction-specific normal payment claim credentials. Unrelated permanent Disaster Recovery Key is generated inside the selected RECOVERY WALLET's BlackBox after its accepted pairing.
 
 **Open:** late K_S generation on offline/lost/DEAD Sender BlackBox versus existing Q6 post-disaster Sender Claim Key support needs user decision and protocol proof. See [DECISIONS.md](DECISIONS.md).
+
+## 2026-10-25 — Mandatory Sender BlackBox manual final ACCEPT
+
+**Q: If Receiver has correct Claim Code and their wallet key, can they take funds?** NO. After Receiver submits a signed Claim Request, SENDER's separate BlackBox must display that exact request. Sender manually ACCEPTS only if the wallet address, amount, transaction and recipient match. A valid final settlement requires Sender ACCEPT too; simply having code and wallet doesn't transfer coins.
+
+**Q: What if Sender ignores Claim Request?** A manual REJECT button is not required. No ACCEPT means no Receiver payout. Once Receiver's adjusted 24h right expires, its claim code is invalid, and Sender-exclusive following 72h reclaim window applies, requiring Sender's new Claim Key K_S and network finality within deadline. This is NOT an automatic refund at 24h.
+
+**Q: Does this remove old 3h Trigger?** No, not without another decision. The existing 3h separate Trigger and its no-trigger refund remain. Final ACCEPT is an additional approval after the Receiver Claim Request. See [PROTOCOL.md](PROTOCOL.md).
+
+**Q: Is an incorrect destination guaranteed safe?** No. Sender can withhold ACCEPT when actual bound wallet differs from intended. But Sender still may approve a scammer address or malware may compromise the approval factor; once BFT-final, the payment is irreversible.
