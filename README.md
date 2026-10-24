@@ -70,3 +70,7 @@ User confirmed Q16 C (hybrid per-operation + global one-for-one network delay), 
 ## Primary programming language (selected 2026-10-25)
 
 **Rust** is the chosen primary engineering language for TongNet blockchain core, BFT consensus integration, node/P2P networking, transaction state machine, hybrid validator and Network Delay Calculator, cryptographic wallet/recovery engine, and cross-platform shared libraries. The owner delegated language selection to the assistant, which selected Rust over C/C++ for performance + default memory-safety + maintainability; this is an architecture decision, **not implemented software**. UI applications may use Kotlin/Swift and appropriate desktop/frontend technologies while sharing a single Rust security-critical core via narrowly versioned bindings. Mature audited cryptographic libraries are appropriate; minimise unsafe FFI. Rust does not, by itself, make a protocol free, fully decentralised, or secure. See [Future Architecture](docs/TONGNET_FUTURE_ARCHITECTURE.md).
+
+## Product and adoption critique
+
+[Critical TongNet product review](docs/TONGNET_PRODUCT_CRITIQUE_AND_ADOPTION_PLAN.md) covers user trust, bank/merchant needs, competitive alternatives, 20 red-team questions and an unapproved extra Instant Pay option. Existing Protected Pay rules are unchanged; proposed TONG supply is not final. No mainnet exists.
