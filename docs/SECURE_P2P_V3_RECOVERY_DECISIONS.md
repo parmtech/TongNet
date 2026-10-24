@@ -1,5 +1,8 @@
 # TongNet — 2026-10-25 owner decisions: trusted bilateral P2P, 60-day reclaim, reserved recovery successor
 
+> **LATEST 2026-10-25 OWNER OVERRIDE — ACTIVE Recovery Target (V4):** An accepted S→R recovery pairing does **NOT** freeze, reclassify, or disable R's ordinary wallet. Both S and R remain `NORMAL_ACTIVE` with separate wallets, balances, transfers, BlackBoxes and signing keys. R can independently set its OWN further recovery C even while it carries a **separate sealed parent S BlackBox archive**. ONLY S's encrypted BlackBox records are mirrored, never S's blockchain transaction history/balance. S archive is not readable before authenticated BFT-final `RUN_DISASTER_RECOVERY(S,R)`, which makes S `DEAD`, transfers only S eligible unlocked funds once into ALREADY-ACTIVE R and authorises unlocking S archive with permanent original S provenance. R's own records are unaffected. Prior requirements "R must be virgin", "R becomes FROZEN", "R must block SEND/RECEIVE", and "R becomes active only after S DEAD" are **SUPERSEDED**. But separate archive lock versus normal R wallet functions must be enforced. Key-release decryption cannot be honestly promised without a reviewed conditional cryptographic scheme; S claim K_S late creation and R dying earlier through R→C recovery are OPEN. See [Latest Active Recovery Mirror V4](ACTIVE_RECOVERY_MIRROR_V4.md).
+
+
 **Status:** OWNER PRODUCT REQUIREMENTS + ENGINEERING PROPOSALS SEPARATED. Not coded, tested, audited, or approved for custody/real money. **Latest requirements supersede 72-hour sender reclaim** in older records. Manual Sender BlackBox FINAL_ACCEPT (no 3h Trigger) remains latest protocol direction.
 
 ## 1. Product scope — owner confirmed
