@@ -45,3 +45,11 @@
 Before any real-money deployment: external cryptography and consensus audit, adversarial simulation, fuzzing and property tests, privacy and regulatory review, explicit fee disclosure, reserve governance verification, failure recovery, reproducible builds, testnet history and incident response plan.
 
 **Critical caution:** claims that TongNet is "unhackable", "safer than Bitcoin", "guaranteed zero fee" or "the first protocol of its kind" cannot currently be substantiated.
+
+## Disaster Recovery security decision (recorded 2026-10-24)
+
+The creator chose an optional disaster recovery destination that is **permanently immutable** once registered. At initial registration, a distinct **one-time Disaster Recovery Key** is issued; it cannot be replaced, regenerated or reset later. Executing Run Disaster Recovery requires both source Wallet Private Key and that one-use secret, but not TongNet Authenticator/BlackBox. A valid network-level atomic recovery moves eligible funds to the preset destination, consumes the key and permanently disables the source wallet.
+
+The key's irreversible loss disables this emergency feature, but regular transfers remain possible if the user still controls both ordinary Wallet Private Key and Authenticator Master Key. Initial registration authentication has **not** been decided and is a major security blocker. Existing locked payments/receiver entitlements must not be cancelled or paid twice during recovery. Storing an original plaintext disaster key on a server or in GitHub would defeat its secrecy; secure commitments and independent backups need review.
+
+The rule for wallets never activated within 72 hours is separate: they remain permanently DEAD with no reactivation. No part of these requirements has been independently implemented or audited.
