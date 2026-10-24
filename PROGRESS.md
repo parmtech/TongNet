@@ -36,7 +36,7 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 
 ## Current next question
 
-**Q12 (NEXT):** If destination wallet submits ACCEPT just before the 24-hour deadline but the decentralized network confirms it after the deadline, does it count or EXPIRE? Choose authenticated network acceptance ordering; no user answer yet.
+**Q13 (NEXT):** If TongNet network cannot finalize ANY claims for an extended outage while a triggered payment's 24h receiver/72h sender deadlines run, should deadlines run absolutely (possibly causing reserve loss), or pause under an independently verifiable outage policy? Undecided; legal implications of forfeiture remain blocked.
 
 ## Question discovery and tracking
 
@@ -57,7 +57,8 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] **Q9:** Destination BlackBox must Accept request before immutable pairing and key generation. Reject notifies source BlackBox; pending counts NOT_CONFIGURED (documentation only).
 - [x] **Q10 (2026-10-24, Option A):** Unanswered pairing request automatically expires after 24 hours, without recovery Key/link. Pending/Expired means NOT_CONFIGURED; stale Accept invalid.
 - [x] **Q11 (2026-10-24, Option B):** Source cannot cancel, withdraw or replace a PENDING pairing request, must wait for R REJECT or 24-hour EXPIRED before retrying (design rule only).
-- [ ] **Q12:** Decide Accept-at-deadline network ordering rule.
+- [x] **Q12 (2026-10-24, Option A):** Accepted disaster pairing MUST be network-final BEFORE 24h cutoff; a late-finalized Accept is EXPIRED, regardless of earlier signing/submission.
+- [ ] **Q13:** How payment-claim timers behave in prolonged network-wide downtime.
 - [x] Define Triggered escrow and stored sender claim key delegation after terminal disaster recovery (design only).
 - [x] Specify refund destination for PENDING_TRIGGER when source DEAD (Q7 design only).
 - [ ] Implement/test strict Trigger-vs-DEAD-vs-timeout ordering and no double settlement.
@@ -89,7 +90,9 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [ ] Implement and verify authenticated Accept/Reject, atomic key issuance, race and replay safety.
 - [x] Q10 settled: maximum 24h unanswered PENDING; expiry keeps wallet NOT_CONFIGURED (documentation only).
 - [x] Q11 resolved — no source cancellation or replacement while PENDING.
-- [ ] Define deterministic Accept-vs-Expiry finality near 24h boundary (Q12).
+- [x] Q12 rule decided: finality timestamp strictly before 24h deadline for acceptance; no grace period (documentation only).
+- [ ] Specify consensus clock, stable ordering and race tests; technical proof still outstanding.
+- [ ] Q13 network downtime vs receiver/sender claim deadlines remains open.
 
 ## Documentation sync note
 
