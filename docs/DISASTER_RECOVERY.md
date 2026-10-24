@@ -18,7 +18,7 @@ The project now has three secret-key categories:
 - If the Disaster Recovery Key is **lost**, this disaster recovery route is permanently unavailable for that wallet. Possessing Wallet Private Key alone does **not** bypass the missing recovery secret.
 - If Wallet Private Key **and** Authenticator Master Key remain available, the user may still normally send the wallet's funds to another active wallet using the regular BlackBox-triggered transaction process. **That does not change the old immutable disaster destination or its recovery key.**
 - Provide very clear warnings and require accurate, explicit confirmation of the destination and key backup at setup; no administrative override is allowed under these requirements.
-- Exact cryptographic authorization for **initial** registration remains OPEN: ordinary wallet key alone vs Wallet + TongNet Authenticator. No subsequent change is allowed under either option.
+- **Q5 CONFIRMED — Option A (2026-10-24):** INITIAL irrevocable recovery address registration requires both valid **Wallet Private Key authorization AND TongNet Authenticator approval**. A stolen wallet private key alone cannot set the destination. No further change is allowed once the address and key are committed.
 
 ## One-time emergency execution — confirmed
 
@@ -33,7 +33,7 @@ The project now has three secret-key categories:
 ## Not yet decided (engineering safety problems)
 
 - **Locked or triggered transfers:** user wants ALL funds swept. However, value already locked in a pending or triggered transfer can carry another person's claim entitlement, and triggering cannot be cancelled by sender. An emergency sweep must **not double spend** that value. Define eligible/unlocked value, pending-transfer handling and later resolution before coding.
-- **Initial address setup authentication:** without a safeguard, someone with a stolen Wallet Private Key could create an irreversible rescue configuration they control before the owner does. We must ask the owner next whether the initial setup needs TongNet Authenticator in addition to Wallet Private Key.
+- **First-setup authentication confirmed:** BOTH Wallet Private Key authorization and TongNet Authenticator approval. Exact phishing-resistant transaction-bound proof, device compromise resistance and atomic enrollment still require formal protocol design.
 - Recovery destination activation status, cryptographic binding and proof of control; wrong address irreversible.
 - Can a wallet with no setup still be safe? Yes, standard wallet remains active; disaster feature absent.
 - Key format, secure one-time commitment, replay resistance, consensus deadlines, network partitions, fees, expiry with insufficient spendable balance, and fault-tolerant atomic finality.
@@ -41,11 +41,9 @@ The project now has three secret-key categories:
 
 ## Current priority / Next single product question
 
-**Should INITIAL registration of the permanent disaster recovery destination require:**
-- (A) Wallet Private Key **AND** TongNet Authenticator approval, or
-- (B) Wallet Private Key alone?
+**Q5 ANSWERED:** Option A. Register immutable disaster destination only when **Wallet Private Key + TongNet Authenticator** both approve initial setup. After registration, destination and one-use secret are immutable forever.
 
-**This question does NOT ask whether later changes are allowed; they are permanently disallowed by user confirmation.**
+**Q6 (OPEN):** If disaster recovery is run while ordinary outgoing transactions already have *locked* funds (including a triggered receiver claim window), should the system sweep only currently spendable value and preserve all existing recipient rights, redirecting any legitimate future refunds/recoveries to the pre-set Disaster Recovery Wallet as they become payable; or wait until every pending transaction resolves before executing the final sweep? Needs user decision and concurrency proof.
 
 ## Security warning
 
@@ -55,4 +53,4 @@ These are design requirements only. A stolen wallet key together with the recove
 
 - Early discussion entertained recovery execution using only the Wallet Private Key. **Superseded:** recovery always requires Wallet Private Key **plus** the distinct Disaster Recovery Key.
 - Early draft asked whether users could change or replace a recovery destination/key. **Resolved: no, never.**
-- The independent TongNet Authenticator is **not** required to run emergency recovery, but may be required for initial setup; that remains unresolved.
+- The independent TongNet Authenticator is **required at initial setup** (Q5 Option A), but is **not required to run emergency recovery**, which instead needs Wallet Private Key plus the one-use Disaster Recovery Key.
