@@ -69,7 +69,10 @@
 |---|---|---|
 | CLOSED-001 | **ANSWERED 2026-10-24** | Option B confirmed: after a successful Trigger, sender CANNOT cancel or emergency-stop the transaction, even if recipient address is wrong. Receiver 24-hour window remains valid; if no receiver claim, sender gets the next 72h for recovery. |
 | CLOSED-002 | **ANSWERED 2026-10-24** | User chose **permanently DEAD** if never enrolled within 72h. No reissuing lost initial Setup Key to save that same wallet under the agreed rule. After expiry no key, support agent or administrator can activate it again. A new wallet is needed. |
-| OPEN-003 | **NEXT** | After *successful* activation, if the Authenticator Master Key/device is lost while wallet private key remains available, should recovery be possible through a secure separate method, or should BlackBox access be permanently unavailable? |
+| CLOSED-003 | **ANSWERED 2026-10-24** | User chose optional TongNet Disaster Recovery Wallet, configured in normal Wallet settings, NOT BlackBox. An original-wallet-private-key holder can Run Disaster Recovery WITHOUT BlackBox/Authenticator; intend full eligible-balance sweep less any applicable fee to preconfigured recovery address, followed by permanently DEAD source wallet. Does NOT restore BlackBox. Pending treatment of already locked funds. |
+| OPEN-016 | **NEXT / CRITICAL** | Is TongNet Authenticator approval required when registering/changing Disaster Recovery destination, or can a wallet private key alone change it? Execution remains BlackBox-free. |
+| OPEN-017 | Critical | Define whether pending/triggered/escrow funds may be swept without violating receiver claim or sender expiry rules. |
+| OPEN-018 | High | Destination address confirmation, change delays, ownership proof, attack resistance, atomic sweep and fees. |
 | OPEN-004 | Critical | If both wallet and second factor compromised: theft prevention, freeze and dispute controls? |
 | OPEN-005 | Critical | Consensus algorithm and finality without PoW/traditional PoS or central trusted operator |
 | OPEN-006 | Critical | Sybil, double spend, partitioning, censorship, replay, validator incentives and spam defence |
@@ -84,3 +87,10 @@
 | OPEN-015 | Medium | Availability guarantees, messaging routing and validator performance targets |
 
 **After each answer:** append a dated change, update corresponding open/closed items, FAQ, PROTOCOL, PROGRESS, NEXT_SESSION and CHANGELOG. Never silently remove a contradictory older decision.
+
+## Q3 — Disaster Recovery Wallet (2026-10-24)
+- Optional, pre-registered second wallet address in ordinary wallet settings.
+- Recovery executable using wallet private-key authority alone, without BlackBox or Authenticator factor.
+- Sweep entire eligible source balance to fixed destination less any applicable fee, then permanently DEAD source wallet.
+- **Security risk:** if stolen wallet key can also change recovery destination, an attacker can drain funds. Destination registration/update authorization is undecided.
+- **Protocol conflict:** in-flight locked transfers might have receiver claim rights; treatment undecided. See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
