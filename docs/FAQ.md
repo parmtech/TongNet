@@ -44,7 +44,16 @@ A: Prior recorded design proposes requiring current authenticator master secret 
 A: **CONFIRMED — Question 2 (2026-10-24):** no new/replacement setup key is issued to save that wallet. If activation has not completed by the original 72-hour deadline, that wallet becomes forever DEAD and cannot be made active again. The protocol observes non-activation and expiry; it cannot detect a missing physical key. Create a new wallet instead.
 
 **Q: What if the Authenticator Master Key is lost AFTER successful activation?**  
-A: **OPEN — NEXT QUESTION.** We still need to decide whether a distinct secure recovery option should exist or access becomes permanently lost.
+A: **Q3 CONFIRMED (2026-10-24):** owner may have preconfigured an optional **TongNet Disaster Recovery Wallet** address in normal wallet settings (not BlackBox). With original Wallet private key, they can run a one-way recovery without BlackBox or Authenticator. Intention: move all eligible wallet funds (less actual fee if any) to the preconfigured address, then make the old wallet permanently DEAD. BlackBox access itself is not restored. Secure destination-edit rules and already locked funds remain undecided.
+
+**Q: Must a disaster recovery address be configured?**  
+A: No, this is optional.
+
+**Q: Can a recovery execution choose a fresh destination?**  
+A: No: it must send to the **previously registered** recovery wallet, not a new arbitrary payout address.
+
+**Q: What next?**  
+A: **Q4:** Should the owner need Authenticator approval to register/change the disaster recovery destination, even though *executing* recovery must remain Authenticator-free? See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
 
 ## Payment flow
 
