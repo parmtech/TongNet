@@ -36,7 +36,7 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 
 ## Current next question
 
-**Q8 (NEXT):** Initial irreversible Disaster Recovery Wallet registration: require an authorization signature from the destination recovery wallet's own private key, in addition to original Wallet Private Key and TongNet Authenticator, or is visual address confirmation alone enough? **Undecided.**
+**Q9 (NEXT):** When registering the irreversible recovery address, should pairing remain pending until destination wallet opens its own BlackBox and explicitly accepts/approves it, or become final immediately after source Wallet Private Key + Authenticator approve while destination BlackBox receives/generates the one-use key? **Undecided.**
 
 ## Question discovery and tracking
 
@@ -44,13 +44,17 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [ ] Work through high-risk questions in order; keep recording decisions and updating next-session handoff.
 
 ## Current disaster recovery work
+- [x] Location of one-time recovery secret clarified: recipient/recovery wallet encrypted BlackBox; not the main/source Wallet or public network.
+- [ ] Prove integrity of source→destination binding, one-use verification, and encrypted destination-only delivery.
+- [ ] Decide whether destination owner must accept registration before immutable binding is FINAL (Q9).
 - [x] Create dedicated Disaster Recovery Wallet specification and record three key categories.
 - [x] User confirmed one-time Disaster Recovery Key is issued when destination is set, cannot ever be changed or reissued, and must be supplied with Wallet Private Key to execute.
 - [x] User confirmed recovery destination cannot ever be changed once set; lost disaster key means that route is unavailable; standard transfers are still possible if the other two keys survive.
 - [x] Q5 resolved — Wallet Private Key + TongNet Authenticator on first/only destination enrollment.
 - [x] **Q6 (2026-10-24):** While Triggered funds stay escrowed for receiver's 24h claim, immediately rescue only spendable funds; if unclaimed receiver, owner with original one-use Sender Claim Key may claim to the linked Recovery Wallet within next 72h after source disaster recovery (design rule only).
 - [x] **Q7 (2026-10-24, Option A):** If an untriggered transfer survives a terminal source disaster recovery, preserve original 3h lock, then automatic refund directly to prebound recovery wallet after timeout (no early cancellation).
-- [ ] **Q8:** Destination-control proof at initial irrevocable recovery-wallet setup.
+- [x] **Q8 clarification (2026-10-24):** The third one-use Disaster Recovery Key is GENERATED in the DESTINATION Recovery Wallet's own BlackBox, not source Wallet, and later consumed with source Wallet Private Key (specification only).
+- [ ] **Q9:** Destination-side explicit acceptance/consent or instant irreversible pairing after source approval.
 - [x] Define Triggered escrow and stored sender claim key delegation after terminal disaster recovery (design only).
 - [x] Specify refund destination for PENDING_TRIGGER when source DEAD (Q7 design only).
 - [ ] Implement/test strict Trigger-vs-DEAD-vs-timeout ordering and no double settlement.
