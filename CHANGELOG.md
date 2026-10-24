@@ -1,3 +1,10 @@
+## 2026-10-25 — Red-team product review: who will use TongNet and why?
+
+- Created [Critical Product/Banking/Adoption Plan](docs/TONGNET_PRODUCT_CRITIQUE_AND_ADOPTION_PLAN.md) after user's request for strong critical questioning, competitive differentiation, real merchant usage, trust and system-level improvements.
+- Found material UX gap: existing user-confirmed Send/Trigger + receiver 24h Claim is not an ordinary fast merchant payment mechanism. Suggested a **separate, unconfirmed `Instant Pay` mode**, preserving the entire old `Protected Pay` route rather than silently replacing confirmed rules.
+- Added 20 adversarial questions/answers, competition review, low-fee funding, independent operator count safety, hypothetical 1B TONG supply denomination (NOT RATIFIED), bank/fiat integration and Australian legal gates, measured pilot/adoption plan.
+- Synced README, decisions, architecture, roadmap, progress and session handoff. No software deployed, bank licence issued or coin minted by this documentary review.
+
 ## 2026-10-25 — Primary TongNet implementation language chosen: Rust
 
 - At owner's explicit request to select the best language, selected **Rust** for the security-critical network, deterministic BFT state machine, validators, P2P, delay calculator, cryptographic wallet/BlackBox and shared cross-platform libraries. Keep Kotlin/Swift/native UI only where beneficial; don't make C/C++ a primary protocol implementation language.
