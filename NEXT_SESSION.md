@@ -64,11 +64,21 @@ When S registers R (recovery destination) within S's NORMAL wallet settings, usi
 
 **Important:** R's BlackBox key creation/delivery is NOT itself proof that R's wallet private key has approved and signed the association, nor that two wallets have the same natural owner. The user's Q8 statement has resolved key LOCATION, not exactly when an irreversible pairing becomes final.
 
-## NEXT: Question 9 — destination acceptance before final pairing
+## Q9 answered — Destination BlackBox Accept/Reject controls setup (2026-10-24)
 
-Ask one Punjabi question: "ਜਦੋਂ Main Wallet ਵਿੱਚ ਪਹਿਲੀ ਵਾਰ Disaster Recovery Address add ਹੁੰਦਾ ਹੈ ਅਤੇ Recovery Wallet ਦੇ BlackBox ਵਿੱਚ One-Time Recovery Key ਬਣਦੀ ਹੈ, ਕੀ Main Wallet ਨਾਲ permanent link ਬਣਨ ਤੋਂ ਪਹਿਲਾਂ Recovery Wallet ਖੋਲ੍ਹ ਕੇ ਉਸਦਾ owner ਆਪ **Accept/Approve** ਵੀ ਕਰੇ? **A:** ਹਾਂ, ਪਹਿਲਾਂ destination BlackBox ਤੋਂ confirmation, ਫਿਰ pairing final ਹੋਵੇ। **B:** ਨਹੀਂ, Main Wallet Private Key ਤੇ Authenticator ਦੀ approval ਨਾਲ pairing ਤੁਰੰਤ final ਹੋਵੇ, Key ਆਪੇ destination BlackBox ਵਿੱਚ ਬਣ ਜਾਵੇ। ਜਾਂ ਕੋਈ ਆਪਣਾ rule?"
+- Main/source Wallet S user initiates a pairing request for recovery wallet R via normal Wallet Settings and S Wallet Private Key + S TongNet Authenticator (Q5).
+- Request arrives in R's OWN encrypted TongNet BlackBox with Accept and Reject actions.
+- **PENDING / no action**: source S is still **NOT_CONFIGURED** for Disaster Recovery, **NO Disaster Recovery Key exists** and **NO permanent S-R attachment** exists.
+- **REJECT** by R: NO key, NO attachment, and a rejected/status response is returned to the requestor SOURCE wallet's BlackBox.
+- **ACCEPT** by R: only now generate the immutable, unique, one-time Disaster Recovery Key **inside R's own BlackBox** and permanently attach R as recovery wallet of S. Once accepted, no destination/key changes allowed.
+- Later emergency action uses S Wallet Private Key + that one-time key (NOT S's BlackBox or Authenticator) to rescue spendable balance to R and make S DEAD. Q6/Q7 remain intact for escrow.
+- These are REQUIREMENTS, not implementation. Actual crypto binding, authenticated R approval, race/atomicity and duplicate handling need engineering. Do NOT claim two wallet addresses are proven to have the same person.
 
-Do not assume answer; update docs, backlog, progress, handoff and changelog upon response.
+## NEXT SINGLE QUESTION — Q10 / DQ-089
+
+Ask Punjabi: "ਜੇ Disaster Recovery ਵਾਲੇ Wallet ਦੇ BlackBox ਵਿੱਚ request ਆ ਗਈ, ਪਰ ਉਹ ਬੰਦਾ ਨਾ Accept ਕਰਦਾ ਤੇ ਨਾ Reject, ਤਾਂ request ਕਿੰਨਾ ਚਿਰ PENDING ਰਹੇ? **A:** 24 ਘੰਟੇ ਬਾਅਦ automatic EXPIRED. **B:** 72 ਘੰਟੇ ਬਾਅਦ EXPIRED. **C:** ਜਿੰਨਾ ਚਿਰ ਜਵਾਬ ਨਹੀਂ ਆਉਂਦਾ, pending ਹੀ ਰਹੇ. **D:** ਤੁਹਾਡਾ ਆਪਣਾ time. Pending ਦੌਰਾਨ ਕੋਈ Recovery Key ਜਾਂ link ਨਹੀਂ ਬਣੇਗਾ."
+
+User requests one question at a time and next question only after relevant GitHub docs are committed. Never assume a pending timeout.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
@@ -78,7 +88,7 @@ Do not assume answer; update docs, backlog, progress, handoff and changelog upon
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Untriggered three-hour auto-refund into a now DEAD wallet (NEXT Q7); sender Claim Key loss and expiry handling; receiver-vs-sender races; wallet/authenticator compromise; reserve forfeiture legality; consensus/Sybil resistance; network partitions.
+Pending pairing request expiry (NEXT Q10), withdraw/resubmit rules, destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
