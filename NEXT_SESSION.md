@@ -74,11 +74,15 @@ When S registers R (recovery destination) within S's NORMAL wallet settings, usi
 - Later emergency action uses S Wallet Private Key + that one-time key (NOT S's BlackBox or Authenticator) to rescue spendable balance to R and make S DEAD. Q6/Q7 remain intact for escrow.
 - These are REQUIREMENTS, not implementation. Actual crypto binding, authenticated R approval, race/atomicity and duplicate handling need engineering. Do NOT claim two wallet addresses are proven to have the same person.
 
-## NEXT SINGLE QUESTION — Q10 / DQ-089
+## Q10 answered — 24-hour expiry (Option A, confirmed 2026-10-24)
 
-Ask Punjabi: "ਜੇ Disaster Recovery ਵਾਲੇ Wallet ਦੇ BlackBox ਵਿੱਚ request ਆ ਗਈ, ਪਰ ਉਹ ਬੰਦਾ ਨਾ Accept ਕਰਦਾ ਤੇ ਨਾ Reject, ਤਾਂ request ਕਿੰਨਾ ਚਿਰ PENDING ਰਹੇ? **A:** 24 ਘੰਟੇ ਬਾਅਦ automatic EXPIRED. **B:** 72 ਘੰਟੇ ਬਾਅਦ EXPIRED. **C:** ਜਿੰਨਾ ਚਿਰ ਜਵਾਬ ਨਹੀਂ ਆਉਂਦਾ, pending ਹੀ ਰਹੇ. **D:** ਤੁਹਾਡਾ ਆਪਣਾ time. Pending ਦੌਰਾਨ ਕੋਈ Recovery Key ਜਾਂ link ਨਹੀਂ ਬਣੇਗਾ."
+If R does not Accept or Reject a recovery pairing request within **24 hours**, it automatically enters EXPIRED, without link/key. While PENDING or after EXPIRED, S's Disaster Recovery is NOT_CONFIGURED. A late Accept cannot resurrect it. REJECT during the period notifies S BlackBox under Q9. Time starts from canonical network-accepted request creation; detailed clock and acceptance boundary ordering require engineering.
 
-User requests one question at a time and next question only after relevant GitHub docs are committed. Never assume a pending timeout.
+## NEXT SINGLE QUESTION — Q11
+
+Ask one question in simple Punjabi: "ਜਦੋਂ Main Wallet ਤੋਂ Recovery Wallet ਨੂੰ request ਗਈ ਹੈ ਅਤੇ 24 ਘੰਟਿਆਂ ਵਾਲਾ PENDING timer ਚੱਲ ਰਿਹਾ ਹੈ, ਪਰ ਦੂਜੇ Wallet ਨੇ ਅਜੇ Accept ਨਹੀਂ ਕੀਤਾ, ਕੀ Main Wallet ਵਾਲਾ user ਉਹ request **Cancel** ਕਰਕੇ ਨਵੇਂ Recovery Wallet address ਨੂੰ request ਭੇਜ ਸਕੇ? **A:** ਹਾਂ, Accept ਤੋਂ ਪਹਿਲਾਂ Pending request Cancel/Replace ਕਰ ਸਕੇ (ਪੱਕਾ link ਬਣਨ ਤੋਂ ਬਾਅਦ ਕਦੇ ਨਹੀਂ)। **B:** ਨਹੀਂ, ਪਹਿਲੀ request ਦਾ Reject ਜਾਂ 24 ਘੰਟਿਆਂ ਦਾ Expire ਹੋਣ ਤੱਕ wait ਕਰਨਾ ਪਵੇ। **C:** ਆਪਣਾ ਤਰੀਕਾ।"
+
+After answer, update DECISIONS, FAQ, PROTOCOL, SECURITY, DEEP_QUESTIONS, PROGRESS, NEXT_SESSION, CHANGELOG and commit GitHub, then ask next deeper question. Be precise: Accept/cancel race and proving source authorisation still need design.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
@@ -88,7 +92,7 @@ User requests one question at a time and next question only after relevant GitHu
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Pending pairing request expiry (NEXT Q10), withdraw/resubmit rules, destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
+Pending pairing request source withdrawal/replace (NEXT Q11), accepted-vs-cancel race, destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
