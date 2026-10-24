@@ -91,3 +91,11 @@ Propose measured **median <2s and P95 <5s finality** for simple payment on a rea
 - ASIC digital asset guidance: https://www.asic.gov.au/regulatory-resources/digital-transformation/digital-assets-financial-products-and-services
 
 **Classification note:** This document gives project-level architecture recommendations and safety constraints. Existing confirmed requirements retain their recorded authority. Unanswered trade-offs and the 95-question detail are tracked separately in MASTER_QA_RECOMMENDATIONS.md.
+
+## Consumer payments, trust and regulated-finance critique (2026-10-25)
+
+**Critical architecture challenge:** the legacy confirmed Send -> separate Trigger -> 24h receiver Claim -> subsequent 72h reclaim is NOT competitive for routine retail checkout if it is the ONLY payment type. Propose alongside it a strictly separate `Instant Pay` atomic direct-payment variant with one clear cryptographically transaction-bound approval and network finality; keep existing old path unchanged as `Protected Pay`. The dual-mode addition is a **new, unratified design recommendation**; do not smuggle a change to the original confirmed contract rights. Both modes require consistent anti-spam fees, state proofs and fraud/irreversibility disclosures.
+
+Competitor comparisons: Solana offers fast/sub-cent fee payment and fee abstraction; Stellar is already a low-cost cross-border payment rail; Sui supplies convenient onboarding; Ethereum L2s provide ecosystem/low-fee infrastructure. TongNet must earn adoption through verifiable user-controlled security and risk-specific payment choice, merchant receipts/SDK, sustainable price and a legal fiat integration path—not unsupported first-ever/performance rhetoric. Banking functions require separately licensed partners or appropriate authorisations. Candidate supply **1,000,000,000 maximum TONG with 9 decimals** is an illustrative unit-economics placeholder only; no cap, vesting, allocation or release is chosen, and money supply doesn't itself establish market worth.
+
+See [Product Critique and Adoption Plan](docs/TONGNET_PRODUCT_CRITIQUE_AND_ADOPTION_PLAN.md) for 20 red-team questions, risk rankings, proposed adoption wedge, 25–100 aspirational genuine validator launch operator range (NOT a deployed target), no-silent-reserve-confiscation requirement, and staged go/no-go milestones.
