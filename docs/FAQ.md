@@ -150,5 +150,8 @@ A: This repository currently starts **private**. No consensus implementation, ma
 **Q: What happens if TongNet gets slow? When does a new transaction timer start?**  
 A: **Q13 user direction (2026-10-24):** slow/fast network does not alter a timer already started. New transactions/tasks can wait in a queue during congestion. Their timer begins only after network acceptance. **Engineering recommendation:** make acceptance mean authoritative network consensus finality, not a relay's QUEUED acknowledgment. No code or consensus proof exists yet.
 
-**Q: Does putting an existing Claim request in queue preserve a deadline?**  
-A: **OPEN — NEXT Q14.** A new Send starting a timer and an already-running 24h receiver/72h sender claim deadline are different. An expiring claim may be queued before cutoff yet finalized too late; user has not selected the exact eligibility rule. A total network outage could make the previous reserve-forfeiture proposal particularly dangerous.
+**Q: Does putting an existing Claim request in a queue preserve its deadline?**  
+A: **NO — Q14 CONFIRMED, Option A (2026-10-24).** A Receiver must have its Claim fully network-final **before** the 24h receiver deadline, and a Sender reclaim must be final **before** its subsequent 72h deadline. A claim signed/queued before cutoff but finalized late is EXPIRED. Neither a queue ticket nor prior submission is a guaranteed settlement. This is distinct from a NEW Send's timer beginning at network acceptance.
+
+**Q: What if network-wide downtime makes all Claims impossible until after expiry?**  
+A: **OPEN — NEXT Q15.** Running countdown and claim finality rules are defined, but whether expired unclaimed escrow is automatically assigned to Network Reserve or protected pending a network-restoration review/grace policy is not agreed. A forced forfeiture is a serious launch blocker without informed consent and legal review.
