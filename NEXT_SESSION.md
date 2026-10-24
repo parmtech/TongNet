@@ -78,11 +78,15 @@ When S registers R (recovery destination) within S's NORMAL wallet settings, usi
 
 If R does not Accept or Reject a recovery pairing request within **24 hours**, it automatically enters EXPIRED, without link/key. While PENDING or after EXPIRED, S's Disaster Recovery is NOT_CONFIGURED. A late Accept cannot resurrect it. REJECT during the period notifies S BlackBox under Q9. Time starts from canonical network-accepted request creation; detailed clock and acceptance boundary ordering require engineering.
 
-## NEXT SINGLE QUESTION — Q11
+## Q11 confirmed — Option B (2026-10-24)
 
-Ask one question in simple Punjabi: "ਜਦੋਂ Main Wallet ਤੋਂ Recovery Wallet ਨੂੰ request ਗਈ ਹੈ ਅਤੇ 24 ਘੰਟਿਆਂ ਵਾਲਾ PENDING timer ਚੱਲ ਰਿਹਾ ਹੈ, ਪਰ ਦੂਜੇ Wallet ਨੇ ਅਜੇ Accept ਨਹੀਂ ਕੀਤਾ, ਕੀ Main Wallet ਵਾਲਾ user ਉਹ request **Cancel** ਕਰਕੇ ਨਵੇਂ Recovery Wallet address ਨੂੰ request ਭੇਜ ਸਕੇ? **A:** ਹਾਂ, Accept ਤੋਂ ਪਹਿਲਾਂ Pending request Cancel/Replace ਕਰ ਸਕੇ (ਪੱਕਾ link ਬਣਨ ਤੋਂ ਬਾਅਦ ਕਦੇ ਨਹੀਂ)। **B:** ਨਹੀਂ, ਪਹਿਲੀ request ਦਾ Reject ਜਾਂ 24 ਘੰਟਿਆਂ ਦਾ Expire ਹੋਣ ਤੱਕ wait ਕਰਨਾ ਪਵੇ। **C:** ਆਪਣਾ ਤਰੀਕਾ।"
+A SOURCE Wallet cannot cancel, withdraw, redirect or replace any pending disaster pairing request during its 24-hour window. It MUST wait for destination BlackBox REJECT or automatic EXPIRED at 24 hours before starting another separately authenticated request. If destination ACCEPTS before expiry, pairing becomes irrevocable and one-use recovery secret is issued into destination BlackBox. While pending, source remains NOT_CONFIGURED; no key or association exists. This is user-confirmed design, not an implementation.
 
-After answer, update DECISIONS, FAQ, PROTOCOL, SECURITY, DEEP_QUESTIONS, PROGRESS, NEXT_SESSION, CHANGELOG and commit GitHub, then ask next deeper question. Be precise: Accept/cancel race and proving source authorisation still need design.
+## NEXT SINGLE QUESTION — Q12
+
+Ask one Punjabi technical security question: "ਮੰਨ ਲਓ Recovery Wallet ਵਾਲਾ Accept 24 ਘੰਟੇ ਪੂਰੇ ਹੋਣ ਤੋਂ **10 ਸਕਿੰਟ ਪਹਿਲਾਂ** ਦਬਾ ਦਿੰਦਾ ਹੈ, ਪਰ network ਦੀ ਦੇਰੀ ਕਰਕੇ confirmation **deadline ਤੋਂ 20 ਸਕਿੰਟ ਬਾਅਦ** final ਹੁੰਦੀ ਹੈ। ਕੀ **A:** ਸਿਰਫ਼ deadline ਤੋਂ ਪਹਿਲਾਂ network-finalized Accept ਹੀ valid ਹੋਵੇ; ਦੇਰ ਨਾਲ final ਹੋਵੇ ਤਾਂ request Expire। ਜਾਂ **B:** network ਵਿੱਚ deadline ਤੋਂ ਪਹਿਲਾਂ signed Accept ਪਹੁੰਚਣ ਦਾ authenticated proof ਹੋਵੇ ਤਾਂ final confirmation ਬਾਅਦ ਵਿੱਚ ਵੀ Accept valid ਮੰਨਿਆ ਜਾਵੇ? Phone ਦੇ local ਸਮੇਂ ਨੂੰ proof ਨਹੀਂ ਮੰਨਣਾ। ਜਾਂ **C:** ਤੁਹਾਡਾ ਤਰੀਕਾ?"
+
+Do not presume reply. Update decisions, FAQ, Protocol, Security, question backlog, progress, handoff and changelog, commit to GitHub before asking another question.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
@@ -92,7 +96,7 @@ After answer, update DECISIONS, FAQ, PROTOCOL, SECURITY, DEEP_QUESTIONS, PROGRES
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Pending pairing request source withdrawal/replace (NEXT Q11), accepted-vs-cancel race, destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
+Accept/expiry network-finality race at 24 hours (NEXT Q12), destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
