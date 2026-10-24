@@ -79,8 +79,11 @@ A: **Q10 confirmed — Option A:** 24 hours. If R has not accepted/rejected by t
 **Q: Can the source cancel a pending recovery setup request?**  
 A: **NO — Q11 Option B confirmed (2026-10-24).** While PENDING the source cannot withdraw, redirect or send a replacement request. It must wait for the destination to REJECT or for automatic EXPIRED after 24 hours. Only then may the source try another recovery address (with fresh initial two-factor approval). If target ACCEPTS the live request, immutable registration takes effect and cannot ever be changed.
 
+**Q: What if Recovery Wallet clicks Accept before 24h but network finalizes it after expiry?**  
+A: **Q12 CONFIRMED, Option A:** The request **EXPIRES**. Only ACCEPT that becomes **network-final before the original 24-hour cutoff** is valid. Earlier button-press, device signature or intermediary delivery does not save it. No Disaster Recovery Key or permanent link is created for a late-finalized ACCEPT. Network timing/finality engineering and outages remain unresolved.
+
 **Q: What next?**  
-A: **Q12:** If a destination owner clicks Accept before the 24h deadline, but the decentralised network finalises it after 24h, should it count as accepted or expired? Define authoritative network ordering, not local phone time.
+A: **Q13:** If the whole TongNet network suffers an outage during someone’s 24h receiver-claim or 72h sender-recovery period, should timers continue as normal and possibly send unclaimed funds to Network Reserve, or pause during a verifiably network-wide outage?
 
 ## Payment flow
 
