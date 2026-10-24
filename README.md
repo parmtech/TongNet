@@ -46,12 +46,12 @@ An **optional TongNet Disaster Recovery Wallet** address may be preconfigured in
 
 ## Exhaustive security and technical questioning
 
-The living backlog of **86 deep architecture, cryptographic, economic, privacy, recovery and edge-case questions** is in [docs/DEEP_QUESTIONS.md](docs/DEEP_QUESTIONS.md). Answer one at a time, save each decision, and add more questions when new dependencies arise. Do not treat the backlog as a finite limit.
+The backlog currently tracks **95 deep architecture questions** in [docs/DEEP_QUESTIONS.md](docs/DEEP_QUESTIONS.md), with every candidate answer reviewed in [docs/MASTER_QA_RECOMMENDATIONS.md](docs/MASTER_QA_RECOMMENDATIONS.md). See [docs/TONGNET_FUTURE_ARCHITECTURE.md](docs/TONGNET_FUTURE_ARCHITECTURE.md) for the new safety-first, future-proof and high-performance architecture research. Not all answers are user-approved, proven or built; more questions may arise.
 
 ## Continuing-work policy
 
-- Ask **one unanswered decision question at a time**, in simple Punjabi, unless the user asks otherwise.
-- Once the user answers, record the exact requirement and any caveats in **docs/DECISIONS.md**, update applicable technical docs, **PROGRESS.md**, **NEXT_SESSION.md**, and **CHANGELOG.md**, and commit the changes.
+- **User updated workflow on 2026-10-25:** review all deep questions and candidate answers together and batch-save when explicitly asked; do not automatically force one-question-per-turn.
+- Clearly separate explicit user-confirmed requirements from engineering recommendations and hard release blockers in **docs/DECISIONS.md** and the two master reviews.
 - Never label a feature **implemented**, **verified**, **audited** or **released** unless actual evidence exists.
 - Never commit wallet private keys, setup secrets, authenticator master secrets, real claim codes or production credentials.
 
@@ -62,3 +62,7 @@ The repository is **private** at initialisation. No licence file is intentionall
 **Maintained by ParmTech · Original concept and development by Manjinder Singh.**
 
 **Q11 decision:** Source cannot cancel or replace a pending recovery setup request. It must wait for destination rejection or the unchanged 24-hour expiry. **Q12 confirmed:** the recipient Recovery Wallet's Accept must be network-finalized before the original 24-hour pairing deadline; early button press but late finality is EXPIRED. **Q13 direction:** running timers unaffected by network speed; new requests queue under load and new payment timers start only on network acceptance (recommend consensus finality, not queue admission). **Q14 confirmed Option A:** receiver/sender financial Claim queued early but final after existing deadline is EXPIRED; only consensus-final before cutoff counts. **Q15 clarified:** every time-sensitive network operation affected by verifiable TongNet processing/outage delay gets equal extra time on its effective deadline (Send/Trigger, Claims, Disaster Recovery setup and other timed tasks). Q12/Q14 still require final network confirmation strictly before the ADJUSTED deadline, not queue admission. **NEXT Q16:** whether network delay is measured individually or globally. Reserve forfeiture remains blocked for real funds pending law/consent review.
+
+## Latest 2026-10-25 architecture direction
+
+User confirmed Q16 C (hybrid per-operation + global one-for-one network delay), Q17 C (independent anti-fake-delay proof), Q18 C (evidence consensus or protected escrow), Q19–20 C (anti-Sybil and phased decentralisation), Q21 C (automated validator governance), Q22 B (quarantine), Q23 B (standby replacements), Q24 C (quorum in partitions), Q25 B (pre-committed safe replacement). Long-term goals: fast, highly capable and secure; avoid PoW and pure wealth-dominant PoS but *hybrid stake/bond is allowed*; aim for user-visible near-zero fees and genuine decentralisation without an indispensable vendor/cloud. **Engineering proposal:** proven BFT core, measured parallelisation, hybrid eligibility and fee sponsorship, crypto agility; optional later DAG experiments. See [future architecture](docs/TONGNET_FUTURE_ARCHITECTURE.md) and [all 95 Q&A](docs/MASTER_QA_RECOMMENDATIONS.md). Originality, safety, real-world throughput and 100% decentralisation are not proved. The earlier proposed Network Reserve forfeiture remains a major legal and consumer-safety blocker.
