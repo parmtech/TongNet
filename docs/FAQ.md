@@ -146,3 +146,9 @@ A: This repository currently starts **private**. No consensus implementation, ma
 ---
 
 **Maintenance rule:** update this FAQ after each confirmed answer; preserve wording conflicts and versioned design changes in DECISIONS and CHANGELOG rather than silently erasing history.
+
+**Q: What happens if TongNet gets slow? When does a new transaction timer start?**  
+A: **Q13 user direction (2026-10-24):** slow/fast network does not alter a timer already started. New transactions/tasks can wait in a queue during congestion. Their timer begins only after network acceptance. **Engineering recommendation:** make acceptance mean authoritative network consensus finality, not a relay's QUEUED acknowledgment. No code or consensus proof exists yet.
+
+**Q: Does putting an existing Claim request in queue preserve a deadline?**  
+A: **OPEN — NEXT Q14.** A new Send starting a timer and an already-running 24h receiver/72h sender claim deadline are different. An expiring claim may be queued before cutoff yet finalized too late; user has not selected the exact eligibility rule. A total network outage could make the previous reserve-forfeiture proposal particularly dangerous.
