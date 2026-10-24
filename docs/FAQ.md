@@ -41,7 +41,7 @@ A: Requirement is **no**, as long as other cryptographic factors are required. P
 A: Prior recorded design proposes requiring current authenticator master secret plus wallet private-key proof, then issuing a fresh one-time enrolment secret. **RECORDED REQUIREMENT; loss recovery OPEN.**
 
 **Q: If setup or master keys are lost?**  
-A: **OPEN.** No approved secure recovery procedure has been established.
+A: **OPEN.** Next specific decision: if the one-time Authenticator Setup Key is lost before enrolment within the initial 72 hours, can the owner regenerate it securely, or does the original activation deadline force a new wallet? No approved procedure established.
 
 ## Payment flow
 
@@ -76,7 +76,7 @@ A: User's latest proposed rule: permanently reallocate the transfer to TongNet N
 A: Yes, it is one-use and a final successful claim must disable all rival claim paths. **CONFIRMED; atomic enforcement OPEN.**
 
 **Q: What if receiver address is wrong after Trigger?**  
-A: **OPEN; this is the next user decision.**
+A: **CONFIRMED — Question 1, Option B (2026-10-24).** Sender cannot cancel, stop, or reverse after successful Trigger, even for a wrong receiver address. If the addressed receiver claims within 24h, the transfer is settled. If the receiver does not claim in that window, sender-only recovery is available for the next 72h. No guaranteed refund if a wrong receiver validly claims. Wallet should clearly display the destination and irreversible-trigger warning before authorisation. This confirmation does not imply any central emergency override.
 
 **Q: Are the two credential-generation times fully specified?**  
 A: Sender recovery credential is intended for sender's BlackBox and receiver credential only after Trigger. Whether sender credential is minted immediately on Send or on Trigger remains a low-level implementation decision. **OPEN.**
