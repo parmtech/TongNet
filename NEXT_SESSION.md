@@ -54,11 +54,13 @@ See [docs/DISASTER_RECOVERY.md](docs/DISASTER_RECOVERY.md), [docs/DECISIONS.md](
 
 **Special unresolved state:** Q6 dealt with payments already Triggered. A transaction only LOCKED but NOT yet Triggered is still inside initial 3h deadline and auto-refunds without a Claim Key if no Trigger. That case is NEXT Q7.
 
-## NEXT SINGLE QUESTION (unanswered — Q7)
+## Q7 confirmed on 2026-10-24
 
-**Punjabi:** "ਮੰਨ ਲਓ Wallet ਵਿੱਚੋਂ 300 TONG ਕਿਸੇ ਨੂੰ Send ਕਰਕੇ lock ਕੀਤੇ ਹੋਏ ਨੇ, ਪਰ Sender ਨੇ BlackBox ਤੋਂ ਹਾਲੇ Trigger ਨਹੀਂ ਕੀਤਾ। ਉਹ 3-ਘੰਟੇ ਵਾਲੀ Pending transaction ਹੈ। ਇਸ ਦੌਰਾਨ ਤੁਸੀਂ Run Disaster Recovery ਕਰਕੇ ਪੁਰਾਣਾ Wallet DEAD ਕਰ ਦਿੱਤਾ। 3 ਘੰਟੇ ਪੂਰੇ ਹੋਣ ’ਤੇ 300 TONG ਦਾ automatic refund ਕਿੱਥੇ ਜਾਵੇ? **A:** ਸਿੱਧਾ ਪਹਿਲਾਂ ਤੋਂ bound Disaster Recovery Wallet ਵਿੱਚ। **B:** ਇਸ ਕਿਸਮ ਦੀ pending transaction ਮੁੱਕਣ ਤੱਕ Disaster Recovery ਨੂੰ ਰੋਕੀਏ। ਜਾਂ ਹੋਰ ਤਰੀਕਾ?"
+User selected Option A. If an older outgoing transfer remains locked but untriggered when terminal disaster recovery ends the source wallet, keep the lock until the original three-hour expiry. At expiry refund automatically to the original wallet's pre-registered immutable disaster recovery destination. Source is DEAD and cannot trigger later. No early release or manual cancellation. Implementation and finality testing remain pending.
 
-Wait for answer. Do not assume. After answer record in decisions, protocol, security, FAQ, backlog, progress, change log and handoff; commit.
+## NEXT: Question 8
+
+Ask in simple Punjabi, ONE question only: When the user initially registers the permanently immutable Disaster Recovery Wallet address, source Wallet Private Key plus TongNet Authenticator approval are already required. Should the DESTINATION wallet additionally sign with its own private key, proving the owner has access to that destination? Options: A = require destination signature; B = accept valid address with manual visual confirmation; C = other solution. Cryptographic control is not proof of real-world identity. Do not assume answer.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
