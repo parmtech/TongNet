@@ -22,8 +22,11 @@ Speak simple, conversational **Punjabi**. Ask **exactly one product/security que
 ## Last question answered
 **Q1, Option B, confirmed 2026-10-24:** After Trigger, a sender cannot cancel or emergency-stop, **even for an incorrect recipient address**. The recipient retains the 24-hour claim window. If unclaimed, sender-only recovery during the next 72h applies. No guarantee of recovery if wrong receiver claims.
 
-## NEXT SINGLE QUESTION (unanswered)
-**Punjabi:** "ਮੰਨ ਲਓ Wallet ਬਣਾਉਣ ਵੇਲੇ ਮਿਲੀ One-Time Authenticator Setup Key ਗੁੰਮ ਹੋ ਗਈ, ਅਤੇ 72 ਘੰਟੇ ਹਾਲੇ ਪੂਰੇ ਨਹੀਂ ਹੋਏ। ਕੀ Wallet Private Key ਨਾਲ ਨਵੀਂ Setup Key ਲੈਣ ਦਾ ਕੋਈ secure ਤਰੀਕਾ ਹੋਵੇ, ਜਾਂ ਉਹ wallet 72 ਘੰਟਿਆਂ ਬਾਅਦ DEAD ਹੋ ਜਾਵੇ ਤੇ ਨਵਾਂ wallet ਬਣਾਉਣਾ ਪਵੇ?"
+## Q2 answered (2026-10-24)
+**Confirmed:** User selected permanent DEAD state: a wallet not authenticated/enrolled during the first 72 hours after creation can **never** activate later. A lost first Setup Key cannot be re-issued to bypass initial deadline. A newly generated wallet would be needed. Network can prove expired/non-enrolled status, not key loss itself.
+
+## NEXT SINGLE QUESTION (unanswered — Q3)
+**Punjabi:** "ਮੰਨ ਲਓ ਤੁਹਾਡਾ TongNet Wallet ਪਹਿਲਾਂ ਹੀ ACTIVE ਹੋ ਚੁੱਕਿਆ ਹੈ ਤੇ ਉਸ ਵਿੱਚ ਪੈਸੇ ਵੀ ਹਨ। ਹੁਣ TongNet Authenticator ਦੀ Master Key ਜਾਂ ਫ਼ੋਨ ਗੁੰਮ ਹੋ ਜਾਂਦਾ ਹੈ, ਪਰ Wallet Private Key ਤੁਹਾਡੇ ਕੋਲ ਹੈ। ਕੀ ਕੋਈ ਵੱਖਰਾ secure recovery ਤਰੀਕਾ ਰੱਖਣਾ ਚਾਹੀਦਾ ਹੈ, ਜਾਂ ਫਿਰ BlackBox ਹਮੇਸ਼ਾ ਲਈ lock ਰਹੇ?"
 
 Do **not** assume the answer. Await the user.
 
