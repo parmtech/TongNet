@@ -53,7 +53,7 @@ A: No, this is optional.
 A: No: it must send to the **previously registered** recovery wallet, not a new arbitrary payout address.
 
 **Q: What next?**  
-A: **Q4:** Should the owner need Authenticator approval to register/change the disaster recovery destination, even though *executing* recovery must remain Authenticator-free? See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
+A: **Q4:** What operation is protected by the new optional Disaster Recovery Key? The subsequent question will settle destination change security. See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
 
 ## Payment flow
 
