@@ -44,6 +44,10 @@ An **optional TongNet Disaster Recovery Wallet** address may be preconfigured in
 7. [docs/HISTORY.md](docs/HISTORY.md) — provenance and naming.
 8. [ROADMAP.md](ROADMAP.md) and [CHANGELOG.md](CHANGELOG.md).
 
+## Exhaustive security and technical questioning
+
+The living backlog of **86 deep architecture, cryptographic, economic, privacy, recovery and edge-case questions** is in [docs/DEEP_QUESTIONS.md](docs/DEEP_QUESTIONS.md). Answer one at a time, save each decision, and add more questions when new dependencies arise. Do not treat the backlog as a finite limit.
+
 ## Continuing-work policy
 
 - Ask **one unanswered decision question at a time**, in simple Punjabi, unless the user asks otherwise.
