@@ -128,3 +128,7 @@ A PENDING disaster recovery association cannot be cancelled, withdrawn, replaced
 ## Q12 — Recovery pairing confirmation must finalize before deadline
 
 **Option A confirmed, 2026-10-24.** A one-time recovery pairing request submitted by S has 24h. R's BlackBox ACCEPT must attain definitive decentralized network finality before its exact deadline to issue the unique recovery key and commit immutable S→R linking. An event signed, tapped, or relayed earlier but finalized after deadline is EXPIRED: no key, no binding, not configured. A timestamp asserted by a phone or one untrusted relay does not count. Consensus-finality and distributed-time properties require formal design and testing.
+
+## Q13 — Pending recovery-pairing request in a congested network
+
+The user distinguishes QUEUED work from network acceptance. A new source→destination recovery pairing request has no active 24h acceptance window merely because a local phone or relay placed its signed request in queue. **Recommended implementation:** its Q10/Q12 24h clock begins only at canonical NETWORK-FINAL acceptance of the pairing REQUEST; the destination's independent BlackBox ACCEPT still must become network-FINAL before that 24h cutoff under strict Q12. Overloaded queues cannot shorten or extend a running pairing deadline. This is an architecture recommendation consistent with user intention, not a tested consensus scheme. Already-running payment claims are a different question, Q14; do not allow queue-admission to create keys or irreversible links.
