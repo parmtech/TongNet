@@ -1,4 +1,7 @@
 # TongNet Secure P2P v2 — Sender Manual Final ACCEPT (latest canonical direction)
+
+**UPDATE 2026-10-25:** User explicitly chose trusted bilateral P2P/no deal-arbitrating third party; 24h Receiver exclusive priority followed by **60 FULL DAYS** Sender-exclusive manual reclaim (previous 72h replaced), then creator intends Reserve transfer but real-money forfeiture BLOCKED for safety/legal review. Recovery destination R must be FRESH/no prior financial transfers, stay RECOVERY_RESERVED with normal send/receive disabled until a successful recovery; R then succeeds S as ACTIVE, S becomes DEAD. Historic ledger is linked, not rewritten, and BlackBox copy requires preexisting encrypted backup. Network-final LOCK as new receiver 24h clock anchor remains proposed. Source-BlackBox lost/DEAD and late K_S are unresolved. See [LATEST canonical owner decisions](SECURE_P2P_V3_RECOVERY_DECISIONS.md). Historical contradictory older rules below are superseded.
+
 **Date:** 2026-10-25 Australia/Sydney. **Status:** User-confirmed product change; engineering remains an UNTESTED DESIGN, not code, launched network or security proof.
 **Authority:** Latest owner instructions override conflicting historical 3-hour Trigger, automatic 3-hour refund, and earlier payment-claim finality texts. No owner-authorised Instant Pay.
 
