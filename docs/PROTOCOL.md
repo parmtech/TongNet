@@ -19,7 +19,7 @@ Let `t0` = network-accepted transfer initiation, `tt` = network-accepted Trigger
 At t0: lock sender funds; transaction=PENDING_TRIGGER
 t0 ... t0+3h: sender may authenticate and Trigger. No manual cancel/refund.
 If no successful Trigger before deadline: PENDING_TRIGGER -> AUTO_REFUNDED
-At tt: create/deliver receiver claim entitlement to target BlackBox
+At tt: sender Trigger becomes IRREVOCABLE / NON-CANCELLABLE, including mistyped destination; create/deliver receiver claim entitlement to target BlackBox
 tt ... tt+24h: only bound receiver may redeem -> FINAL_RECEIVER_CLAIMED
 If receiver does not claim by deadline: receiver entitlement expires; RECOVERY_ONLY
 tt+24h ... tt+96h: only bound sender with one-time recovery credential may redeem -> FINAL_SENDER_RECOVERED
@@ -29,6 +29,7 @@ If neither redeem by tt+96h: proposed -> NETWORK_RESERVE_FINAL (blocked from rea
 **Notes:**
 - The 3-hour pre-trigger period and the 24+72-hour post-trigger period are **different stages**.
 - If Trigger occurs near t0+3h, receiver's 24h window runs from `tt` (not `t0`).
+- **Confirmed 2026-10-24 (Question 1, Option B):** NO sender cancellation or emergency stop after Trigger, even when recipient wallet address is incorrect. A wrongly addressed but otherwise valid receiver can claim; only if unclaimed after 24h may sender reclaim in the subsequent 72h. Display recipient address, amount and irreversible-trigger warning before approving.
 - Exactly-at-boundary ordering, clock source and network partition behaviour require formal design.
 - Credential issuance/delivery mechanisms are not yet defined; no email/SMS/manual code-sharing dependency is intended.
 
@@ -82,6 +83,6 @@ protocol_version
 
 ## Unresolved difficult cases
 
-Wrong target address; account theft during pending transfer; lost root secret; network downtime; blackbox message delivery and acknowledgement; simultaneous valid claims across partitions; payment amount denomination; upgrade governance; fees and cost coverage; validator incentives and Sybil resistance.
+Wrong target address is non-cancellable after Trigger (confirmed); account theft during pending transfer; lost root secret; network downtime; blackbox message delivery and acknowledgement; simultaneous valid claims across partitions; payment amount denomination; upgrade governance; fees and cost coverage; validator incentives and Sybil resistance.
 
 No feature is safe to deploy solely because this state chart appears internally consistent.
