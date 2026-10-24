@@ -1,5 +1,11 @@
 # TongNet — Documentation & Project Change Log
 
+## 2026-10-24 — Q5 answered: initial disaster setup is two-factor
+- User selected **Option A**: immutable recovery wallet address can be registered only with BOTH Wallet Private Key and TongNet Authenticator approval.
+- This applies to ONE-TIME initial registration, not to later Run Disaster Recovery (which still requires Wallet Private Key + Disaster Recovery Key, not Authenticator).
+- Updated Decision Register, Disaster Recovery specification, FAQ, Protocol, Security, Deep Questions checklist, Progress and Next Session handoff.
+- **NEXT Q6:** handle funds already locked in outgoing transfers when source wallet is terminally swept/dead; preserve prior receiver claim rights, avoid double-spend.
+
 ## 2026-10-24 — Exhaustive technical questioning backlog
 - Added [docs/DEEP_QUESTIONS.md](docs/DEEP_QUESTIONS.md) with 86 unanswered security, logic, engineering, economics, privacy and governance questions.
 - Agreed workflow: ask meaningful questions one-by-one, save decisions and update the active next-session handoff; keep extending backlog instead of stopping after a short questionnaire.
