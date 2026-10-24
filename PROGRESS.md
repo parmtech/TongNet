@@ -112,3 +112,7 @@ Q11 is committed in Decisions, FAQ, Protocol, Disaster Recovery, Security, Deep 
 ## 2026-10-25 Master architecture checkpoint
 
 [Review of all 95 DQ questions](docs/MASTER_QA_RECOMMENDATIONS.md) and [TongNet Future Architecture](docs/TONGNET_FUTURE_ARCHITECTURE.md) have been saved. Evidence-based research references include CometBFT, high-throughput DAG literature, NIST PQC and Australian AUSTRAC/ASIC obligations. Claims of being faster, cryptographically sound, fully decentralised, strictly fee-free or novel are UNSUBSTANTIATED until measured/reviewed. Forced Network Reserve forfeiture remains a consumer/legal hard launch blocker; no mainnet or end-user fund custody is authorised.
+
+## 2026-10-25 Primary implementation language choice
+
+Owner delegated language choice. Rust selected for security-critical TongNet core, networking, BFT state machine, delays and wallets; Kotlin/Swift or UI technology may wrap the same shared Rust library on supported clients. This is design only: no Cargo workspace, code build, tests, benchmarks or deployed protocol resulted. See README and docs/TONGNET_FUTURE_ARCHITECTURE.md.
