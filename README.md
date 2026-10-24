@@ -1,5 +1,8 @@
 # TongNet
 
+> **LATEST OWNER PRODUCT SCOPE — Single native TONG coin, Bitcoin-like chain (2026-10-25):** TongNet is a dedicated independent cryptocurrency/blockchain for its own native **TONG** coin and its built-in secure bilateral BlackBox P2P/recovery protocol. Owner expressly REJECTED assistant-proposed Ethereum-like general-purpose application platform: **no public arbitrary smart contracts/EVM, no user-created tokens, no dApp ecosystems or app marketplace**. Wallet, BlackBox, Authenticator, explorer and node tools are first-party network clients, not a general-purpose dApp platform. Aspirations: improved practical user security and faster secure settlement compared with aspects of Bitcoin, **not an unproven claim of being mathematically more secure than Bitcoin**. Bitcoin-like use case does NOT automatically mandate Bitcoin Proof-of-Work mining: PoW vs hybrid BFT (and issuance/monetary policy) remain explicitly UNDECIDED. UTXO is a proposed accounting baseline, not approved. Latest [scope specification](docs/TONGNET_BITCOIN_LIKE_SCOPE.md); prior general-purpose/token platform proposals are historical/unapproved.
+
+
 > **NEWEST OVERRIDE — 2026-10-25:** Recovery target must be ACTIVE; if its DEAD status BFT-finalizes, every A→B recovery assignment automatically becomes inactive, A has **no** recovery and may pair an eligible new address. No silent B→C chain redirection. Previous immutable binding restriction only holds while B remains ACTIVE. See [Active Recovery Mirror V4](docs/ACTIVE_RECOVERY_MIRROR_V4.md).
 
 
