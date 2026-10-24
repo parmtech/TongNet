@@ -33,6 +33,7 @@
 | Stolen 60-second access code | Phishing-resistant cryptographic challenge/signature approval; short lifetime; replay constraints | Unsolved |
 | Stolen authenticator root and wallet secret | Cold recovery/freeze or strong independent emergency policy; not promised unhackable | Unsolved |
 | Double sender/receiver claim | Network-wide atomic commitment/spent record and deterministic finality | Unsolved |
+| Mistyped or attacker-substituted recipient address | Trigger is irrevocable by explicit user decision; wallet must highlight address and amount, provide anti-address-substitution safeguards and require transaction-bound authorisation; no guaranteed recovery if receiver claims | User rule confirmed; mitigations unsolved |
 | Trigger exactly at 3-hour boundary | Monotonic consensus time and specified deadline ordering | Unsolved |
 | Inbox server compromised | End-to-end encryption, independent availability, integrity checks, no server-held decryption key | Unsolved |
 | Infinite fake wallets | Sybil limits independent of identities and fee economics; censorship/abuse trade-offs | Unsolved |
