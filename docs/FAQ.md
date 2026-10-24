@@ -44,7 +44,7 @@ A: Prior recorded design proposes requiring current authenticator master secret 
 A: **CONFIRMED — Question 2 (2026-10-24):** no new/replacement setup key is issued to save that wallet. If activation has not completed by the original 72-hour deadline, that wallet becomes forever DEAD and cannot be made active again. The protocol observes non-activation and expiry; it cannot detect a missing physical key. Create a new wallet instead.
 
 **Q: What if the Authenticator Master Key is lost AFTER successful activation?**  
-A: **Q3 CONFIRMED (2026-10-24):** owner may have preconfigured an optional **TongNet Disaster Recovery Wallet** address in normal wallet settings (not BlackBox). With BOTH the original Wallet Private Key and the optional one-use Disaster Recovery Key, they can run one-way recovery without BlackBox or Authenticator. Intention: move all eligible wallet funds (less actual fee if any) to the preconfigured address, then make the old wallet permanently DEAD. BlackBox access itself is not restored. Recovery destination and key are **immutable after first setup**. **First setup must use Wallet Private Key and TongNet Authenticator together (Q5 Option A)**; Q6 clarifies already Triggered locked transfers; Q7 remains for not-yet-triggered 3-hour locks.
+A: **Q3 CONFIRMED (2026-10-24):** owner may have preconfigured an optional **TongNet Disaster Recovery Wallet** address in normal wallet settings (not BlackBox). With BOTH the original Wallet Private Key and the optional one-use Disaster Recovery Key, they can run one-way recovery without BlackBox or Authenticator. Intention: move all eligible wallet funds (less actual fee if any) to the preconfigured address, then make the old wallet permanently DEAD. BlackBox access itself is not restored. Recovery destination and key are **immutable after first setup**. **First setup must use Wallet Private Key and TongNet Authenticator together (Q5 Option A)**; Q6 clarifies already Triggered locked transfers; Q7 now confirms pre-trigger 3h expiry returns locked amount to linked recovery wallet after DEAD source.
 
 **Q: Must a disaster recovery address be configured?**  
 A: No, this is optional.
@@ -58,8 +58,11 @@ A: **Q6 CONFIRMED (2026-10-24):** Only currently unlocked balance sweeps immedia
 **Q: Can the network assume both wallets have the same human owner?**  
 A: No: a cryptographic, authenticator-approved recovery address registration proves an **authorised link**, not natural-person identity. Sender-claim rights must be tied to original transaction and fixed destination; a key alone must not be redirected to any third wallet.
 
+**Q: What happens to still-untriggered locked funds after Run Disaster Recovery?**  
+A: **Q7 CONFIRMED — Option A (2026-10-24):** They stay locked until the original 3-hour pre-trigger expiry. Run Disaster Recovery sweeps available funds without waiting and permanently deactivates original sender S. Since S is then DEAD and the still-pending Send cannot be triggered, at its original 3-hour deadline the automatic refund goes directly to previously registered, immutable Disaster Recovery Wallet R. No early cancellation or separate Sender Claim Key is needed in this untriggered refund route. Network must ensure no payout to both wallets.
+
 **Q: What next?**  
-A: **Q7:** A transfer is locked but still awaiting Trigger in the initial 3h period, and the source becomes DEAD during Disaster Recovery. Where does the required 3-hour automatic refund settle? This was NOT answered by Q6.
+A: **Q8:** When permanently registering R, must its own private key sign a proof that the destination wallet is controlled/consenting, in addition to S's Wallet Private Key and TongNet Authenticator approval, or is checking an address enough?
 
 ## Payment flow
 
