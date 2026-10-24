@@ -147,10 +147,16 @@ R_BLACKBOX:
   late ACCEPT on EXPIRED -> REJECT request; do not issue key/binding
 ```
 
-The system must not expose a valid disaster key or mark a wallet protected **before** a properly verified R BlackBox acceptance. Requirement for end-to-end correctness: verify S/R/request ID and acceptance authenticity, prevent duplicate issuance under concurrent Accept/Reject, assure durable delivery/ability to retrieve the resulting key, ensure permanent binding and key commitment are consistent. Q10 deadline for unanswered requests is now **24 hours**; pending cancellations, resubmissions and edge-time consensus ordering remain unanswered (Q11).
+The system must not expose a valid disaster key or mark a wallet protected **before** a properly verified R BlackBox acceptance. Requirement for end-to-end correctness: verify S/R/request ID and acceptance authenticity, prevent duplicate issuance under concurrent Accept/Reject, assure durable delivery/ability to retrieve the resulting key, ensure permanent binding and key commitment are consistent. Q10 sets **24 hours** for unanswered requests. **Q11 forbids source cancellation/withdrawal/replacement while PENDING**; a fresh request can be initiated only after target REJECT or 24h EXPIRED, never after ACCEPT. Edge-time consensus ordering is NEXT Q12.
 
 ## Q10 — Recovery pairing PENDING TTL (confirmed user choice)
 
 Unanswered R BlackBox recovery association requests have a **24-hour time-to-live** from canonical network-accepted request creation (exact clock/finality procedure TBD). During that time status is PENDING_ACCEPTANCE and S recoveryConfigured=false. If no valid destination acceptance has finalized before deadline, transition once to EXPIRED; no recovery key or permanent association exists and any later ACCEPT must be rejected. REJECT remains a terminal rejection with S BlackBox notice under Q9. A request cannot be revived by replay or duplicate submission.
 
-**Critical network design work:** ordering of simultaneous ACCEPT/REJECT/EXPIRED operations, authentic timestamp, delayed delivery, request uniqueness and immutable status in consensus. Exact boundary finality rules not yet formalised. **Next Q11:** may S withdraw or replace a request while PENDING, without violating destination consent or accepted irreversible pairing?
+**Critical network design work:** ordering of simultaneous ACCEPT/REJECT/EXPIRED operations, authentic timestamp, delayed delivery, request uniqueness and immutable status in consensus. Exact boundary finality rules not yet formalised. **Q11 confirmed Option B:** S may neither withdraw nor replace a PENDING recovery request. Wait for R's REJECT or 24h EXPIRED before a new attempt; R ACCEPT permanently binds and prevents later setup. **Next Q12:** which network event qualifies an ACCEPT sent near the 24h expiry?
+
+## Q11 — Pending request non-cancellation (confirmed)
+
+Request state transitions are PENDING_ACCEPTANCE → ACCEPTED, REJECTED or EXPIRED, with **no SOURCE_CANCELLED state and no PENDING_REPLACED transition**. Reject or expiry releases the source's outstanding-request slot and permits a new properly authenticated association attempt. Accept atomically creates permanent binding and the one-time key in destination BlackBox, prohibiting all later attempts to replace the destination. While request PENDING, mark source NOT_CONFIGURED. The 24h expiry remains unaltered by user polling or reopening BlackBox.
+
+**Q12 NEXT:** Define source-of-truth timestamp for an approval that is submitted before the 24h cutoff but reaches decentralised finality after it. Keep network-level deterministic ordering, replay protection and no local-clock trust.
