@@ -36,7 +36,7 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 
 ## Current next question
 
-**Q10 (NEXT):** If destination Wallet BlackBox never accepts/rejects a recovery pairing request, when should PENDING expire? Until destination accepts it is NOT_CONFIGURED; no permanent link/key exists. Await user answer.
+**Q11 (NEXT):** During an unanswered 24-hour recovery request PENDING period, can SOURCE wallet cancel a request and propose another recovery wallet, or must wait until destination Rejects or request auto-expires? Configuration is immutable only AFTER destination Accept. Await answer.
 
 ## Question discovery and tracking
 
@@ -55,7 +55,8 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] **Q7 (2026-10-24, Option A):** If an untriggered transfer survives a terminal source disaster recovery, preserve original 3h lock, then automatic refund directly to prebound recovery wallet after timeout (no early cancellation).
 - [x] **Q8 clarification (2026-10-24):** The third one-use Disaster Recovery Key is GENERATED in the DESTINATION Recovery Wallet's own BlackBox, not source Wallet, and later consumed with source Wallet Private Key (specification only).
 - [x] **Q9:** Destination BlackBox must Accept request before immutable pairing and key generation. Reject notifies source BlackBox; pending counts NOT_CONFIGURED (documentation only).
-- [ ] **Q10:** Pending request expiry duration and policy.
+- [x] **Q10 (2026-10-24, Option A):** Unanswered pairing request automatically expires after 24 hours, without recovery Key/link. Pending/Expired means NOT_CONFIGURED; stale Accept invalid.
+- [ ] **Q11:** Source cancel/replace of still-pending unaccepted request.
 - [x] Define Triggered escrow and stored sender claim key delegation after terminal disaster recovery (design only).
 - [x] Specify refund destination for PENDING_TRIGGER when source DEAD (Q7 design only).
 - [ ] Implement/test strict Trigger-vs-DEAD-vs-timeout ordering and no double settlement.
@@ -85,4 +86,5 @@ Q2 updates to the security threat-model file have **not** yet been committed bec
 - [x] Record no key and no permanent association until DESTINATION BlackBox ACCEPT.
 - [x] Record REJECT response to source BlackBox.
 - [ ] Implement and verify authenticated Accept/Reject, atomic key issuance, race and replay safety.
-- [ ] Decide how long unanswered requests stay pending (Q10).
+- [x] Q10 settled: maximum 24h unanswered PENDING; expiry keeps wallet NOT_CONFIGURED (documentation only).
+- [ ] Specify source withdrawal/cancellation or resubmission before deadline (Q11), plus protocol races.
