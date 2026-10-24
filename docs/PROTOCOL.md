@@ -41,8 +41,8 @@ Let `t0` = network-accepted transfer initiation, `tt` = network-accepted Trigger
 At t0: lock sender funds; transaction=PENDING_TRIGGER
 t0 ... t0+3h: sender may authenticate and Trigger. No manual cancel/refund.
 If no successful Trigger before deadline: PENDING_TRIGGER -> AUTO_REFUNDED
-At Send setup: SENDER BlackBox generates K_R and Sender gives it to intended recipient; K_R remains INACTIVE until final Trigger. At tt: Trigger becomes IRREVOCABLE / NON-CANCELLABLE, including mistyped destination; activate recipient-bound K_R WITHOUT auto-delivering plaintext to receiver BlackBox
-tt ... tt+24h: only bound receiver may redeem -> FINAL_RECEIVER_CLAIMED
+At Send setup: SENDER BlackBox generates K_R and Sender gives it to intended recipient; K_R remains INACTIVE until final Trigger. At tt: Trigger becomes IRREVOCABLE / NON-CANCELLABLE, including mistyped destination; activate recipient-bound K_R WITHOUT auto-delivering plaintext to receiver BlackBox. Trigger alone DOES NOT pay Receiver: a further receiver-submitted Claim Request AND separately signed sender-BlackBox final ACCEPT are now mandatory.
+tt ... tt+24h: bound receiver submits CLAIM_REQUEST with K_R + receiver proof; Sender BlackBox must independently sign ACCEPT tied to that exact request; ONLY network-finalised acceptance + valid receiver proof -> FINAL_RECEIVER_CLAIMED
 If receiver does not claim by adjusted deadline: K_R expires; Sender BlackBox generates fresh K_S; RECOVERY_ONLY (late issuance offline/recovery issue OPEN)
 tt+24h ... tt+96h: only bound sender with one-time recovery credential may redeem -> FINAL_SENDER_RECOVERED
 If neither redeem by tt+96h: proposed -> NETWORK_RESERVE_FINAL (blocked from real-world release pending legal/consent review)
@@ -80,9 +80,9 @@ protocol_version
 
 1. **Conservation:** locked value is resolved exactly once, without duplication.
 2. **Mutual exclusion:** receiver settlement, sender refund and reserve allocation cannot each succeed for the same value.
-3. **Recipient binding:** claim credential alone is insufficient; wallet authority for the exact addressed receiver is required.
+3. **Recipient and Sender final consent:** receiver claim credential + addressed receiver-wallet authority are necessary but NOT SUFFICIENT: network-finalised sender BlackBox final ACCEPT for that exact bound claim request is also mandatory.
 4. **Sender binding:** recovery requires authenticated authorisation from the exact original sender.
-5. **Trigger authorisation:** possession of wallet private key alone cannot Trigger.
+5. **Trigger AND final Accept authorisation:** possession of wallet private key alone cannot Trigger nor produce a sender BlackBox ACCEPT; both require explicit transaction-bound independent authorization.
 6. **Deadline enforcement:** all honest verifiers agree on acceptance order and settled state despite latency/partitions.
 7. **Replay protection:** no claim/trigger proof can be reused in a different transaction, network or epoch.
 8. **Resource limits:** attackers cannot cheaply exhaust validator resources with unlimited fake wallets/claims.
@@ -99,7 +99,7 @@ protocol_version
 
 - 10:00 Send locks 1,000 TONG.
 - 11:00 sender second-factor-authorised Trigger.
-- Until 11:00 next day, only bound receiver can claim.
+- Until 11:00 next day, receiver may SUBMIT CLAIM REQUEST with K_R + bound wallet authority; sender must review and ACCEPT separately in Sender BlackBox before that deadline. Only then can network finalize Receiver payout.
 - Next 72h (until 11:00 four days after Trigger), only sender can reclaim if receiver did not claim.
 - Beyond that, the *creator-proposed* network reserve allocation is final, **subject to unresolved laws/consent**.
 
@@ -236,3 +236,17 @@ The long-term high-performance proposal is an auditable deterministic-finality B
 **PROTOCOL ENGINEERING OPEN / conflict with earlier Q6:** Previous specification said the Sender Claim Key already existed before 24h and could be used even after Source S became DEAD by Disaster Recovery. Newly confirmed **late key generation in Sender BlackBox** conflicts with successful prior disaster recovery or lost/compromised Sender BlackBox before the 24h boundary. Do NOT silently replace the user's "new key after 24h" timing. Candidate solutions needing confirmation and formal verification include (A) Sender BlackBox generates fresh K_S after expiry while online and cannot reclaim if destroyed, OR (B) precommit an authenticated, encrypted, future sender key/derivation at Trigger, only cryptographically UNSEAL/ACTIVATE it once receiver window expires, including recovery-wallet handling. B preserves prior Q6 protection better but changes the literal issuance time. Network must not mint plaintext K_S or know secret by itself. Also prove secure commitment update at boundary, no claim if key issuance commitment missing, anti-replay, receipt binding and no permanent frozen funds.
 
 **Naming:** Ordinary transaction keys K_R and K_S are NOT Wallet Private Keys, Authenticator/BlackBox master secrets, disaster-recovery keys, or a receiver-generated Receive Request. An extra signed Receive Request may still be a future optional defense but is NOT required/approved by this correction; do not assume mandatory upfront receiver request. The new flow is user-confirmed requirement only—not an implementation, audited code or measured performance.
+
+## 2026-10-25 — USER-CONFIRMED: Sender's final BlackBox ACCEPT is mandatory after Receiver CLAIM REQUEST
+
+**Owner scenario:** Sender and Receiver communicate on WhatsApp, voice call or another external channel. Sender obtains Receiver address, initiates a locked transaction, and Sender BlackBox generates the one-use Receiver Claim Code K_R. Sender privately shares K_R with intended recipient. Receiver signs/submits a CLAIM REQUEST with K_R from the precisely bound destination wallet. **This is NOT a successful Claim or settlement.** The Sender's **own BlackBox must receive the authenticated request and display a manual ACCEPT** action; only after Sender independently approves the exact Receiver wallet, amount, transaction and claim request, the network may finalize payment to Receiver. **NO Sender ACCEPT = NO Receiver payout, regardless of having K_R and Receiver Wallet key.** Sender prefers NO manual REJECT; lack of acceptance must expire at the existing 24h Receiver claim deadline, then Sender's exclusive 72h manual reclaim opportunity opens. The approved payout is irreversible once BFT-final.
+
+**Supersedes:** earlier wallet-bound Claim Key + Receiver authorization being sufficient by itself. Claims now require (i) correct Receiver Wallet signing proof + (ii) one-use K_R knowledge proof / commitment + (iii) independently signed Sender BlackBox ACCEPT for that exact claim + (iv) final settlement before network-delay-adjusted Receiver expiry. Do not disclose plaintext K_R on public ledger. Authenticate all request/approval messages against chain ID, protocol version, transaction ID, sender/receiver, asset, amount, nonce, phase and deadline; no global master override or hidden server assent.
+
+**Timing must preserve existing CONFIRMED rules unless owner separately changes them:** Send creates escrow, original Sender BlackBox **Trigger** must still finalise within 3h or auto-refund, Trigger finality starts the Receiver's 24h exclusive claim right, then following 72h Sender Key K_S reclaim right. This new ACCEPT is currently a SECOND post-Receiver-Request Sender action after Trigger. Sender cannot manually cancel Triggered escrow; withholding ACCEPT is *not* an early cancellation/refund. If no ACCEPT for a valid Receiver Claim before finality deadline, receiver cannot claim; after Receiver period Sender can use K_S once as already decided. Claim submitted early but ACCEPT finalizes after expiry is still expired (apart from verifiable adjusted network delay credit). Any suggestion to MERGE the existing 3h Trigger with this final ACCEPT is only a future design option requiring explicit owner consent, as merging would change rights and timing.
+
+**Wrong-address example:** Sender intended A but input address B; K_R is shared to A. A has code but not B's wallet-signing key, B has wallet-signing key but not K_R; even with both compromised, B cannot settle *without genuine Sender ACCEPT*. Sender can detect wrong bound address B in BlackBox confirmation and simply withhold ACCEPT, then later reclaim after Receiver window. This reduces wrong-destination risk, but if Sender is deceived into approving B, funds can be finally lost; code leakage, coercion, malicious UI, a compromised Sender signing device or signing phishing are still risk factors. Network cannot cryptographically establish human identity from wallet keys alone.
+
+**Implementation issues OPEN (not secretly presumed solved):** sender signing/approval factor separated from Wallet Private Key; authenticated delivery of pending claim to Sender BlackBox when offline, replay and denial-of-service controls, receiver-submitted pre-Trigger requests, concurrency and expiry, public plaintext secrecy, verifier-efficient proof scheme, proof-lifecycle when Sender BlackBox lost, prevention of approvals for altered address/amount, no double-settlement and no forced payments. Senders must be clearly shown the actual network-bound receiver address and have a second independent confirmation factor where appropriate. Existing late-generation K_S versus disaster-recovered/dead Sender BlackBox remains an independent unresolved blocker. User's controversial post-96h reserve forfeiture has NOT been authorised for real-money launch.
+
+**Why this is distinct:** The user prioritizes voluntary bilateral **human-in-the-loop** release authorization rather than one-click instant payment. This is a defined protocol addition only; never claim the full system is coded, cryptographically sound or first-ever before engineering proof and audits.
