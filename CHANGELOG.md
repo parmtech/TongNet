@@ -1,5 +1,10 @@
 # TongNet — Documentation & Project Change Log
 
+## 2026-10-24 — Exhaustive technical questioning backlog
+- Added [docs/DEEP_QUESTIONS.md](docs/DEEP_QUESTIONS.md) with 86 unanswered security, logic, engineering, economics, privacy and governance questions.
+- Agreed workflow: ask meaningful questions one-by-one, save decisions and update the active next-session handoff; keep extending backlog instead of stopping after a short questionnaire.
+- **NEXT:** initial setup authorisation of irreversible disaster recovery destination, Q5.
+
 ## 2026-10-24 — Q3/Q4 Disaster Recovery immutability and key rules
 - Optional immutable Disaster Recovery Wallet destination registered in normal Wallet Settings; at setup user is issued a distinct optional one-time Disaster Recovery Key.
 - THREE keys: Wallet Private Key, TongNet Authenticator Master Key, optional Disaster Recovery Key.
