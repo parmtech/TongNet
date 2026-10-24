@@ -15,7 +15,8 @@
 - [x] Q8 clarification: one-use recovery secret is generated inside the DESTINATION recovery wallet's encrypted BlackBox (design only)
 - [x] Q9: destination BlackBox Accept required before one-time key generation and immutable source→destination pairing; Reject sends source BlackBox notice; Pending means NOT_CONFIGURED (design only)
 - [x] Q10: unanswered destination BlackBox pairing requests auto-expire after 24 hours (design only)
-- [ ] Q11: decide source withdraw/replace while request still pending
+- [x] Q11: source cannot cancel/replace pending pairing; wait for recipient Reject or 24h Expired (design only)
+- [ ] Q12: decide strict consensus finality vs authenticated earlier receipt for Accept submitted near expiry
 - [ ] Formalize network clock, acceptance/expiry ordering, no stale key issuance
 - [ ] Define authenticated BlackBox Accept/Reject, request IDs, state conflicts and all-or-nothing key/registration finality
 - [ ] Design secure key commitment, authenticated destination BlackBox issuance and replay protection
