@@ -57,3 +57,7 @@ The rule for wallets never activated within 72 hours is separate: they remain pe
 ## Q5 confirmation — immutable recovery destination onboarding
 
 **2026-10-24:** User selected **Option A**: first registration requires both Wallet Private Key and TongNet Authenticator. No ability to replace recovery destination or key. Execute later using Wallet Private Key and the one-use Disaster Recovery Key, without Authenticator. In implementation, cryptographically bind Authenticator approval to the exact destination address, source wallet and nonce; a short rotating code by itself can be phished. Audit simultaneous registration attempts and finality. **Next Q6:** already locked funds and third-party receiver claims must survive disaster recovery without unauthorized cancellation or double-spend.
+
+## Q6 — Escrow safety requirements
+
+Disaster recovery moves available funds only. Triggered funds remain in escrow under the original receiver-first 24-hour claim window. During the subsequent 72-hour period, an existing single-use sender claim credential may be presented through the immutable pre-enrolled recovery address only after terminal disaster recovery is final. Prove transaction binding, address authority and single settlement. The recovery key does not replace a missing sender claim credential. The case of not-yet-triggered three-hour pending refunds remains open as Q7.
