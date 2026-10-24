@@ -18,7 +18,8 @@
 - [x] Q11: source cannot cancel/replace pending pairing; wait for recipient Reject or 24h Expired (design only)
 - [x] Q12: strict network finality BEFORE pairing 24h deadline required; earlier tapping/signing is insufficient (design only)
 - [x] Q13 network-queue intent: immutable timer speed, queue overload requests, NEW timers start after network acceptance (design documented; consensus finality is recommendation)
-- [ ] Q14: settle already-running Claim deadline when queued before cutoff but finalized afterward
+- [x] Q14: strict Claim consensus finality required before receiver/sender cutoff, even if queue admission occurred earlier (design only)
+- [ ] Q15: choose treatment of expired unclaimed escrow after complete network outage; forced reserve forfeiture remains safety/legal blocker
 - [ ] Specify total-network outage response and risks of reclaim/forfeiture while consensus cannot progress
 - [ ] Build bounded queue/rate-limiting/dedup/status receipts and anti-Sybil fairness tests
 - [ ] Formalize network clock, acceptance/expiry ordering, no stale key issuance
