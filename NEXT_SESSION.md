@@ -4,7 +4,7 @@
 
 ## Deep questioning backlog
 
-Read [docs/DEEP_QUESTIONS.md](docs/DEEP_QUESTIONS.md). There are **86 initial questions** across keys, disaster recovery, irreversible state, financial and legal edge cases, validators/consensus, zero-fee economics, privacy and operational resilience. User explicitly asks to continue posing as many deeper questions as needed, and to commit every resulting decision. **One question per turn** is still best for a reliable decision log, but keep adding questions to backlog as new risks are discovered.
+Read [docs/DEEP_QUESTIONS.md](docs/DEEP_QUESTIONS.md). There were **86 initial questions**, now **88 tracked questions** across keys, disaster recovery, irreversible state, financial and legal edge cases, validators/consensus, zero-fee economics, privacy and operational resilience. User explicitly asks to continue posing as many deeper questions as needed, and to commit every resulting decision. **One question per turn** is still best for a reliable decision log, but keep adding questions to backlog as new risks are discovered.
 
 ## User communication preference
 Speak simple, conversational **Punjabi**. Ask **exactly one product/security question at a time**. Wait for the user's answer. Record it accurately and commit the relevant docs before asking another question. Do not keep asking questions the user already settled.
@@ -58,9 +58,17 @@ See [docs/DISASTER_RECOVERY.md](docs/DISASTER_RECOVERY.md), [docs/DECISIONS.md](
 
 User selected Option A. If an older outgoing transfer remains locked but untriggered when terminal disaster recovery ends the source wallet, keep the lock until the original three-hour expiry. At expiry refund automatically to the original wallet's pre-registered immutable disaster recovery destination. Source is DEAD and cannot trigger later. No early release or manual cancellation. Implementation and finality testing remain pending.
 
-## NEXT: Question 8
+## Q8 clarification confirmed on 2026-10-24
 
-Ask in simple Punjabi, ONE question only: When the user initially registers the permanently immutable Disaster Recovery Wallet address, source Wallet Private Key plus TongNet Authenticator approval are already required. Should the DESTINATION wallet additionally sign with its own private key, proving the owner has access to that destination? Options: A = require destination signature; B = accept valid address with manual visual confirmation; C = other solution. Cryptographic control is not proof of real-world identity. Do not assume answer.
+When S registers R (recovery destination) within S's NORMAL wallet settings, using Wallet Private Key + TongNet Authenticator (Q5), the distinct optional one-time Disaster Recovery Key MUST be generated **inside R's own encrypted TongNet BlackBox**, NOT S's BlackBox or unsecured interface. The same key is later needed alongside S Wallet Private Key to execute Run Disaster Recovery without S's Authenticator/BlackBox. Consumption of key and terminal S DEAD state are one-time; registered recovery address and key can never change or be reset.
+
+**Important:** R's BlackBox key creation/delivery is NOT itself proof that R's wallet private key has approved and signed the association, nor that two wallets have the same natural owner. The user's Q8 statement has resolved key LOCATION, not exactly when an irreversible pairing becomes final.
+
+## NEXT: Question 9 — destination acceptance before final pairing
+
+Ask one Punjabi question: "ਜਦੋਂ Main Wallet ਵਿੱਚ ਪਹਿਲੀ ਵਾਰ Disaster Recovery Address add ਹੁੰਦਾ ਹੈ ਅਤੇ Recovery Wallet ਦੇ BlackBox ਵਿੱਚ One-Time Recovery Key ਬਣਦੀ ਹੈ, ਕੀ Main Wallet ਨਾਲ permanent link ਬਣਨ ਤੋਂ ਪਹਿਲਾਂ Recovery Wallet ਖੋਲ੍ਹ ਕੇ ਉਸਦਾ owner ਆਪ **Accept/Approve** ਵੀ ਕਰੇ? **A:** ਹਾਂ, ਪਹਿਲਾਂ destination BlackBox ਤੋਂ confirmation, ਫਿਰ pairing final ਹੋਵੇ। **B:** ਨਹੀਂ, Main Wallet Private Key ਤੇ Authenticator ਦੀ approval ਨਾਲ pairing ਤੁਰੰਤ final ਹੋਵੇ, Key ਆਪੇ destination BlackBox ਵਿੱਚ ਬਣ ਜਾਵੇ। ਜਾਂ ਕੋਈ ਆਪਣਾ rule?"
+
+Do not assume answer; update docs, backlog, progress, handoff and changelog upon response.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
