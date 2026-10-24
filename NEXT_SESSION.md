@@ -41,9 +41,12 @@ The user specified an optional, one-time Disaster Recovery Wallet address in **n
 
 See [docs/DISASTER_RECOVERY.md](docs/DISASTER_RECOVERY.md), [docs/DECISIONS.md](docs/DECISIONS.md).
 
-## NEXT SINGLE QUESTION (unanswered — Q5)
+## Q5 confirmed (2026-10-24)
+**Option A:** INITIAL Disaster Recovery Wallet address registration requires BOTH Wallet Private Key proof AND TongNet Authenticator approval. Once set, both destination and Disaster Recovery Key are permanently immutable. Later Run Disaster Recovery still needs Wallet Private Key + one-use Disaster Recovery Key, not BlackBox/Authenticator. See docs/DECISIONS.md.
 
-**Punjabi:** "ਜਦੋਂ ਤੁਸੀਂ ਪਹਿਲੀ ਵਾਰ Wallet Settings ਵਿੱਚ Disaster Recovery Wallet ਦਾ ਪੱਕਾ address ਸੈੱਟ ਕਰਦੇ ਹੋ, ਕੀ ਉਸ ਵੇਲੇ **Wallet Private Key ਦੇ ਨਾਲ TongNet Authenticator ਦੀ ਮਨਜ਼ੂਰੀ ਵੀ ਲਾਜ਼ਮੀ** ਹੋਵੇ, ਜਾਂ **ਸਿਰਫ਼ Wallet Private Key** ਕਾਫ਼ੀ ਹੋਵੇ? ਇੱਕ ਵਾਰ set ਹੋਣ ਤੋਂ ਬਾਅਦ address ਅਤੇ disaster key ਕਦੇ ਬਦਲਣ ਜਾਂ reset ਕਰਨ ਦਾ option ਨਹੀਂ ਹੋਵੇਗਾ — ਇਹ ਪੱਕਾ ਹੈ।"
+## NEXT SINGLE QUESTION (unanswered — Q6)
+
+**Punjabi:** "ਮੰਨ ਲਓ Wallet ਵਿੱਚ 1,000 TONG ਨੇ। 300 TONG ਪਹਿਲਾਂ ਦੀ transaction ਵਿੱਚ lock ਨੇ, ਤੇ 700 available ਨੇ। ਹੁਣ ਤੁਸੀਂ Disaster Recovery ਚਲਾਉਂਦੇ ਹੋ ਤੇ ਪੁਰਾਣਾ Wallet ਹਮੇਸ਼ਾ ਲਈ DEAD ਹੋਣਾ ਹੈ। 300 locked TONG ਦਾ ਕੀ ਕਰੀਏ? **A:** 700 ਹੁਣ backup wallet ਨੂੰ ਭੇਜੀਏ; 300 ਲਈ receiver ਦੇ ਪੁਰਾਣੇ ਹੱਕ ਜਿਉਂ ਦੇ ਤਿਉਂ ਰਹਿਣ, ਤੇ ਜੇ ਬਾਅਦ ਵਿੱਚ refund sender ਨੂੰ ਬਣੇ ਤਾਂ ਉਹ backup wallet ਵਿੱਚ ਜਾਵੇ। **B:** ਜਦ ਤੱਕ 300 ਵਾਲੀ transaction final ਨਹੀਂ ਹੁੰਦੀ, ਸਾਰੀ Disaster Recovery wait ਕਰੇ। ਜਾਂ ਤੁਹਾਡਾ ਹੋਰ ਤਰੀਕਾ?"
 
 Do not assume the answer. Await user.
 
