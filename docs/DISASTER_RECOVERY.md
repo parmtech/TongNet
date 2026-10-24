@@ -30,9 +30,19 @@ The project now has three secret-key categories:
 6. In the same atomic irreversible state transition, the original source Wallet becomes **DEAD** forever; it cannot be reactivated.
 7. Never accept a different address at Run Disaster Recovery time. Never allow reuse of a successfully consumed recovery secret.
 
+## Q6 — Explicit linked sender-claim entitlement after disaster (confirmed 2026-10-24)
+
+- Example: 1,000 TONG original wallet balance; 700 unlocked, 300 already Triggered and locked. Running disaster recovery moves 700 (less any applicable fee) to the fixed recovery wallet immediately. Original wallet becomes DEAD; 300 remains in transaction escrow, never duplicated.
+- 24 hours after original Trigger: only receiver has the right to claim those 300. If receiver claims, final payment is theirs and recovery wallet is not entitled to the same value.
+- On receiver nonclaim, for the following 72 hours **the same already-issued sender Claim Key** can be submitted through the **previously immutable-linked Disaster Recovery Wallet**, *only if* the original wallet has actually completed Run Disaster Recovery.
+- Recovery-wallet claimant must demonstrate control of its own private key, provide original transaction-bound unspent sender Claim Key, and network must verify an authentic **pre-registered binding** from original wallet to destination. This is **not evidence that both addresses are held by the same natural person**; it is proof of prior cryptographic authorization to link them.
+- If the sender cannot access/present their original sender Claim Key, they cannot rescue that escrow merely with the disaster secret; the 72-hour sender-claim opportunity expires. The user's proposed reserve allocation after 96 hours remains a separate unresolved legal/economic blocker.
+- Claim right delegation is scoped to **these specific outstanding original-wallet transactions only**, not a transferable master ability to claim arbitrary wallets' payments. Claim always consumes entitlement once, including in racing/partitioned network conditions.
+- Pre-trigger 3-hour autorefunda are **not resolved** in this decision; see Q7.
+
 ## Not yet decided (engineering safety problems)
 
-- **Locked or triggered transfers:** user wants ALL funds swept. However, value already locked in a pending or triggered transfer can carry another person's claim entitlement, and triggering cannot be cancelled by sender. An emergency sweep must **not double spend** that value. Define eligible/unlocked value, pending-transfer handling and later resolution before coding.
+- **Q6 CONFIRMED, Triggered transfers:** immediately sweep ONLY currently unlocked/spendable funds. Keep the locked amount inside its existing transaction escrow and preserve receiver's entire 24-hour claim entitlement. If unclaimed, the already issued sender's one-use Claim Key may be used **from the original wallet's previously linked recovery wallet** during the following 72 hours, even after the original wallet has become DEAD. If the sender has lost that Claim Key / BlackBox access and cannot present it, recovery alone does NOT bypass it; the existing expiry and proposed network-reserve rule still apply. **Special case not yet decided:** a transfer still in the separate 3-hour PENDING_TRIGGER phase must be discussed in Q7.
 - **First-setup authentication confirmed:** BOTH Wallet Private Key authorization and TongNet Authenticator approval. Exact phishing-resistant transaction-bound proof, device compromise resistance and atomic enrollment still require formal protocol design.
 - Recovery destination activation status, cryptographic binding and proof of control; wrong address irreversible.
 - Can a wallet with no setup still be safe? Yes, standard wallet remains active; disaster feature absent.
@@ -43,7 +53,9 @@ The project now has three secret-key categories:
 
 **Q5 ANSWERED:** Option A. Register immutable disaster destination only when **Wallet Private Key + TongNet Authenticator** both approve initial setup. After registration, destination and one-use secret are immutable forever.
 
-**Q6 (OPEN):** If disaster recovery is run while ordinary outgoing transactions already have *locked* funds (including a triggered receiver claim window), should the system sweep only currently spendable value and preserve all existing recipient rights, redirecting any legitimate future refunds/recoveries to the pre-set Disaster Recovery Wallet as they become payable; or wait until every pending transaction resolves before executing the final sweep? Needs user decision and concurrency proof.
+**Q6 CONFIRMED:** Active disaster recovery moves available/unlocked funds immediately. Any already-triggered transfer retains its receiver's 24-hour claim right. If receiver does not claim, during the subsequent 72-hour sender recovery window a one-time sender Claim Key that the owner already possesses can instead authorise claim **to the bound recovery wallet**, but ONLY when Run Disaster Recovery was actually finalised for the original source wallet. The Claim Key is still required, expiry is unchanged, and one-time spending is enforced. No automatically fabricated Claim Key. A missing sender Claim Key cannot be bypassed. Proposed 96-hour reserve rule stays as described, subject to legal review.
+
+**NEXT Q7:** What if the locked transfer has NOT been Triggered yet? At the 3-hour auto-refund deadline, should the returning amount automatically credit the permanently linked Disaster Recovery Wallet of the now-DEAD original wallet, or should disaster recovery remain temporarily pending until pre-trigger locks have automatically refunded? The refund must never become stranded in a DEAD wallet.
 
 ## Security warning
 
