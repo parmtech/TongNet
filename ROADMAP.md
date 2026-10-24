@@ -19,7 +19,11 @@
 - [x] Q12: strict network finality BEFORE pairing 24h deadline required; earlier tapping/signing is insufficient (design only)
 - [x] Q13 network-queue intent: immutable timer speed, queue overload requests, NEW timers start after network acceptance (design documented; consensus finality is recommendation)
 - [x] Q14: strict Claim consensus finality required before receiver/sender cutoff, even if queue admission occurred earlier (design only)
-- [ ] Q15: choose treatment of expired unclaimed escrow after complete network outage; forced reserve forfeiture remains safety/legal blocker
+- [x] Q15: user-confirmed universal one-for-one network delay compensation for every affected time-limited operation (design only)
+- [ ] Q16: choose per-operation versus network-wide verifiable Delay Calculator measurement
+- [ ] Implement deterministic adjusted deadline computation and exclusive claim-window transitions
+- [ ] Prove prevention of fictitious network delay, duplicate credits and expiry-vs-finality races
+- [ ] Forced reserve forfeiture requires legal/informed-consent/consumer safety review regardless of adjusted deadlines
 - [ ] Specify total-network outage response and risks of reclaim/forfeiture while consensus cannot progress
 - [ ] Build bounded queue/rate-limiting/dedup/status receipts and anti-Sybil fairness tests
 - [ ] Formalize network clock, acceptance/expiry ordering, no stale key issuance
