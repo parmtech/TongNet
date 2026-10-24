@@ -61,3 +61,7 @@ The rule for wallets never activated within 72 hours is separate: they remain pe
 ## Q6 — Escrow safety requirements
 
 Disaster recovery moves available funds only. Triggered funds remain in escrow under the original receiver-first 24-hour claim window. During the subsequent 72-hour period, an existing single-use sender claim credential may be presented through the immutable pre-enrolled recovery address only after terminal disaster recovery is final. Prove transaction binding, address authority and single settlement. The recovery key does not replace a missing sender claim credential. The case of not-yet-triggered three-hour pending refunds remains open as Q7.
+
+## Q7: Automatic timeout after disaster recovery
+
+When the original wallet becomes permanently DEAD while an older outgoing transfer remains untriggered, its existing 3-hour lock still expires normally. Its automatic refund is delivered to the immutable registered recovery wallet. No early release is permitted. Network consensus must order the deadline and any earlier trigger or recovery operation consistently, and allow only one settlement. This is a design requirement, not an audited guarantee.
