@@ -191,3 +191,7 @@ After immutable S→R pairing is ACCEPTED, S's BlackBox records, pending claim m
 6. What happens to original locked sends and late-created Sender K_S when S dies, plus strong pre-activation confidentiality of R's encrypted mirror, remain critical engineering OPEN. Never quietly claim those are solved by replication.
 
 **Decision status:** 1-3 are explicit owner-confirmed UX/protocol direction. 4-6 are safety interpretation and unresolved engineering constraints. No running chain or audited cryptographic key migration exists.
+
+## Latest 2026-10-25 owner correction — R starts normal, freezes on ACCEPT, unreadable mirror
+
+R is initially a NORMAL wallet (but virgin/no ordinary financial history if used as recovery). Once S requests immutable pairing and R's BlackBox ACCEPT reaches BFT finality, R becomes `RECOVERY_RESERVED_FROZEN`, with no Send/Receive/Claim or new recovery pairing. It continually receives S BlackBox encrypted carbon-copy backup events (messages/codes/history); R must not show source plaintext until **authorised BFT-final Run Disaster Recovery** (not merely any DEAD source condition). Then S permanently DEAD, R becomes NORMAL_ACTIVE, restore verified ciphertext and successor rights, may configure new fresh successor C. Ledger history references stay immutable; no balance cloned. Crypto caveat: if R already has full decryption secret, network cannot prevent offline early decryption; key-release/threshold/hardware design OPEN. New K_S after lost S remains unsolved. Latest detail docs/RECOVERY_MIRROR_PROTOCOL.md.
