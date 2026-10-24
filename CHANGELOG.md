@@ -1,3 +1,12 @@
+## 2026-10-25 — Whole-project technical review, 95 Q&A and Q16–Q25 decisions
+
+- Read all 95 tracked deep questions and generated [Master Q&A Recommendations](docs/MASTER_QA_RECOMMENDATIONS.md), preserving exact old questions and clearly distinguishing user-chosen rules from unapproved engineering recommendations. This is design, not implementation.
+- Created [TongNet Future Architecture](docs/TONGNET_FUTURE_ARCHITECTURE.md): BFT deterministic-finality research baseline, parallel dissemination/execution candidates, hybrid anti-Sybil and optional stake-like bonding, cryptographic agility, measurable testnet targets and realistic sponsored-fee economics.
+- User confirmed Q16 C hybrid global+individual delay, Q17 C independent fabricated delay checks, Q18 C evidence consensus/protected funds, Q19 C anti-Sybil committees, Q20 C staged opening, Q21 C rule-based automated validators, Q22 B quarantine, Q23 B standby replacements, Q24 C partition quorum, and Q25 B preauthorised safe epoch/backup rotation.
+- Explicitly rejected unjustified claims that current TongNet has a running network, measured TPS, proven novelty, unconditional zero-fee sustainability, automatic full decentralisation or formal network delay attestation.
+- Clearly flagged unresolved mandatory legal/consumer approval for proposed confiscation of 96h-unclaimed escrow into Network Reserve. Review does NOT unilaterally rewrite confirmed protocol rights.
+- Synced README, project decisions, protocol, security, recovery, FAQ, progress, roadmap and session handoff. No secret material or live funds touched.
+
 ## 2026-10-25 — Q15 confirmed: universal network-delay compensation across EVERY timed operation
 - User expanded the rule explicitly beyond Claims: **every** TongNet transaction/task with a network-affected deadline must get one-for-one extra allowed time equal to network-induced verified delay, using a proposed Network Delay Calculator. Included Send/Trigger, receiver and sender claims, recovery setup/BlackBox acceptance and other time-bound operations.
 - Running clocks remain normal; compensated **effective deadlines** move. Q12 and Q14 still require consensus finality strictly before the adjusted deadline. Newly submitted tasks' clocks start only upon network acceptance, with queue wait before start not double-credited.
