@@ -17,7 +17,10 @@
 - [x] Q10: unanswered destination BlackBox pairing requests auto-expire after 24 hours (design only)
 - [x] Q11: source cannot cancel/replace pending pairing; wait for recipient Reject or 24h Expired (design only)
 - [x] Q12: strict network finality BEFORE pairing 24h deadline required; earlier tapping/signing is insufficient (design only)
-- [ ] Q13: decide receiver and sender claim deadlines during verifiable network-wide outages
+- [x] Q13 network-queue intent: immutable timer speed, queue overload requests, NEW timers start after network acceptance (design documented; consensus finality is recommendation)
+- [ ] Q14: settle already-running Claim deadline when queued before cutoff but finalized afterward
+- [ ] Specify total-network outage response and risks of reclaim/forfeiture while consensus cannot progress
+- [ ] Build bounded queue/rate-limiting/dedup/status receipts and anti-Sybil fairness tests
 - [ ] Formalize network clock, acceptance/expiry ordering, no stale key issuance
 - [ ] Define authenticated BlackBox Accept/Reject, request IDs, state conflicts and all-or-nothing key/registration finality
 - [ ] Design secure key commitment, authenticated destination BlackBox issuance and replay protection
