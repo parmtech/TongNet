@@ -69,11 +69,12 @@
 |---|---|---|
 | CLOSED-001 | **ANSWERED 2026-10-24** | Option B confirmed: after a successful Trigger, sender CANNOT cancel or emergency-stop the transaction, even if recipient address is wrong. Receiver 24-hour window remains valid; if no receiver claim, sender gets the next 72h for recovery. |
 | CLOSED-002 | **ANSWERED 2026-10-24** | User chose **permanently DEAD** if never enrolled within 72h. No reissuing lost initial Setup Key to save that same wallet under the agreed rule. After expiry no key, support agent or administrator can activate it again. A new wallet is needed. |
-| CLOSED-003 | **ANSWERED / REFINED 2026-10-24** | Optional TongNet Disaster Recovery Wallet in normal Wallet settings, NOT BlackBox. Run Disaster Recovery requires **original Wallet Private Key + distinct one-use Disaster Recovery Key**, NO BlackBox/Authenticator. Atomic sweep of eligible balance (less actual fee) to immutable preconfigured destination; old wallet permanently DEAD. Locked-fund treatment unresolved. |
+| CLOSED-003 | **ANSWERED / REFINED 2026-10-24** | Optional TongNet Disaster Recovery Wallet in normal Wallet settings, NOT BlackBox. Run Disaster Recovery requires **original Wallet Private Key + distinct one-use Disaster Recovery Key**, NO BlackBox/Authenticator. Atomic sweep of eligible balance (less actual fee) to immutable preconfigured destination; old wallet permanently DEAD. Triggered escrow/sender-claim treatment confirmed Q6; untriggered 3h pending refunds still open Q7. |
 | CLOSED-016 | **Q5 ANSWERED, Option A (2026-10-24)** | INITIAL one-time Disaster Recovery Wallet destination registration requires **both Wallet Private Key proof and TongNet Authenticator approval**. A wallet key alone must not configure it. After that the registered address and one-time Disaster Recovery Key are permanently immutable. |
 | CLOSED-019 | **ANSWERED 2026-10-24** | Optional one-use Disaster Recovery Key is issued when destination is first configured; Run Disaster Recovery requires BOTH Wallet Private Key **and** Disaster Recovery Key, but NO BlackBox/Authenticator code. Key consumed once and source wallet permanently DEAD after atomic sweep. |
 | D-028 | **CONFIRMED — IMMUTABILITY** | Once set, disaster destination address and Disaster Recovery Key can NEVER be changed, reset, regenerated or replaced. If disaster key is lost, this feature cannot be used. If Wallet Private Key and Authenticator Master Key both remain, normal transactions to another wallet may continue; old recovery configuration remains unchanged. |
-| OPEN-017 | **NEXT / CRITICAL — Q6** | Define whether pending/triggered/escrow funds may be swept immediately, transferred as later recoverable entitlements, or must resolve before disaster sweep; receiver rights, 3h/24h/72h rules and no-double-spend must remain intact. |
+| CLOSED-017 | **Q6 ANSWERED — Triggered Escrow (2026-10-24)** | Disaster Recovery immediately sweeps **only unlocked/spendable balance** to the fixed recovery address and marks original wallet DEAD; a previously triggered transaction stays locked; receiver can claim for full 24h after Trigger. If not claimed, during the next 72h sender recovery window the original one-use **Sender Claim Key** may be submitted via the pre-bound Disaster Recovery Wallet **ONLY after Run Disaster Recovery completed**. Missing sender claim key cannot be bypassed; one-time proof, recipient binding and timeouts persist. Pre-trigger pending state unresolved separately. |
+| OPEN-020 | **NEXT / CRITICAL Q7** | If an ordinary transfer is still in the pre-trigger 3h PENDING_TRIGGER state when Disaster Recovery permanently kills its source wallet, should its automatic 3h refund go directly to linked recovery wallet, or must terminal disaster sweep wait until that lock resolves? |
 | OPEN-018 | High | Destination address confirmation, ownership proof, attack resistance, atomic sweep and fees. Address changes are prohibited; no change-delay rule applicable. |
 | OPEN-004 | Critical | If both wallet and second factor compromised: theft prevention, freeze and dispute controls? |
 | OPEN-005 | Critical | Consensus algorithm and finality without PoW/traditional PoS or central trusted operator |
@@ -96,24 +97,33 @@
 - **Recovery wallet address is not itself the Disaster Recovery Key.** Keep both conceptually separate.
 - **Resolved:** the third key is generated on registering disaster address and required *together with* Wallet Private Key to Run Disaster Recovery; can be used once. No BlackBox/Authenticator is needed for execution.
 - **Resolved:** Recovery destination and recovery key are immutable from initial setup; losing this key permanently disables this particular recovery path. Standard send may still work with both Wallet Private Key and Authenticator Master Key.
-- **Q5 resolved:** First-time immutable setup requires **Wallet Private Key + TongNet Authenticator**, Option A. Still OPEN: how to handle funds locked in outgoing transactions when emergency sweep executes.
+- **Q5 resolved:** First-time immutable setup requires **Wallet Private Key + TongNet Authenticator**, Option A. Q6 confirmed behaviour for previously TRIGGERED locked funds; Q7 remains for transfers not yet triggered during their 3h waiting phase.
 
 ## Q3 — Disaster Recovery Wallet (2026-10-24)
 - Optional, pre-registered second wallet address in ordinary wallet settings.
 - Recovery executable using **Wallet Private Key AND one-use Disaster Recovery Key**, without BlackBox or Authenticator factor.
 - Sweep entire eligible source balance to fixed destination less any applicable fee, then permanently DEAD source wallet.
 - **Q5 protection:** an attacker with only a stolen Wallet Private Key **cannot authorise initial recovery destination setup**, because independent TongNet Authenticator approval is mandatory. Multi-factor compromise and misleading displayed address remain risks. Once registered, destination and key are immutable.
-- **Protocol conflict:** in-flight locked transfers might have receiver claim rights; treatment undecided. See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
+- **Q6 resolves triggered transfers:** locked funds stay escrowed; receiver rights remain; same transaction-bound sender Claim Key can be used from already-linked recovery wallet only after original source has finished disaster recovery. Sender recovery is NOT automatic and remains key-gated. Pre-trigger 3h auto-refund routing remains open Q7. See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
 
 ## Immutable disaster backup rule — confirmation 2026-10-24
 
 - User explicitly ruled out changing the recovery address or recovering/changing the once-generated key under any circumstances after initial setup.
 - Lost disaster key means disaster recovery cannot run. If both normal wallet and Authenticator secrets survive, user may use ordinary transactions to move their funds elsewhere, but cannot change the configured disaster address/key.
 - User requires Run Disaster Recovery to consume the single-use disaster secret and terminally kill the wallet.
-- **Q5 RESOLVED:** initial once-only recovery destination setup requires both Wallet Private Key and TongNet Authenticator (Option A). **NEXT Q6:** treatment of already-locked/triggered balances during disaster recovery.
+- **Q5 RESOLVED:** initial once-only recovery destination setup requires both Wallet Private Key and TongNet Authenticator (Option A). **Q6 RESOLVED for triggered escrow, NEXT Q7:** pre-trigger 3-hour auto-refund into a now-DEAD original address.
 
 ## Q5 — Initial immutable disaster address enrolment (answered 2026-10-24)
 
 **User chose Option A:** Initial enrollment of the optional one-time disaster destination **MUST be authorized by BOTH the source Wallet Private Key and independent TongNet Authenticator**. No future address change or disaster key reset; disaster execution later still requires source Wallet Private Key plus once-only Disaster Recovery Key (without Authenticator). Cryptographic binding of the authorization to displayed destination address and replay prevention are engineering requirements, not implemented proof.
 
-**Next — Q6:** Resolve what happens to funds already locked in outgoing payments if Run Disaster Recovery sweeps all funds and terminally deactivates the source wallet. Do not violate prior receiver claim rights.
+**Q6 RESOLVED for triggered transfers; NEXT Q7:** How to route the mandatory 3-hour auto-refund of a transfer still waiting for Trigger when source wallet was permanently killed by disaster recovery.
+
+## Q6 — Disaster Recovery with previously Triggered escrow (confirmed 2026-10-24)
+
+- **Immediately sweep available funds only.** Example 1,000 total; 700 available and 300 already Triggered/locked. Recovery moves 700 (less actual fee) to immutable rescue wallet; leaves 300 escrow and receiver rights intact. Source becomes permanently DEAD.
+- **Receiver's 24-hour claim window** after Trigger is NOT cancelled, shortened, or overridden. A successful receiver claim is final.
+- **Sender's additional 72-hour recovery window:** if receiver does not claim, a holder of the **same original transaction-bound unspent Sender Claim Key** may claim **to the original wallet's cryptographically pre-bound Disaster Recovery Wallet**, only if the source wallet's Run Disaster Recovery was finalised beforehand. No fresh sender claim secret is minted for this shortcut. Claim is one-time and subject to original expiry. The recovery wallet must prove control of its address; network verifies original consent/binding, not real-world identity.
+- **If user cannot present Sender Claim Key, there is no claim bypass from disaster recovery**, even though wallet became DEAD. After the 72h window, user's controversial proposal for transfer to Network Reserve remains under legal/consumer review.
+- **UNRESOLVED:** How existing *not-yet-triggered* 3h locks auto-refund when original wallet has become DEAD: question Q7. The existing no-manual-cancellation rule remains.
+- **Formal proof required:** no stolen cross-wallet sender claim, no double-settlement, destination binding, time-of-trigger vs time-of-recovery ordering, and atomic DEAD state finality.
