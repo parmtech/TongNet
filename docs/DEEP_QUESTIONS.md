@@ -1,10 +1,10 @@
 # TongNet — Deep Technical, Logical & Security Question Backlog
 
-**Status:** Active discovery backlog, now 89 tracked questions (original 86 + new Q7, Q9 and Q10), initially prepared 2026-10-24. **Not evidence that these answers exist.**
+**Status:** Active discovery backlog, now 90 tracked questions (original 86 + new Q7, Q9, Q10 and Q11), initially prepared 2026-10-24. **Not evidence that these answers exist.**
 
 **Workflow:** Ask one meaningful unresolved question at a time in easy Punjabi; user answers → record as a decision in docs/DECISIONS.md → amend FAQ / protocol / security docs → update PROGRESS.md, NEXT_SESSION.md, this backlog and CHANGELOG.md → commit to connected GitHub → ask next question.
 
-**Q5 ANSWERED (2026-10-24):** Initial immutable Disaster Recovery Wallet setup requires Wallet Private Key and TongNet Authenticator. **Q6 ANSWERED (2026-10-24):** Immediately rescue *unlocked* balance; Triggered escrow stays locked for receiver's 24h right, then sender's 72h window. After completed disaster recovery, sender's same one-use Claim Key (if possessed) may claim via immutably linked recovery wallet. No automatic claim without key. **Q7 ANSWERED (Option A, 2026-10-24):** Untriggered 3h lock stays until original deadline and its automatic refund goes to the prebound disaster wallet after source DEAD, with no manual cancel or early release. **Q8 CLARIFIED 2026-10-24:** Single-use Disaster Recovery Key is GENERATED in recovery destination's own encrypted BlackBox during enrollment, not in source BlackBox. This does not itself establish that the destination privately signed/accepted. **Q9 ANSWERED (2026-10-24):** Source approval creates only a pending request in R BlackBox; R ACCEPT triggers one-use key generation there and permanent binding. REJECT notifies S BlackBox with no setup; pending/not accepted means NOT_CONFIGURED. **NEXT Q10:** deadline for unanswered pairing requests.
+**Q5 ANSWERED (2026-10-24):** Initial immutable Disaster Recovery Wallet setup requires Wallet Private Key and TongNet Authenticator. **Q6 ANSWERED (2026-10-24):** Immediately rescue *unlocked* balance; Triggered escrow stays locked for receiver's 24h right, then sender's 72h window. After completed disaster recovery, sender's same one-use Claim Key (if possessed) may claim via immutably linked recovery wallet. No automatic claim without key. **Q7 ANSWERED (Option A, 2026-10-24):** Untriggered 3h lock stays until original deadline and its automatic refund goes to the prebound disaster wallet after source DEAD, with no manual cancel or early release. **Q8 CLARIFIED 2026-10-24:** Single-use Disaster Recovery Key is GENERATED in recovery destination's own encrypted BlackBox during enrollment, not in source BlackBox. This does not itself establish that the destination privately signed/accepted. **Q9 ANSWERED (2026-10-24):** Source approval creates only a pending request in R BlackBox; R ACCEPT triggers one-use key generation there and permanent binding. REJECT notifies S BlackBox with no setup; pending/not accepted means NOT_CONFIGURED. **Q10 ANSWERED — Option A (2026-10-24):** unanswered pairing requests automatically EXPIRE after 24 hours; no Key or irrevocable binding and late Accept invalid. **NEXT Q11:** can source withdraw or replace pending request before it expires?
 
 **Do not re-ask settled decisions:** 3h noncancellable pre-trigger; 24h receiver claim after Trigger; following 72h sender recovery; permanent 72h unenrolled DEAD wallet; no cancellation after Trigger even wrong address; optional immutable disaster destination and one-use Disaster Recovery Key plus Wallet Private Key to execute, with no BlackBox/Authenticator; one-way old-wallet DEAD.
 
@@ -115,7 +115,8 @@
 - [ ] **DQ-086** What hard launch blockers should prevent any real-money adoption until solved?
 
 - [x] **DQ-088 [Q9 ANSWERED 2026-10-24]** Destination R must ACCEPT from its own BlackBox; issue key there and finalize irreversible binding only after acceptance. No acceptance means NOT_CONFIGURED. Cryptographic signature/proof engineering pending.
-- [ ] **DQ-089 [NEXT Q10]** What happens if destination R never Accepts or Rejects a Disaster Recovery Wallet request: auto-expire after a fixed timeout, or leave pending indefinitely? How are expired request IDs and retries handled?
+- [x] **DQ-089 / Q10 (2026-10-24, Option A)** Unanswered destination BlackBox pairing request expires after 24 hours and can never subsequently be accepted. No link/key in PENDING or EXPIRED. Exact consensus boundary implementation still open.
+- [ ] **DQ-090 / NEXT Q11** Can source cancel/replace its unaccepted, pending recovery pairing request before 24-hour expiry, or must it await destination Reject or timeout?
 
 ## Answer log
 
@@ -124,4 +125,5 @@
 - **2026-10-24 — Q7/DQ-087:** Option A selected. A still-untriggered lock waits out its original 3h; if S is now DEAD after recovery, its automatic refund is credited once to prebound rescue address R. No acceleration, manual cancellation or Trigger by DEAD S.
 - **2026-10-24 — Q8 clarification:** The one-use disaster secret is minted inside destination wallet's own BlackBox during registration and is used later with source private key for the irreversible one-time recovery. No destination private-key signature requirement has been chosen.
 - **2026-10-24 — Q9 / DQ-002 + DQ-088:** R receives a recovery setup request in its BlackBox and independently ACCEPTS/REJECTS. ACCEPT generates one-time key in R's BlackBox and finalizes immutable link; REJECT sends message to S's BlackBox; ignored PENDING request creates NO setup/key.
-- **NEXT Q10 / DQ-089:** deadline for unanswered recovery linking requests.
+- **2026-10-24 — Q10 / DQ-089:** Option A confirmed: pending unanswered request expires after 24h, no recovery protection, permanent pairing, or recovery key. A stale Accept must fail.
+- **NEXT Q11 / DQ-090:** source-side withdrawal/replace policy before destination accepts.
