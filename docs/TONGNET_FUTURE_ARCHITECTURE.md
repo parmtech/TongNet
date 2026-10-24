@@ -1,4 +1,7 @@
 # TongNet — Future-Proof Architecture Review and Candidate Technical Baseline
+
+> **LATEST OWNER PRODUCT SCOPE — Single native TONG coin, Bitcoin-like chain (2026-10-25):** TongNet is a dedicated independent cryptocurrency/blockchain for its own native **TONG** coin and its built-in secure bilateral BlackBox P2P/recovery protocol. Owner expressly REJECTED assistant-proposed Ethereum-like general-purpose application platform: **no public arbitrary smart contracts/EVM, no user-created tokens, no dApp ecosystems or app marketplace**. Wallet, BlackBox, Authenticator, explorer and node tools are first-party network clients, not a general-purpose dApp platform. Aspirations: improved practical user security and faster secure settlement compared with aspects of Bitcoin, **not an unproven claim of being mathematically more secure than Bitcoin**. Bitcoin-like use case does NOT automatically mandate Bitcoin Proof-of-Work mining: PoW vs hybrid BFT (and issuance/monetary policy) remain explicitly UNDECIDED. UTXO is a proposed accounting baseline, not approved. Latest [scope specification](TONGNET_BITCOIN_LIKE_SCOPE.md); prior general-purpose/token platform proposals are historical/unapproved.
+
 **Review date:** 2026-10-25 (Australia/Sydney)  
 **Status:** DESIGN RECOMMENDATION / RESEARCH; not a launched, coded, proven or audited blockchain.  
 **Authority:** Preserve *user-confirmed* payment, wallet and recovery requirements. Proposed changes are NOT retroactively user-confirmed; mark explicit consent and real-money launch blockers.
