@@ -60,7 +60,8 @@ SOURCE S: propose R in normal settings + authorise S private key & S Authenticat
   -> REQUEST_PENDING; recovery_enabled=false; no key issued
 DESTINATION R BlackBox: show request and Accept / Reject
   -> Reject: send notification to S BlackBox; recovery_enabled=false; no key/link
-  -> No action: remains pending; recovery_enabled=false; no key/link
+  -> No action before 24h: remains pending; recovery_enabled=false; no key/link
+  -> 24h deadline with no accepted response: state EXPIRED; recovery_enabled=false; no key/link; stale Accept rejected
   -> Accept: generate unique one-time Disaster Recovery Key in R BlackBox;
              commit irrevocable S→R association; recovery_enabled=true
 ```
@@ -106,6 +107,14 @@ These are design requirements only. A stolen wallet key together with the recove
 - Destination BlackBox key generation and a **cryptographic signature by destination wallet private key** are different mechanisms. The owner's answer explicitly specifies the former. Whether destination must separately ACCEPT/sign, and when the irreversible link becomes final, is the NEXT question (Q9).
 - Do not confuse the **Disaster Recovery Key** with one-time Sender Claim Keys from ordinary outgoing transactions. Different operations; different state/commitments.
 
-## Q10 (OPEN) — Pending request expiry
+## Q10 confirmed — 24-hour pending request expiry (Option A, 2026-10-24)
 
-Choose a deadline or indefinite pending for a destination BlackBox request never accepted/rejected. Also later decide whether S may withdraw or submit a different request while pending; the permanence rule starts only once R ACCEPTS and finalizes the link. Do not infer a timeout, cancellation privilege, or parallel pending policy before user decides.
+- Unanswered destination BlackBox pairing request automatically expires after **24 hours**. It does not generate a one-time Disaster Recovery Key or install an immutable source→destination binding.
+- Pending means recovery is **NOT_CONFIGURED**; Expired also means **NOT_CONFIGURED**. Rejected is another closed, unconfigured state.
+- A destination Accept only succeeds if valid and finalized **before the expiry boundary**; after expiry it is invalid. Accept/Reject/Expiry races, replay, timestamp definitions, offline delivery and network partition ordering must be deterministic and are not yet technically implemented.
+- Pending expiry must be based on authoritative network-accepted request time, not the local device clock (exact consensus time procedure TBD). The user's rule is a 24-hour window, not a user-selected wall-clock date.
+- The no-change-forever rule applies only **after an ACCEPT is finalized**, not to a request that expired without a key.
+
+## Next open question Q11
+
+If S has already sent one PENDING disaster recovery request to R, can S **cancel it and submit another request** before R accepts, or must S wait for R Reject or the 24-hour automatic expiry? Also separately define acceptance-vs-withdrawal race ordering. No rule has been decided yet.
