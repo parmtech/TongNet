@@ -1,5 +1,8 @@
 # TongNet Protocol Specification — Draft 0.1
 
+> **LATEST OWNER REQUIREMENTS — 2026-10-25:** Trusted two-party P2P with no deal arbitrator; validators verify signatures/finality, not buyer/seller disputes. The RECEIVER has the first 24h (clock at final LOCK proposed, not yet ratified). The SENDER then has **60 DAYS**, replacing earlier 72h, to manually reclaim; after that, creator wants remaining unclaimed escrow sent to Network Reserve (OWNER INTENT, **REAL-MONEY DEPLOYMENT BLOCKED** by unresolved legal/consumer protection safety). A special *fresh*, zero-prior-financial-transactions RECOVERY_RESERVED address may complete recovery pairing metadata but CANNOT ordinarily send/receive before one-time disaster-recovery settlement. After successful recovery, S becomes DEAD and R is successor NORMAL_ACTIVE; owner wants historical receipts, BlackBox encrypted backup and pending entitlements shown in R, not destructive rewriting of immutable ledger. Preexisting recoverable encrypted BlackBox backup is REQUIRED to restore lost device data; a lost unbacked secret cannot be resurrected, and wallet/master root secrets must never be sent to a website server. Late sender claim key K_S with LOST/DEAD BlackBox, pending consent migration, exact 24h anchor, and legal forfeiture remain OPEN. See [canonical 2026-10-25 decisions](SECURE_P2P_V3_RECOVERY_DECISIONS.md). Older Trigger/72h/recovery-descriptions are HISTORICAL.
+
+
 > **CURRENT RULE — 2026-10-25 (SUPERSEDES ALL OLD 3h TRIGGER CONTENT):** User REMOVED separate three-hour Trigger and its 3h automatic refund. Current TongNet Secure Manual P2P: Sender network-final LOCK -> Sender BlackBox makes and privately shares one-time Receiver Claim Code K_R -> exact addressed receiver wallet signs Claim Request -> Sender BlackBox must manually FINAL_ACCEPT exact transaction/recipient/amount -> BFT may finalise receiver settlement. No FINAL_ACCEPT means no receiver payout. No separate Trigger remains. Receiver 24h then Sender's following 72h manually redeemable via fresh Sender BlackBox K_S (verified attributable network delay extensions still apply); 24h from BFT-final LOCK is recommended but not explicitly ratified. No valid absolute guarantee against mistaken approval, stolen signing authority or third-party fraud. Old 3h Q7 disaster refund is obsolete; source DEAD + late K_S needs safe redesigned handling. See [canonical Secure P2P v2](docs/SECURE_P2P_V2.md) (for docs/ files: [canonical v2](SECURE_P2P_V2.md)).
 
 
@@ -36,27 +39,17 @@
 - **Q6 confirmed for Triggered escrow:** Run Disaster Recovery immediately sweeps *available* funds, not outstanding locked value. Triggered/receiver-claimable escrow survives the source-wallet DEAD transition, including receiver's full 24h priority. If receiver did not claim, the same original transaction-bound Sender Claim Key can be submitted during the subsequent 72h via the pre-bound recovery wallet, **only if the source's disaster recovery had already finalised**. This is a delegated destination for the same one-use entitlement, not minting a replacement key or a double claim. A missing Claim Key still prevents sender claim. **Q7 ANSWERED (Option A):** if S becomes permanently DEAD after disaster recovery while Send is untriggered, retain the original 3h lock and automatically refund at deadline to the immutable, prebound disaster destination R. Trigger after DEAD is invalid.
 - **Q5 decided:** attacker holding only Wallet Private Key cannot register recovery destination; FIRST setup requires Wallet Private Key + TongNet Authenticator approval. Binding the approval to the destination shown to user, preventing phishing and replay, and preventing a shared-compromise attack still require implementation. Destination cannot subsequently be changed. See [DISASTER_RECOVERY.md](DISASTER_RECOVERY.md).
 
-## Contracted time windows
+## Current canonical settlement clock — latest 2026-10-25 owner rules
 
-Let `t0` = network-accepted transfer initiation, `tt` = network-accepted Trigger. Network clock and boundary rules **TBD**.
+**3h Trigger REMOVED. Old 72h sender window REPLACED WITH 60 FULL DAYS.** No deal arbitrator. Receiver Claim Request requires Sender BlackBox FINAL_ACCEPT and BFT finality. Receiver has nominal 24h; Sender following nominal 60 days to manually reclaim. The receiver 24h starting at network-final LOCK is a design recommendation pending owner confirmation. Actual cutoffs are subject to verified network-caused delay credit and finality boundary proof. After expiry, unclaimed to network reserve is user's intent but cannot deploy with real money absent legal/consent/safety review. See [latest spec](SECURE_P2P_V3_RECOVERY_DECISIONS.md).
 
+```text
+FINAL_LOCK(t0) -> RECEIVER_PRIORITY for nominal 24h (t0 anchor proposed)
+SENDER BLACKBOX K_R -> out-of-band receiver
+RECEIVER_SIGNED_CLAIM_REQUEST + SENDER_BLACKBOX_FINAL_ACCEPT + BFT finality before adjusted cutoff -> RECEIVER_PAID_FINAL
+ELSE expired K_R -> SENDER_ONLY_MANUAL_RECLAIM window for next 60 full days using K_S plus wallet/successor authority
+ELSE after sender window -> UNRESOLVED / owner's proposed NETWORK_RESERVE, REAL-MONEY RELEASE BLOCKED
 ```
-At t0: lock sender funds; transaction=PENDING_TRIGGER
-t0 ... t0+3h: sender may authenticate and Trigger. No manual cancel/refund.
-If no successful Trigger before deadline: PENDING_TRIGGER -> AUTO_REFUNDED
-At Send setup: SENDER BlackBox generates K_R and Sender gives it to intended recipient; K_R remains INACTIVE until final Trigger. At tt: Trigger becomes IRREVOCABLE / NON-CANCELLABLE, including mistyped destination; activate recipient-bound K_R WITHOUT auto-delivering plaintext to receiver BlackBox. Trigger alone DOES NOT pay Receiver: a further receiver-submitted Claim Request AND separately signed sender-BlackBox final ACCEPT are now mandatory.
-tt ... tt+24h: bound receiver submits CLAIM_REQUEST with K_R + receiver proof; Sender BlackBox must independently sign ACCEPT tied to that exact request; ONLY network-finalised acceptance + valid receiver proof -> FINAL_RECEIVER_CLAIMED
-If receiver does not claim by adjusted deadline: K_R expires; Sender BlackBox generates fresh K_S; RECOVERY_ONLY (late issuance offline/recovery issue OPEN)
-tt+24h ... tt+96h: only bound sender with one-time recovery credential may redeem -> FINAL_SENDER_RECOVERED
-If neither redeem by tt+96h: proposed -> NETWORK_RESERVE_FINAL (blocked from real-world release pending legal/consent review)
-```
-
-**Notes:**
-- The 3-hour pre-trigger period and the 24+72-hour post-trigger period are **different stages**.
-- If Trigger occurs near t0+3h, receiver's 24h window runs from `tt` (not `t0`).
-- **Confirmed 2026-10-24 (Question 1, Option B):** NO sender cancellation or emergency stop after Trigger, even when recipient wallet address is incorrect. A wrongly addressed but otherwise valid receiver can claim; only if unclaimed after 24h may sender reclaim in the subsequent 72h. Display recipient address, amount and irreversible-trigger warning before approving.
-- Exactly-at-boundary ordering, clock source and network partition behaviour require formal design.
-- **NEW 2026-10-25 confirmed:** SENDER deliberately shares receiver code K_R by out-of-band channel (manual code/QR/secure message) with intended recipient; automatic receiver-BlackBox plaintext delivery is NOT part of confirmed ordinary payment flow. Channel encryption, code UX and malicious interception need analysis.
 
 ## Required logical transaction fields (proposed, not a standard)
 
