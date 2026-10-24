@@ -17,14 +17,19 @@
 - [x] Technical, roadmap, decision, changelog and future-session documents initialised.
 
 ## Still NOT done
-- [ ] Resolve the next pending user decision (wrong recipient address after Trigger).
-- [ ] Answer remaining key loss, theft, recovery and consent questions.
+- [x] Resolve Question 1: **Option B — no sender cancellation after Trigger, even for wrong recipient address** (2026-10-24).
+- [ ] Resolve Question 2: lost one-time Authenticator Setup Key during 72-hour enrollment period.
+- [ ] Answer remaining key loss, theft, recovery and consent questions (one at a time).
 - [ ] Complete prior-art search.
 - [ ] Prove a decentralised consensus and finality algorithm.
 - [ ] Define TONG economics and whether it is asset-backed.
 - [ ] Resolve legal treatment of unclaimed funds and payments.
 - [ ] Implement any production code, simulations, mainnet or wallets.
 - [ ] Execute tests, threat assessment, audits or live transaction benchmarks.
+
+## Current next question
+
+**Q2:** If the one-time Authenticator Setup Key is lost before the wallet's initial 72-hour activation deadline, does the user get a secure way to regenerate it, or must that wallet expire and the user create another? No decision yet.
 
 ## Important blockers
 1. Consensus / Byzantine finality / Sybil security not designed.
