@@ -98,11 +98,25 @@ The user confirmed strict expiry for EXISTING receiver and sender Claim deadline
 
 **Major safety blocker:** If all TongNet validators stop confirming transactions across a user's claim deadline, even an early queued Claim cannot finalize. Prior user proposed permanent transfer of unclaimed funds to TongNet Network Reserve after 24+72h, but this is potentially confiscatory and a major consumer/legal launch blocker. Q15 asks if post-outage escrow must be preserved rather than automatically forfeited; Q14's elapsed times remain unchanged unless user separately decides otherwise.
 
-## NEXT SINGLE QUESTION — Q15 / DQ-094
+## Q15 answered and broadly clarified (2026-10-25) — Universal Network Delay Calculator
 
-Ask ONE Punjabi decision: "ਮੰਨ ਲਓ TongNet ਦਾ ਪੂਰਾ network ਤਿੰਨ-ਚਾਰ ਦਿਨ down ਰਿਹਾ। ਇੱਕ Triggered transaction ਦੀ Receiver 24h ਅਤੇ Sender 72h deadline ਇਸ ਦੌਰਾਨ ਲੰਘ ਗਈ। ਕੋਈ ਵੀ Claim network-final ਨਹੀਂ ਹੋ ਸਕੀ। Network ਵਾਪਸ ਆਉਣ ਤੋਂ ਬਾਅਦ ਉਹ ਬਚੀ ਰਕਮ ਨਾਲ ਕੀ ਕਰੀਏ? **A:** ਪਿਛਲਾ ਨਿਯਮ — total 96h ਮੁੱਕਣ ਕਾਰਨ ਸਿੱਧੀ TongNet Network Reserve ਵਿੱਚ permanently ਚਲੀ ਜਾਵੇ। **B:** network-wide outage ਸਾਬਤ ਹੋਵੇ ਤਾਂ ਇਹ ਰਕਮ Reserve ਨੂੰ ਨਾ ਦੇਈਏ, ਇੱਕ protected escrow ਵਿੱਚ ਰੱਖੀਏ; ਬਾਅਦ ਵਾਲੀ fair recovery procedure ਦਾ ਸਮਾਂ/ਹੱਕ ਵੱਖਰੇ ਸਵਾਲ ਵਿੱਚ ਤੈਅ ਕਰਾਂਗੇ। **C:** ਆਪਣਾ ਤਰੀਕਾ। ਪੁਰਾਣੇ timers ਆਪਣੇ fixed ਹਿਸਾਬ ਨਾਲ ਹੀ ਚੱਲਣਗੇ; ਸਵਾਲ expiry ਤੋਂ ਬਾਅਦ funds ਦੇ ownership ਦਾ ਹੈ।"
+The user's direct instruction: if **ANY** transaction/network task is late due to TongNet network slowness, congestion or outage, calculate exact attributable network delay and grant **the exact same amount of EXTRA ALLOWED TIME**. This applies to EVERY affected time-bound operation, not just Claim: Send→Trigger 3h, Receiver Claim 24h, Sender reclaim 72h, Disaster Recovery pairing request's 24h and destination Accept, and other time-bound tasks. The local/canonical clock cadence remains unchanged; **effective deadline is extended**. New transactions' timers still start only after network accepts them (Q13; recommend consensus finality), and queueing before first acceptance should not create a timer nor double-credit time. Timing compensation requires no early finality exception: Q12/Q14 require consensus FINALITY before the appropriately **network-delay-adjusted deadline**. When receiver claim cutoff extends, sender-only reclaim must begin AFTER receiver exclusivity ends; proposed reserve disposition must await ALL adjusted rights. No keys, money or rights can be double settled.
 
-After answer commit Decisions, Protocol, FAQ, Security, Deep Questions, Progress, Handoff, Change Log. Do not claim real consensus, audited anti-Sybil scheme or lawful forfeiture.
+This refines earlier Q12/Q14 'strict fixed deadline' **only regarding the adjusted cutoff**, not strict finality. All delay measurements/thresholds, precise eligibility, decentralised clocks, queue fairness, anti-spam, attribution and no-double-credit require design. No working network or audited Network Delay Calculator. Proposed forced reserve forfeiture remains a legal and consumer launch blocker even after adjustment; do not infer consent or permission.
+
+## NEXT SINGLE QUESTION — Q16 / DQ-095
+
+Ask ONE focused Punjabi question:
+
+"ਹੁਣ ਜਦੋਂ Network Delay Calculator ਹਰ delayed task ਦਾ extra time ਤੈਅ ਕਰੇਗਾ, ਉਸਦੀ calculation **ਕਿਵੇਂ** ਕਰੀਏ? ਮਿਸਾਲ ਵਜੋਂ ਇੱਕ Claim 20 ਮਿੰਟ queue ਵਿੱਚ ਸੀ ਪਰ ਬਾਕੀ network ਔਸਤ 3 ਮਿੰਟ slow ਸੀ।
+
+**A:** ਹਰ transaction/Claim ਦੀ ਆਪਣੀ verified network-processing delay ਮਾਪ ਕੇ ਉੱਨਾ ਹੀ extra time ਉਸੇ ਨੂੰ ਦਿਓ (20 ਮਿੰਟ, ਜੇ network-caused ਸਾਬਤ ਹੋਵੇ)।
+**B:** ਸਾਰਿਆਂ ਪ੍ਰਭਾਵਿਤ operations ਲਈ network-wide verifiable slowdown/delay ਦਾ ਇੱਕ common time ਵਰਤੋ (ਉਦਾਹਰਨ 3 ਮਿੰਟ), ਭਾਵੇਂ ਕਿਸੇ ਖ਼ਾਸ claim ਦੀ queue ਲੰਬੀ ਸੀ।
+**C:** ਤੁਹਾਡਾ ਹੋਰ ਤਰੀਕਾ।
+
+Private phone/device offline ਜਾਂ ਆਪਣੀ ਮਰਜ਼ੀ ਨਾਲ ਦੇਰ ਕਰਨ ਨੂੰ Network delay ਨਾ ਗਿਣੀਏ।"
+
+Don't decide answer in advance; record to docs after user reply, ask next. Q15 confirmed universal scope, not a choice between absolute timer and protected funds. Keep consumer/legal risk visible.
 
 ## Next steps after answer
 1. Record decision ID and precise time/conditions in `docs/DECISIONS.md`.
@@ -112,7 +126,7 @@ After answer commit Decisions, Protocol, FAQ, Security, Deep Questions, Progress
 5. Commit to GitHub and report success; then ask just the next question.
 
 ## Next open questions after wrong-address decision
-Entire-network halt spanning 24+72h claim deadlines and Network Reserve/escrow ownership (NEXT Q15); destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
+Universal Network Delay Calculator design: per-operation versus global attributable time (NEXT Q16); destination BlackBox offline issues, authenticated Accept/Reject races, sender Claim Key loss/expiry, receiver-vs-sender races, wallet/authenticator compromise, reserve forfeiture legality, consensus/Sybil resistance.
 
 ## Not yet accomplished
 No tested code, launched coin, proof of novelty, verified 2015 artifacts, audit, consensus mechanism or deployment.
