@@ -1,5 +1,11 @@
 # TongNet — Documentation & Project Change Log
 
+## 2026-10-24 — Q7 answered: original 3-hour expiry refund goes to bound recovery wallet
+- User selected **Option A**. If original wallet becomes DEAD after a successful disaster sweep while a separate outgoing payment is **locked but NOT Triggered**, do not cancel or accelerate the original 3h window.
+- At original t0+3h, automatically refund its untriggered locked amount directly to already-authenticated Disaster Recovery Wallet R, not DEAD source S. S cannot Trigger after DEAD; race order and atomic finality need formal proof.
+- Updated FAQ, Decision Register, disaster design, security/protocol, question backlog, progress and session handoff.
+- **Next Q8 / DQ-002:** Does destination Recovery Wallet have to sign consent/control proof at its irreversible initial registration?
+
 ## 2026-10-24 — Q6 answered: rescue spendable funds; preserve Triggered escrow
 - User confirms terminal Disaster Recovery immediately transfers only available funds to immutable bound rescue wallet (minus any applicable fee), leaving all previously Triggered/locked escrow untouched.
 - Receiver keeps original 24-hour claim priority; if unclaimed, during the next 72 hours the **same existing, unspent sender Claim Key** can be used from **the immutably linked rescue wallet**, but only if original source disaster recovery has already finalized.
