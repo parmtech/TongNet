@@ -1,3 +1,10 @@
+## 2026-10-25 — USER CORRECTION: fast manual secure P2P, NOT Instant Pay
+
+- User explicitly rejected the prior assistant-suggested Instant Pay direction. TongNet's defining transfer is intentionally **manual two-sided P2P**, requiring sender Send + independent BlackBox Trigger and receiver independent BlackBox Claim; original 3h/24h/72h maximum windows remain, and online parties need not wait for window expiry.
+- Instant Pay is NOT the accepted default/implementation; earlier product critique's instant checkout concept is historical/rejected for present scope.
+- Investigating one-time receiver-signed Receive Request for wrong-address protection; mandatory vs optional not yet authorised. Distinguish public receiving invitation from private recipient Claim Key; signatures do not prove off-chain identity.
+- No running chain, measured fast finality, audited encryption or live transfer exists yet.
+
 ## 2026-10-25 — Red-team product review: who will use TongNet and why?
 
 - Created [Critical Product/Banking/Adoption Plan](docs/TONGNET_PRODUCT_CRITIQUE_AND_ADOPTION_PLAN.md) after user's request for strong critical questioning, competitive differentiation, real merchant usage, trust and system-level improvements.
