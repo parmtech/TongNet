@@ -28,6 +28,10 @@
 - [ ] Implement any production code, simulations, mainnet or wallets.
 - [ ] Execute tests, threat assessment, audits or live transaction benchmarks.
 
+## Documentation note
+
+Q2 updates to the security threat-model file have **not** yet been committed because the write was blocked. Other Q2 documentation has been updated; do not mark the security-file sync complete.
+
 ## Current next question
 
 **Q3:** If an already ACTIVE wallet loses the Authenticator Master Key (or the Authenticator device), but the owner still has the wallet private key, should there be any independent secure recovery route to restore access to BlackBox, or should this access remain permanently locked? Await user answer.
