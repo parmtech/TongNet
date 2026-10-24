@@ -8,6 +8,16 @@ Provide an optional, user-designated safety destination for a wallet whose TongN
 ### Product name
 **TongNet Disaster Recovery Wallet**. The recovery action is **Run Disaster Recovery**.
 
+## Updated key architecture (additional user clarification, 2026-10-24)
+
+There are now **three distinct key categories**, with the third OPTIONAL:
+
+1. **Wallet Private Key** — primary wallet authority.
+2. **TongNet Authenticator Master Key** — independent second factor behind BlackBox/authentication.
+3. **Disaster Recovery Key** — OPTIONAL, exists only if user opts into recovery. This must be logically distinct from the *recovery wallet address* and from the other two key categories.
+
+**OPEN — crucial:** User has not yet specified whether the Disaster Recovery Key is required when invoking Run Disaster Recovery, only when enrolling/setting/changing its recovery address, or serves another purpose. Earlier Q3 says no BlackBox/Auth code is needed to run recovery and wallet private-key access remains. Do NOT silently assume the third key is required OR not required for recovery execution; ask the user. Do not confuse the backup wallet's own private key with the source wallet's recovery key.
+
 ## User-confirmed requirements (Q3 response)
 1. A TongNet Wallet has an **optional recovery-wallet address** field in ordinary wallet settings; **not inside TongNet BlackBox**.
 2. The user may register the address of **another TongNet wallet** under their control as recovery destination. The wallet remains usable if this feature is not enabled, subject to normal rules.
@@ -56,6 +66,9 @@ ACTIVE_WITH_RECOVERY_DESTINATION
 In a network partition it is unsafe to consider the source DEAD locally if the sweep has not been globally finalised.
 
 ## Open decision — ask NEXT
+**New Q4 clarification (higher priority):** What is the role of the optional Disaster Recovery Key? Must a Run Disaster Recovery use both original wallet private key AND recovery key, or is recovery key used for setup/address changes only (with original wallet key alone still sufficient to execute)? Avoid assuming the implementation.
+
+## Following decision (after Q4)
 **May the disaster recovery destination be registered or changed with only the normal wallet private key, or should initial registration/updates additionally require TongNet Authenticator approval, even though executing Run Disaster Recovery must NOT require it?**
 
 This is specifically about setting/changing destination, NOT executing the already-configured recovery operation.
