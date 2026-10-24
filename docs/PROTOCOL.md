@@ -26,7 +26,7 @@
 
 
 - In normal SOURCE wallet settings, source Wallet Private Key PLUS source TongNet Authenticator authorize **SUBMIT_REQUEST(S,R)**. This places a request in DESTINATION R's BlackBox, **PENDING_ACCEPTANCE**; no permanent registration or recovery key exists yet.
-- R's own BlackBox can **ACCEPT**: only then issue/generate the unique one-use Disaster Recovery Key **inside R BlackBox** and finalize the immutable S→R link. **REJECT**: do not generate key/link; send a rejection notice to S's BlackBox. **No response**: PENDING and NOT_CONFIGURED for S. Time limit pending Q10.
+- R's own BlackBox can **ACCEPT**: only then issue/generate the unique one-use Disaster Recovery Key **inside R BlackBox** and finalize the immutable S→R link. **REJECT**: do not generate key/link; send a rejection notice to S's BlackBox. **No response**: PENDING and NOT_CONFIGURED for S until original request + **24 hours**; then automatically EXPIRED, still NOT_CONFIGURED, with no key/binding. Accept after expiry invalid (Q10 Option A).
 - After successful ACCEPT, destination address and key cannot be changed, reissued or reset. Source normal two-factor request authorization was confirmed Q5; destination BlackBox approval is Q9.
 - When BlackBox/Authenticator is inaccessible but original Wallet Private Key and the independent Disaster Recovery Key are held, **Run Disaster Recovery** requires BOTH proofs and does NOT require BlackBox access or a rotating Authenticator code. It consumes the disaster key once.
 - Intended outcome: atomic full sweep of **eligible** wallet balance, minus actual applicable fee, to **previously registered** recovery address; then original wallet enters a permanently DEAD state. Recovery never permits arbitrary destination changes at execution.
@@ -143,7 +143,14 @@ R_BLACKBOX:
   ACCEPT(requestId) -> issue one-use Disaster Recovery Key INSIDE R BlackBox,
      then finalize immutable pair S-R and mark recoveryConfigured(S) = true
   REJECT(requestId) -> no recovery key/binding, notify S BlackBox, state REJECTED
-  no response -> request remains PENDING_ACCEPTANCE and recoveryConfigured(S) = false
+  no response until accepted time + 24h -> request EXPIRED and recoveryConfigured(S) = false; no key or binding
+  late ACCEPT on EXPIRED -> REJECT request; do not issue key/binding
 ```
 
-The system must not expose a valid disaster key or mark a wallet protected **before** a properly verified R BlackBox acceptance. Requirement for end-to-end correctness: verify S/R/request ID and acceptance authenticity, prevent duplicate issuance under concurrent Accept/Reject, assure durable delivery/ability to retrieve the resulting key, ensure permanent binding and key commitment are consistent. Deadline for pending request is OPEN Q10; pending cancellations and resubmissions are also unanswered.
+The system must not expose a valid disaster key or mark a wallet protected **before** a properly verified R BlackBox acceptance. Requirement for end-to-end correctness: verify S/R/request ID and acceptance authenticity, prevent duplicate issuance under concurrent Accept/Reject, assure durable delivery/ability to retrieve the resulting key, ensure permanent binding and key commitment are consistent. Q10 deadline for unanswered requests is now **24 hours**; pending cancellations, resubmissions and edge-time consensus ordering remain unanswered (Q11).
+
+## Q10 — Recovery pairing PENDING TTL (confirmed user choice)
+
+Unanswered R BlackBox recovery association requests have a **24-hour time-to-live** from canonical network-accepted request creation (exact clock/finality procedure TBD). During that time status is PENDING_ACCEPTANCE and S recoveryConfigured=false. If no valid destination acceptance has finalized before deadline, transition once to EXPIRED; no recovery key or permanent association exists and any later ACCEPT must be rejected. REJECT remains a terminal rejection with S BlackBox notice under Q9. A request cannot be revived by replay or duplicate submission.
+
+**Critical network design work:** ordering of simultaneous ACCEPT/REJECT/EXPIRED operations, authentic timestamp, delayed delivery, request uniqueness and immutable status in consensus. Exact boundary finality rules not yet formalised. **Next Q11:** may S withdraw or replace a request while PENDING, without violating destination consent or accepted irreversible pairing?
