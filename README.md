@@ -60,3 +60,5 @@ The living backlog of **86 deep architecture, cryptographic, economic, privacy, 
 The repository is **private** at initialisation. No licence file is intentionally supplied pending a licensing/IP decision. Git history records changes, but does not independently prove the 2015 date, uniqueness, patents, or ownership of broad ideas.
 
 **Maintained by ParmTech · Original concept and development by Manjinder Singh.**
+
+**Q11 decision:** Source cannot cancel or replace a pending recovery setup request. It must wait for destination rejection or the unchanged 24-hour expiry. Q12 is about acceptance submitted before expiry but finalized late.
