@@ -1,3 +1,8 @@
+## 2026-10-25 — Primary TongNet implementation language chosen: Rust
+
+- At owner's explicit request to select the best language, selected **Rust** for the security-critical network, deterministic BFT state machine, validators, P2P, delay calculator, cryptographic wallet/BlackBox and shared cross-platform libraries. Keep Kotlin/Swift/native UI only where beneficial; don't make C/C++ a primary protocol implementation language.
+- Updated research architecture, README, Decision Register, Roadmap, Progress and session handoff. **Planning only:** no Rust implementation, benchmark, audit or security guarantee exists yet.
+
 ## 2026-10-25 — Whole-project technical review, 95 Q&A and Q16–Q25 decisions
 
 - Read all 95 tracked deep questions and generated [Master Q&A Recommendations](docs/MASTER_QA_RECOMMENDATIONS.md), preserving exact old questions and clearly distinguishing user-chosen rules from unapproved engineering recommendations. This is design, not implementation.
