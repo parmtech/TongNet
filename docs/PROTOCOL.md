@@ -11,6 +11,15 @@
 - **Decentralised verification layer (TBD):** enforces canonical final state across participants; no single trusted actor permitted by project goals.
 - **TongNet Network Reserve:** proposed operational funding pool; separate from any monetary backing or redemption reserve.
 
+## Wallet activation lifecycle (confirmed requirement)
+
+- At wallet creation, create an address, wallet credential, separately protected TongNet BlackBox and one-time TongNet Authenticator enrolment credential.
+- Until activation, wallet must not be permitted to SEND, RECEIVE or CLAIM; this must be enforced by the network, not merely the UI.
+- Successful independent authenticator enrolment before 72h moves the wallet to ACTIVE and consumes the initial setup credential.
+- **If no successful enrolment by creation + 72h, transition irrevocably to DEAD.** Any later attempt to activate/revive the same wallet MUST be rejected; no lost initial setup-code replacement, privileged admin reset, or expiry extension is permitted (Q2 confirmed 2026-10-24).
+- An unauthenticated network cannot detect a person's lost physical key: only completed enrolment, deadline and state are verifiable.
+- Exact distributed deadline semantics, activation replay protection and network partition safety remain engineering questions.
+
 ## Contracted time windows
 
 Let `t0` = network-accepted transfer initiation, `tt` = network-accepted Trigger. Network clock and boundary rules **TBD**.
