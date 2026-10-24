@@ -1,74 +1,59 @@
-# TongNet Disaster Recovery Wallet (TDRW) — Design Draft 0.1
+# TongNet Disaster Recovery Wallet — Living Design Specification
 
-**Status:** User-specified feature requirement (2026-10-24), not implemented, tested, audited or safe for real funds.
+**Status:** user-confirmed functional requirements, not implemented, security-audited or approved for real money. Updated 2026-10-24.  
+**Product name:** TongNet Disaster Recovery Wallet (optional).  
+**Action:** Run Disaster Recovery.
 
-## Purpose
-Provide an optional, user-designated safety destination for a wallet whose TongNet Authenticator Master Key or BlackBox access has become unavailable, while wallet private-key control remains.
+## Three key categories — confirmed
 
-### Product name
-**TongNet Disaster Recovery Wallet**. The recovery action is **Run Disaster Recovery**.
+1. **Wallet Private Key** — main wallet access, transfers and transaction initiation.
+2. **TongNet Authenticator Master Key** — separate security factor, generating 60-second rotating access codes for TongNet BlackBox. The master secret itself does not rotate each minute.
+3. **Disaster Recovery Key** — OPTIONAL separate one-time secret, issued **only when a disaster recovery destination wallet address is set**. A distinct key from both other keys; NOT the recovery wallet address.
 
-## Updated key architecture (additional user clarification, 2026-10-24)
+## Enrollment / configuration — user requirement
 
-There are now **three distinct key categories**, with the third OPTIONAL:
+- In **normal wallet settings**, NOT inside BlackBox, the owner may optionally add the address of another TongNet wallet as a disaster destination.
+- When the destination is successfully configured, the owner receives a **new Disaster Recovery Key**.
+- If no recovery destination is configured, this optional key/function is not available.
+- **CRITICAL OPEN:** authorization to initially register, replace, or remove the recovery destination and handling of key reissuance or multiple attempts have not been settled. We must not assume a stolen wallet key can freely change the destination.
 
-1. **Wallet Private Key** — primary wallet authority.
-2. **TongNet Authenticator Master Key** — independent second factor behind BlackBox/authentication.
-3. **Disaster Recovery Key** — OPTIONAL, exists only if user opts into recovery. This must be logically distinct from the *recovery wallet address* and from the other two key categories.
+## Emergency execution — confirmed in latest answer
 
-**OPEN — crucial:** User has not yet specified whether the Disaster Recovery Key is required when invoking Run Disaster Recovery, only when enrolling/setting/changing its recovery address, or serves another purpose. Earlier Q3 says no BlackBox/Auth code is needed to run recovery and wallet private-key access remains. Do NOT silently assume the third key is required OR not required for recovery execution; ask the user. Do not confuse the backup wallet's own private key with the source wallet's recovery key.
+1. The owner has **lost access to the TongNet Authenticator Master Key / BlackBox**, but **still has the original Wallet Private Key**.
+2. Owner opens the original Wallet with the Wallet Private Key.
+3. If the previously configured disaster destination is present, select **Run Disaster Recovery**.
+4. Owner **must enter the separate one-time Disaster Recovery Key**. This is **in addition to original wallet private-key authorisation**.
+5. Execution requires **neither BlackBox authentication nor TongNet Authenticator code**.
+6. Network must verify wallet authority, recovery-key proof, binding to the pre-set destination and that the key was never successfully consumed.
+7. All **eligible** source wallet funds, minus actual network fee if any, move **only to the previously registered disaster destination**. User intent is to rescue the **entire** balance, not choose a partial amount.
+8. In the same **atomic final settlement**, recovery key is consumed permanently and original wallet enters **DEAD** state forever. No later access/reactivation/spending of the source wallet.
 
-## User-confirmed requirements (Q3 response)
-1. A TongNet Wallet has an **optional recovery-wallet address** field in ordinary wallet settings; **not inside TongNet BlackBox**.
-2. The user may register the address of **another TongNet wallet** under their control as recovery destination. The wallet remains usable if this feature is not enabled, subject to normal rules.
-3. The recovery path is designed particularly for the situation where the original wallet's **Authenticator Master Key or BlackBox access is lost**, but its normal wallet private key/access remains available.
-4. The original wallet user initiates the **Run Disaster Recovery** action from the original wallet. **Executing this action does NOT require BlackBox access or an Authenticator code**, unlike normal transfer triggering.
-5. Once a valid recovery action commits, **all eligible value** of the source wallet must be moved to the **previously registered destination wallet**, minus any applicable network fee; the whole balance is intended to be swept, not just an amount selected by the user.
-6. The source wallet then enters a **permanent DEAD state**, and cannot be activated or used again.
-7. This is a **one-way, terminal action**, rather than a way to restore access to the old BlackBox or recover its Authenticator Master Key.
-8. **No recovery destination configured:** this particular recovery function is unavailable; policies for other loss scenarios remain to be designed.
-
-## Illustrative flow
+### Proposed state machine (not implemented)
 
 ```text
-ACTIVE source wallet
-   -> (optional, beforehand) save designated Disaster Recovery Wallet address
-   -> lose TongNet Authenticator / BlackBox access
-   -> open source wallet with original wallet private key
-   -> Run Disaster Recovery [NO BlackBox / OTP prompt]
-   -> network verifies signed recovery instruction + pre-registered address
-   -> atomically sweep eligible funds minus applicable fee
-   -> credit only the pre-registered destination
-   -> permanently mark the source wallet DEAD
+ACTIVE wallet, no disaster destination
+  -> (optional, approved setup) -> ACTIVE + stored recovery address + unique one-time recovery-key commitment
+  -> (original wallet private key AND distinct recovery key) Run Disaster Recovery
+  -> network verifies bound destination, unspent recovery-key commitment, eligible value and fee
+  -> ATOMIC FINAL: pay fixed destination / consume one-time key / mark source wallet DEAD
 ```
 
-**Atomicity is mandatory:** it must never pay without marking the source wallet dead or mark the wallet dead before value is safely committed. Network finality and ordering are not yet designed.
+A new or arbitrary destination must never be accepted in the same call that executes emergency recovery.
 
-## Critical security implications
+## Crucial unresolved security questions
 
-- If a thief has the **original wallet private key**, they can invoke this no-BlackBox recovery path. When the destination is already securely fixed, the thief should not be able to redirect funds to an arbitrary attacker wallet, but **they could permanently disable the wallet and cause loss of access or grief**.
-- **Most important unresolved choice:** What authentication is required to **register or change** the destination wallet address? If an attacker holding only the wallet private key can replace this destination, the recovery feature could bypass the entire BlackBox/Authenticator security model and allow total theft.
-- A recommended design for consideration (NOT approved) is to pre-authorize registration and changes with a distinct stronger factor, cryptographic address confirmation, and a safety delay; action execution can then remain wallet-key-only as requested.
-- Destination must be a valid, network-verifiable, ACTIVE TongNet wallet. Optional proof that the owner controls the receiving destination reduces misdirection risk. Neither rule has been fully specified yet.
-- The user said **all funds A to Z**, but current protocol may already have **locked pending transfers, receiver windows, sender recovery claims or escrow**. Whether disaster recovery may touch locked funds is **UNDECIDED** and must not silently violate earlier irreversible Trigger and receiver claim rights.
-- Fee behaviour: user permits deduction of any actual network fee from swept funds; exact fees, minimum balances, priority and refund policy remain open.
-- Concurrency/atomicity: ongoing transfers and simultaneous recovery transactions cannot double-spend or contradict permanent DEAD state. Account deactivation and sweeping must have deterministic finality.
-- Post-migration recovery target private key can itself be lost or compromised; circular recovery referrals or destination loops require deliberate rules.
-- The existing **unactivated-wallet 72h DEAD rule** is separate: wallets that never completed initial authenticator enrollment cannot simply use disaster recovery to bypass activation (subject to explicit further decision).
+- **NEXT Q5**: When initially adding or changing the Disaster Recovery Wallet address in normal settings, does it require **TongNet Authenticator approval**, or is original Wallet Private Key enough? If stolen wallet access permits replacing the destination and generating a fresh Disaster Recovery Key, total theft is possible even though ordinary payments need BlackBox approval.
+- What does **all money** mean for values locked in still-pending transfers or already-triggered receiver claim windows? Existing no-cancellation/receiver rights and disaster sweep cannot both spend the same locked amount; define safe eligible balance and later settlement ownership.
+- How to handle lost or leaked Disaster Recovery Key prior to use? A key alone must not enable execution. Should regeneration/rotation be forbidden or require authorisation and delay? Undecided.
+- Prevent replay/double execution, destination switching, address substitution, insufficient fee, false network clocks, concurrent claims, wrong backup address and lost backup wallet.
+- User must see that the disaster action **permanently destroys the original wallet's ability to spend**.
+- Issue only a **nonreversible cryptographically random secret** and store a secure commitment/hash, **not the plaintext recovery key** on network nodes or GitHub. Never put real user secrets in project files.
+- The existing **72-hour initial activation deadline / permanent DEAD** rule is a separate lifecycle path; this emergency feature cannot bypass a wallet that never activated.
 
-## State model (proposed)
-```
-ACTIVE_WITH_RECOVERY_DESTINATION
-  -- signed RunDisasterRecovery --> RECOVERY_FINALISING
-  -- atomic sweep and terminal marking --> DEAD_AFTER_DISASTER_RECOVERY
-```
+## Important difference from old preliminary notes
 
-In a network partition it is unsafe to consider the source DEAD locally if the sweep has not been globally finalised.
+Earlier design discussion described wallet-private-key-only disaster execution. **Superseded by newest user clarification (2026-10-24): execution requires BOTH Wallet Private Key AND the newly defined OPTIONAL one-time Disaster Recovery Key; still no BlackBox or Authenticator.** All future protocol and UI documents must follow this version.
 
-## Open decision — ask NEXT
-**New Q4 clarification (higher priority):** What is the role of the optional Disaster Recovery Key? Must a Run Disaster Recovery use both original wallet private key AND recovery key, or is recovery key used for setup/address changes only (with original wallet key alone still sufficient to execute)? Avoid assuming the implementation.
+## Research status
 
-## Following decision (after Q4)
-**May the disaster recovery destination be registered or changed with only the normal wallet private key, or should initial registration/updates additionally require TongNet Authenticator approval, even though executing Run Disaster Recovery must NOT require it?**
-
-This is specifically about setting/changing destination, NOT executing the already-configured recovery operation.
+No prototype exists. Every state transition, signer policy, destination-change rule, key commitment, fee calculation and atomic network settlement requires implementation, tests, threat analysis and audit before real assets.
