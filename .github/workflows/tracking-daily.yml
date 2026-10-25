@@ -1,0 +1,49 @@
+name: TongNet daily GitHub project snapshot
+
+on:
+  schedule:
+    - cron: '12 11 * * *' # each day 11:12 UTC (Sydney evening; UTC clock, DST shifts)
+  issues:
+    types: [opened, reopened, closed, edited]
+  workflow_dispatch:
+
+# GitHub Actions must be enabled by repository owner.
+# GITHUB_TOKEN commits can be denied by protected branch; then fallback: open Issues manually,
+# inspect Actions failure; do not falsely claim status updated.
+permissions:
+  contents: write
+  issues: read
+
+concurrency:
+  group: tongnet-project-snapshot-main
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout immutable action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: true
+          ref: main
+      - name: Generate issue- and commit-derived reports
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/daily_snapshot.py
+      - name: Validate project-control layout
+        run: python3 scripts/check_tracking.py
+      - name: Persist daily snapshot without writing false progress
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tracking/auto tracking/AUTO_STATUS.md docs/PROJECT_STATUS.md
+          if git diff --cached --quiet; then
+            echo "No snapshot changes" >> "$GITHUB_STEP_SUMMARY"
+          else
+            git commit -m "tracking: GitHub issue and commit status snapshot"
+            git pull --rebase origin main
+            git push origin HEAD:main
+            echo "Saved issue-derived snapshot; no task independently marked DONE." >> "$GITHUB_STEP_SUMMARY"
+          fi
