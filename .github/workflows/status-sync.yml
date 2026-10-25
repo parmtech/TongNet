@@ -1,0 +1,40 @@
+name: TongNet Status Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 19 * * *' # Daily UTC, approximate dawn Sydney (timezone/DST vary)
+  issues:
+    types: [opened, edited, closed, reopened, assigned, unassigned, labeled, unlabeled]
+
+permissions:
+  contents: write
+  issues: read
+
+concurrency:
+  group: tongnet-status-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    if: github.repository == 'manbir6-ux/TongNet'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout trusted default branch
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: true
+      - name: Build factual issue status using Python stdlib
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/build_status.py
+      - name: Commit status only (never auto-complete tasks)
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/PROJECT_STATUS.md
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore(status): reflect current GitHub Issue states'
+            git push
+          fi
