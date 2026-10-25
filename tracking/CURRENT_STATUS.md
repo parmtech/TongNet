@@ -29,3 +29,7 @@
 Issues canonical; actions bot snapshots optional; update this page at every *phase or critical risk change*. The 100m cap, 64 validators, 6s blocks and other numeric guesses are TEST PARAMETERS, not deployed claims or final economic choices.
 
 **Parallel issue reconciliation:** 22 old issues were closed for duplicate reason, not completed engineering. Single canonical set is 24 new structured issues #24–#47 and the unique #3 critical root-key-loss recovery paradox. Automated Status Sync execution not yet verified; do not count workflow declaration as a successful run.
+
+## Active specification work (2026-10-25)
+- TN-SPEC-001 #29 is assigned and has a draft test-only proposal in [PR #49](https://github.com/manbir6-ux/TongNet/pull/49), commit `4ba70965503992ec23cbd1d3f084f19478821b4a` on `work/TN-SPEC-001-ledger-invariants`.
+- Local JSON parsing and schema operation/reference consistency checks passed. No Rust implementation/tests or full JSON Schema validator are claimed. The proposal preserves unresolved financial and timing choices for review; issue #29 remains open.
