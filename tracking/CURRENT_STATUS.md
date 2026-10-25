@@ -9,7 +9,7 @@
 | Gate | Status | What actually exists | Release allowed |
 |---|---|---|---|
 | G0 - spec/risk/architecture | IN PROGRESS | V1.1 whitepaper, prior research and the new project-control system | No |
-| E0 - engineering foundation | IN PROGRESS | TN-ENG-001 branch contains a Rust workspace/CI scaffold; awaiting a green automated run | No |
+| E0 - engineering foundation | IN PROGRESS | TN-ENG-001 draft PR contains the Rust workspace/CI scaffold; GitHub Actions is blocked by the account billing limit | No |
 | G1 - deterministic Rust money engine | NOT STARTED | No verified build/code | No |
 | G2 - BFT localnet & staking | NOT STARTED | No verified nodes | No |
 | G3 - wallet, BlackBox, recovery | NOT STARTED | No verified apps or cryptographic key-release | No |

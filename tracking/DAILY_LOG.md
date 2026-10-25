@@ -43,3 +43,13 @@ All workers **append** a factual new session record, with local ISO date, timezo
 **Completed acceptance criteria (with PR/evidence):** Workspace and dependency policy pass local checks; draft PR #48 exists. CI has not passed, so TN-ENG-001 remains open.  
 **Remaining blockers and exact next action:** Publish the cargo-deny correction to the existing branch and rerun CI after Actions billing is available; keep the PR in draft until a green run and review.  
 **Updated HANDOFF/CURRENT_STATUS:** yes.
+
+## 2026-10-25 — TN-ENG-001 scaffold published for review (Australia/Sydney)
+**Worker:** Codex.  
+**Issue / branch / commit:** TN-ENG-001 / `work/TN-ENG-001-rust-workspace` / draft PR [TN-ENG-001 Rust workspace and CI](https://github.com/manbir6-ux/TongNet/pull/48), current remote head `8bda72c710ee96abd91d17d520b09afbe9ee8342`.  
+**Changed files:** Published the workspace and its follow-up dependency-check correction, plus project handoff/status records.  
+**Test command and actual PASS/FAIL results:** Formatting, Clippy, Cargo metadata, and `cargo deny check` PASS locally. Local workspace tests cannot link on this Windows host because Visual Studio C++ Build Tools are absent. GitHub Actions for the published head did not start because the account's Actions billing limit blocks runner usage.  
+**New risk / decision / owner approval:** No financial rules or owner decisions changed. Remote test result remains unknown.  
+**Completed acceptance criteria (with PR/evidence):** Draft PR is published and issue #35 is linked; scaffold structure and dependency policy pass local checks. The issue remains open pending green CI and review.  
+**Remaining blockers and exact next action:** Restore GitHub Actions runner availability, then rerun PR checks. Do not close or merge while CI is unverified.  
+**Updated HANDOFF/CURRENT_STATUS:** yes.
