@@ -10,3 +10,12 @@
 - Next action: create issue-backed tasks and verify dashboard; start test-only Rust skeleton, deterministic account/escrow property tests in isolated PR; do not launch real money.
 
 <!-- Next worker append: UTC date/time | worker | TN issue ID | branch/PR/commit | actual changes | tests passed/failed with links | blockers | next step -->
+
+## 2026-10-25 — Canonical task registry and daily status workflow installed
+- Worker: ChatGPT using authenticated GitHub connector.
+- Actually committed: AGENTS.md, PROJECT_CONTROL.md, DECISION_REGISTER_CURRENT.md, ADR-0001, 50-risk audit, G0–G11 plan, WORK_LOG, initial PROJECT_STATUS, issue template, status generator Python script, and GitHub Actions workflow.
+- Actual GitHub issues: 24 new TN-ID tasks (#24–#47) and 23 pre-existing legacy tasks (#1–#23), mapped in LEGACY_ISSUE_MIGRATION without erasing history. New TN-GOV-001 (#24) set IN_REVIEW because first successful status workflow run is NOT VERIFIED; legacy #23 has cross-reference comment.
+- README, ROADMAP, NEXT_SESSION, PROGRESS updated for external resume. No Rust ledger, functioning validator, coin, wallet, testnet or independent crypto audit claimed from documentation.
+- Automation SOURCE committed, but first GitHub Actions execution, Contents write and schedule enabling have not been tested/verified. Do not mark tracking automation DONE until successful run evidence.
+- Mainnet P0 blockers remain: K_S lost-device/recovery contradiction, early mirror decryption paradox, network-delay expiry/forfeiture, stake recovery, stake distribution economics, external audits.
+- Next ready: [TN-ENG-001](https://github.com/manbir6-ux/TongNet/issues/35) test-only Rust scaffolding and [TN-SPEC-001](https://github.com/manbir6-ux/TongNet/issues/29) deterministic ledger invariants. Record future sessions honestly.
