@@ -1,4 +1,7 @@
 # TONGNET — MASTER NETWORK WHITEPAPER
+
+> **CURRENT SECURITY-REVIEWED ARCHITECTURE REFERENCE — V1.1 (2026-10-25):** Read [Corrected TongNet Master V1.1](WHITEPAPER_MASTER_V1_1_SECURITY_REVIEW.md) and the [24-finding logic/security audit](LOGIC_SECURITY_AUDIT_V1_1.md) BEFORE building. V1.0 is HISTORICAL, not current guidance on tokenomics/blocks/claims. The V1.1 design withdraws previously proposed 12m genesis, 17.6m first-era issuance, potentially related 50% genesis allocation, absolute 25k TONG stake and 5% slash trial; replaces 2MiB/4sec max with conservative 256KiB/6sec experiment and adds pre-LOCK K_R persistence and safe validator-exit epoch rules. **Owner-confirmed 24h Receiver + next 60d Sender, mandatory Sender BlackBox FINAL_ACCEPT, ACTIVE Recovery Mirror and R DEAD auto-unbinding remain unchanged.** RED mainnet blockers persist. Design only: no code, audits or deployed TONG.
+
 ## Single-native-coin secure bilateral cryptocurrency | Proposed v1.0 reference architecture
 
 **Date:** 25 October 2026 (Australia/Sydney)  
