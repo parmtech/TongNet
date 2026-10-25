@@ -33,3 +33,13 @@ All workers **append** a factual new session record, with local ISO date, timezo
 **Completed acceptance criteria (with PR/evidence):** Local workspace parses, formats and passes Clippy. No PR or green remote run yet; issue remains open.  
 **Remaining blockers and exact next action:** Publish the scaffold commit to `work/TN-ENG-001-rust-workspace`, open a draft PR, then inspect the Rust CI run.  
 **Updated HANDOFF/CURRENT_STATUS:** yes.
+
+## 2026-10-25 — TN-ENG-001 CI and dependency-check follow-up (Australia/Sydney)
+**Worker:** Codex.  
+**Issue / branch / commit:** TN-ENG-001 / `work/TN-ENG-001-rust-workspace` / draft PR [TN-ENG-001 Rust workspace and CI](https://github.com/manbir6-ux/TongNet/pull/48); GitHub head `030fc14a2106db9f54fcf7cb3b43f2039ed3672d` before the follow-up correction is pushed.  
+**Changed files:** Refined local workspace dependency versions and `deny.toml`; corrected cargo-deny invocation in Rust CI. No financial behavior was added.  
+**Test command and actual PASS/FAIL results:** `cargo fmt --all -- --check`, `cargo clippy --workspace --all-targets --locked -- -D warnings`, `cargo metadata --locked --no-deps --format-version 1`, and `cargo deny check` PASS locally. The local `cargo test --workspace --all-targets --locked` remains unable to link because this Windows host lacks Visual Studio C++ Build Tools.  
+**New risk / decision / owner approval:** First remote CI checks were not started because GitHub reports the account's Actions billing limit prevents runner usage. The remote test result is unknown; this is not a code failure. No owner policy changed.  
+**Completed acceptance criteria (with PR/evidence):** Workspace and dependency policy pass local checks; draft PR #48 exists. CI has not passed, so TN-ENG-001 remains open.  
+**Remaining blockers and exact next action:** Publish the cargo-deny correction to the existing branch and rerun CI after Actions billing is available; keep the PR in draft until a green run and review.  
+**Updated HANDOFF/CURRENT_STATUS:** yes.

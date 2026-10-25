@@ -6,7 +6,7 @@ rust-version.workspace = true
 publish = false
 
 [dependencies]
-crypto-types = { path = "../crypto-types" }
-ledger-core = { path = "../ledger-core" }
-protocol-types = { path = "../protocol-types" }
+crypto-types.workspace = true
+ledger-core.workspace = true
+protocol-types.workspace = true
 

@@ -45,5 +45,5 @@ jobs:
         run: cargo test --workspace --all-targets --locked
 
       - name: Check dependency policies
-        run: cargo install --locked --version 0.20.2 cargo-deny && cargo deny check --locked
+        run: cargo install --locked --version 0.20.2 cargo-deny && cargo deny check
 
