@@ -3,7 +3,7 @@
 **Last human-authored update:** 2026-10-25 (Australia/Sydney).  
 **Current project phase:** G0 — canonical specification, adversarial security and economics review.  
 **Project confidence:** Design/research ONLY. No blockchain executable, running node, Rust workspace, Wallet, BFT testnet, verified metrics or real TONG issuance found in the repository's initial tree (30 Markdown documents, no existing GitHub Issues).  
-**Tracking:** 47 GitHub issues created across parallel tracking work; 25 canonical OPEN issues (#24–#47 and unique #3), 22 CLOSED AS DUPLICATES (not completed); see [TASKS.md](TASKS.md) and [live GitHub Issues](https://github.com/manbir6-ux/TongNet/issues).
+**Tracking:** 47 GitHub issues created across parallel tracking work; 25 canonical OPEN issues (#24–#47 and unique #3), 22 CLOSED AS DUPLICATES (not completed); see [TASKS.md](TASKS.md) and [live GitHub Issues](https://github.com/parmtech/TongNet/issues).
 
 ## Phase scoreboard (evidence, NOT % completion)
 | Gate | Status | What actually exists | Release allowed |
@@ -34,3 +34,8 @@ Issues canonical; actions bot snapshots optional; update this page at every *pha
 - TN-SPEC-001 #29 is assigned and has a draft test-only proposal in [PR #49](https://github.com/parmtech/TongNet/pull/49), head `bba95c659a695cc2368ebc74544887f592ceed3a` on `work/TN-SPEC-001-ledger-invariants`.
 - Local JSON parsing and schema operation/reference consistency checks passed. No Rust implementation/tests or full JSON Schema validator are claimed. The proposal preserves unresolved financial and timing choices for review; issue #29 remains open.
 - PR review and inline thread lists are empty. GitHub Actions run `40163434903` failed before a runner started due account billing/spending-limit status; no code checks ran.
+
+
+## Active architecture proposal (2026-10-26)
+- TN-ARC-001 #25 has a test-only candidate transition table in [draft PR #51](https://github.com/parmtech/TongNet/pull/51), branch `work/TN-ARC-001-payout-transitions`, candidate commit `5c130b951c36af82e87710291f53c841cef9aea4`. It is stacked on TN-SPEC-001 PR #49.
+- Candidate intervals are Receiver `[t0, t0+24h)` and Sender manual reclaim `[t0+24h, t0+24h+60d)`, then no automatic money movement. `t0`, cutoff treatment, and consensus-clock rules require owner ratification; issue #25 remains open.
