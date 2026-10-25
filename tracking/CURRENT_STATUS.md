@@ -1,14 +1,15 @@
 # CURRENT_STATUS — TongNet
 
 **Last human-authored update:** 2026-10-25 (Australia/Sydney).  
-**Current project phase:** G0 — canonical specification, adversarial security and economics review.  
-**Project confidence:** Design/research ONLY. No blockchain executable, running node, Rust workspace, Wallet, BFT testnet, verified metrics or real TONG issuance found in the repository's initial tree (30 Markdown documents, no existing GitHub Issues).  
+**Current project phase:** G0 governance remains in progress; E0 Rust workspace and CI foundation has started on TN-ENG-001.  
+**Project confidence:** Design/research plus an in-progress test-only Rust workspace scaffold. No blockchain executable, running node, financial state machine, Wallet, BFT testnet, verified metrics or real TONG issuance.  
 **Tracking:** 47 GitHub issues created across parallel tracking work; 25 canonical OPEN issues (#24–#47 and unique #3), 22 CLOSED AS DUPLICATES (not completed); see [TASKS.md](TASKS.md) and [live GitHub Issues](https://github.com/manbir6-ux/TongNet/issues).
 
 ## Phase scoreboard (evidence, NOT % completion)
 | Gate | Status | What actually exists | Release allowed |
 |---|---|---|---|
 | G0 - spec/risk/architecture | IN PROGRESS | V1.1 whitepaper, prior research and the new project-control system | No |
+| E0 - engineering foundation | IN PROGRESS | TN-ENG-001 draft PR contains the Rust workspace/CI scaffold; GitHub Actions is blocked by the account billing limit | No |
 | G1 - deterministic Rust money engine | NOT STARTED | No verified build/code | No |
 | G2 - BFT localnet & staking | NOT STARTED | No verified nodes | No |
 | G3 - wallet, BlackBox, recovery | NOT STARTED | No verified apps or cryptographic key-release | No |

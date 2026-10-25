@@ -1,0 +1,25 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/crypto-types",
+    "crates/ledger-core",
+    "crates/model-tests",
+    "crates/protocol-types",
+]
+default-members = [
+    "crates/crypto-types",
+    "crates/ledger-core",
+    "crates/model-tests",
+    "crates/protocol-types",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99"
+
+[workspace.dependencies]
+crypto-types = { path = "crates/crypto-types", version = "=0.1.0" }
+ledger-core = { path = "crates/ledger-core", version = "=0.1.0" }
+protocol-types = { path = "crates/protocol-types", version = "=0.1.0" }
+

@@ -1,0 +1,12 @@
+[package]
+name = "model-tests"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+crypto-types.workspace = true
+ledger-core.workspace = true
+protocol-types.workspace = true
+
