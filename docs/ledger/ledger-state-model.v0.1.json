@@ -1,0 +1,108 @@
+{
+  "spec_version": "0.1.0",
+  "status": "PROPOSED_TEST_ONLY_NOT_OWNER_RATIFIED",
+  "accounting_model": {
+    "kind": "account_based",
+    "authority": "ARCHITECT_SELECTED_PROTOTYPE_BASELINE",
+    "asset": "TONG",
+    "amount_encoding": "unsigned_decimal_string_in_atomic_units",
+    "prototype_amount_width_bits": 128,
+    "production_amount_width_bits": null,
+    "production_decimal_scale": null,
+    "arithmetic": "checked_only",
+    "floating_point_allowed": false,
+    "zero_value_financial_action": "reject"
+  },
+  "money_categories": [
+    { "id": "spendable", "live_supply": true, "description": "Account value available for otherwise valid operations." },
+    { "id": "escrow_locked", "live_supply": true, "description": "Value held for a specific escrow obligation." },
+    { "id": "validator_bonded", "live_supply": true, "description": "Bonded value, separate from spendable value." },
+    { "id": "fee_escrow", "live_supply": true, "description": "Value reserved for an explicitly specified fee budget." },
+    { "id": "pending_rewards", "live_supply": true, "description": "Earned value not yet spendable." },
+    { "id": "protocol_reserve", "live_supply": true, "description": "Value already transferred by an explicitly authorized rule; no automatic 60-day transfer is defined." }
+  ],
+  "supply_accounting": {
+    "equation": "live_supply + cumulative_burned = initial_issued + test_faucet_issued + approved_issuance",
+    "live_supply_categories": ["spendable", "escrow_locked", "validator_bonded", "fee_escrow", "pending_rewards", "protocol_reserve"],
+    "test_model_approved_issuance": "0",
+    "test_faucet": "localtest_only_and_counted_as_test_faucet_issued",
+    "production_genesis_and_issuance": "UNRESOLVED",
+    "burn_operation_in_v0_1": false
+  },
+  "transaction_envelope": {
+    "schema_file": "transaction-envelope.v0.1.schema.json",
+    "required_domain_fields": ["chain_id", "protocol_version", "signer", "nonce", "operation", "payload", "validity"],
+    "authorization_fields": ["role", "signer", "scheme_id", "signature"],
+    "signature_binding": ["chain_id", "protocol_version", "signer", "nonce", "role", "operation", "canonical_payload", "validity"],
+    "nonce_model": "monotonic_per_signer; consumed_atomically_only_on_success_in_v0_1",
+    "identical_replay": "at_most_one_effect",
+    "same_nonce_conflict": "finalized_block_order; later_valid_effect_rejected_after_nonce_consumption",
+    "rejected_operation_effect": "state_neutral_in_v0_1",
+    "raw_secret_payload_fields_allowed": false,
+    "production_wire_encoding": null,
+    "transaction_hash_algorithm": null,
+    "signature_algorithm": null
+  },
+  "operations": [
+    { "kind": "TEST_FAUCET", "status": "LOCALTEST_ONLY", "effects": ["recipient.spendable += amount", "test_faucet_issued += amount"] },
+    { "kind": "TRANSFER", "status": "MODEL_OPERATION", "effects": ["sender.spendable -= amount", "recipient.spendable += amount"] },
+    { "kind": "LOCK", "status": "MODEL_OPERATION", "effects": ["sender.spendable -= amount", "escrow_locked += amount", "create_unique_escrow"] },
+    { "kind": "CLAIM_REQUEST", "status": "MODEL_OPERATION", "effects": ["record_claim_request", "no_money_movement"] },
+    { "kind": "FINAL_ACCEPT", "status": "OWNER_CONFIRMED_REQUIRED_AUTHORIZATION", "effects": ["escrow_locked -= amount", "receiver.spendable += amount", "mark_escrow_paid_once"] },
+    { "kind": "SENDER_RECLAIM", "status": "MODEL_OPERATION_WITH_POLICY_PARAMETER", "effects": ["escrow_locked -= amount", "sender.spendable += amount", "mark_escrow_reclaimed_once"] },
+    { "kind": "RECOVERY_PAIR", "status": "METADATA_ONLY_IN_V0_1", "effects": ["record_pair_reference", "no_money_movement"] },
+    { "kind": "RECOVERY_RUN", "status": "DEFERRED_PENDING_SECURITY_AND_RIGHTS_SPECIFICATION", "effects": [] }
+  ],
+  "state_invariants": [
+    { "id": "INV-001", "rule": "Every live category balance is a nonnegative integer." },
+    { "id": "INV-002", "rule": "live_supply + cumulative_burned equals initial_issued + test_faucet_issued + approved_issuance after every committed transition." },
+    { "id": "INV-003", "rule": "All additions and subtractions are checked; overflow, underflow, or insufficient source value rejects the whole operation without partial mutation." },
+    { "id": "INV-004", "rule": "Each escrow has one unique identifier and at most one terminal monetary outcome." },
+    { "id": "INV-005", "rule": "CLAIM_REQUEST alone never moves escrow value; FINAL_ACCEPT must be authorized by the sender BlackBox and bind the exact claim, receiver, and amount." },
+    { "id": "INV-006", "rule": "SENDER_RECLAIM is valid only under the supplied versioned deadline policy and cannot execute before sender reclaim eligibility." },
+    { "id": "INV-007", "rule": "A stale, duplicate, or conflicting signer nonce cannot cause a second state effect." },
+    { "id": "INV-008", "rule": "An authorization is domain-bound to chain, protocol version, signer, nonce, role, operation, canonical payload, and validity context." },
+    { "id": "INV-009", "rule": "Only deterministic execution of finalized transactions mutates committed ledger state." },
+    { "id": "INV-010", "rule": "Replay of the same initial state, finalized transaction order, and explicit context produces identical state bytes and state root." },
+    { "id": "INV-011", "rule": "After the configured sender reclaim period ends, funds enter POLICY_PENDING; v0.1 performs no automatic reserve transfer or burn." },
+    { "id": "INV-012", "rule": "Recovery pair/run operations have no v0.1 monetary effects until owning recovery security and entitlement issues are resolved." }
+  ],
+  "escrow_states": ["LOCKED", "CLAIM_PENDING", "PAID", "SENDER_RECLAIMABLE", "RECLAIMED", "POLICY_PENDING"],
+  "escrow_transitions": [
+    { "from": "LOCKED", "operation": "CLAIM_REQUEST", "to": "CLAIM_PENDING", "money_movement": false },
+    { "from": "LOCKED|CLAIM_PENDING", "condition": "sender-authorized FINAL_ACCEPT satisfies configured receiver-priority policy in explicit finalized context", "to": "PAID", "money_movement": "escrow to exact receiver once" },
+    { "from": "LOCKED|CLAIM_PENDING", "condition": "derive sender reclaim eligibility from configured policy and explicit finalized context", "to": "SENDER_RECLAIMABLE", "money_movement": false, "stored_timer_transition": false },
+    { "from": "SENDER_RECLAIMABLE", "operation": "SENDER_RECLAIM before configured sender-window expiry", "to": "RECLAIMED", "money_movement": "escrow to original sender once" },
+    { "from": "SENDER_RECLAIMABLE", "condition": "derive post-window status from configured policy and explicit finalized context", "to": "POLICY_PENDING", "money_movement": false, "stored_timer_transition": false }
+  ],
+  "determinism": {
+    "state_mutation_boundary": "finalized_block_execution_only",
+    "mempool_proposal_rpc_and_wall_clock_mutate_state": false,
+    "canonical_encoding_required": true,
+    "stable_account_and_escrow_order_required": true,
+    "domain_separated_state_root_required": true,
+    "encoding_format": null,
+    "hash_algorithm": null,
+    "root_upgrade_policy": null
+  },
+  "property_test_matrix": [
+    { "id": "PT-001", "property": "Supply conservation", "generator": "bounded random valid TRANSFER, LOCK, and settlement operations plus local faucet issuance" },
+    { "id": "PT-002", "property": "Checked arithmetic", "generator": "values near zero and u128 maximum; assert overflow and underflow are atomic rejections" },
+    { "id": "PT-003", "property": "Replay and nonce safety", "generator": "repeated bytes, altered payloads with same nonce, stale nonce, future nonce, and cross-chain replay" },
+    { "id": "PT-004", "property": "One winner per escrow", "generator": "duplicate and conflicting FINAL_ACCEPT/SENDER_RECLAIM orderings" },
+    { "id": "PT-005", "property": "Sender approval required", "generator": "claim request without sender approval, wrong receiver, wrong amount, and approval for a different claim" },
+    { "id": "PT-006", "property": "Deadline policy parameterization", "generator": "cutoff-adjacent events under explicit test policies; do not assume a production t0 or clock" },
+    { "id": "PT-007", "property": "Failure atomicity", "generator": "interrupt validation at each precondition and verify balances, nonce, escrow, and supply counters are unchanged" },
+    { "id": "PT-008", "property": "Deterministic replay", "generator": "same state and finalized operation order across repeated runs; compare canonical bytes and roots" },
+    { "id": "PT-009", "property": "No automatic reserve sweep", "generator": "advance test policy beyond sender window and assert POLICY_PENDING with unchanged recipient balances" },
+    { "id": "PT-010", "property": "Recovery deferral", "generator": "assert RECOVERY_RUN has no enabled v0.1 monetary transition" }
+  ],
+  "unresolved_decisions": [
+    "Exact receiver-window t0, time source, cutoff inclusivity, and delay compensation.",
+    "Production amount width, TONG decimal scale, address format, canonical transaction encoding, cryptographic algorithms, and state-root hash.",
+    "Whether a rejected finalized transaction consumes nonce or fees.",
+    "Fee budget settlement, reward issuance, validator bond lifecycle, supply cap, genesis, and production issuance.",
+    "Legal and consent-safe outcome after the sender reclaim period; reserve transfer is not implemented.",
+    "K_R/K_S lifecycle, source signing-key loss, conditional archive decryption, and escrow entitlement through recovery."
+  ]
+}

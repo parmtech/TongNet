@@ -23,3 +23,23 @@ All workers **append** a factual new session record, with local ISO date, timezo
 **Remaining blockers and exact next action:**
 **Updated HANDOFF/CURRENT_STATUS:** yes/no
 ```
+
+## 2026-10-25 — TN-SPEC-001 test-only ledger proposal (Australia/Sydney)
+**Worker/owner:** Codex; issue assigned to `manbir6-ux`.  
+**Issue / branch / commit:** #29 / `work/TN-SPEC-001-ledger-invariants` / `4ba70965503992ec23cbd1d3f084f19478821b4a`; draft PR #49.  
+**Changed files:** `docs/LEDGER_STATE_MODEL_V0_1.md`, `docs/ledger/ledger-state-model.v0.1.json`, `docs/ledger/transaction-envelope.v0.1.schema.json`.  
+**Test command and actual PASS/FAIL results:** Local Node JSON parse — PASS for both JSON files; local structural consistency check for operation enum vs `oneOf`, payload references and required object keys — PASS (8 operation arms); `git diff --check` — PASS, no output. No Rust tests or full Draft 2020-12 validator were run. GitHub combined status returned no status entries at check time.  
+**New risk / decision / owner approval:** Proposal only; no owner financial-right decision added. Timer origin/cutoffs, production encoding/crypto, rejected-transaction fee/nonce behavior, post-60-day outcome and recovery money effects remain unresolved.  
+**Completed acceptance criteria (with PR/evidence):** Added categories, checked integer/conservation model, chain/protocol/signer/nonce/role/action/payload/validity authorization binding, typed finite envelope (including `TRANSFER`), replay and atomicity invariants, deterministic finalized-state/root requirements, and bounded property-test matrix. Draft [PR #49](https://github.com/manbir6-ux/TongNet/pull/49); issue #29 remains OPEN.  
+**Remaining blockers and exact next action:** Owner/architect review and explicit decisions are needed before ratification; subsequent implementation/tests still required. Review PR #49 and address review feedback on the same issue branch.  
+**Updated HANDOFF/CURRENT_STATUS:** yes.
+
+## 2026-10-26 — TN-SPEC-001 review and CI status (Australia/Sydney)
+**Worker/owner:** Codex; issue remains assigned to `parmtech`.  
+**Issue / branch / commit:** #29 / `work/TN-SPEC-001-ledger-invariants` / PR head `bba95c659a695cc2368ebc74544887f592ceed3a`; [draft PR #49](https://github.com/parmtech/TongNet/pull/49).  
+**Changed files:** `tracking/HANDOFF.md`, `tracking/CURRENT_STATUS.md`, `tracking/DAILY_LOG.md`; GitHub PR #49 and issue #29 status/evidence text.  
+**Test command and actual PASS/FAIL results:** No code tests run this session. PR review submissions and inline review threads: none. GitHub Actions run `40163434903` (`integrity`) failed before runner startup; annotation says recent payments failed or account spending limit needs increasing. This is an account billing block, not a code test failure.  
+**New risk / decision / owner approval:** GitHub repository was renamed/transferred from `manbir6-ux/TongNet` to canonical `parmtech/TongNet`; old URL returns a redirect. No protocol decision or approval added.  
+**Completed acceptance criteria (with PR/evidence):** Rechecked PR head, issue assignment/state, reviews, and CI diagnostics; updated PR body and issue #29 to IN_PROGRESS with exact billing blocker. PR remains draft and issue remains open.  
+**Remaining blockers and exact next action:** Owner/architect review is pending. Restore GitHub Actions billing/spending-limit eligibility before expecting runner results; then re-check PR #49 on its current head and address any substantive review feedback.  
+**Updated HANDOFF/CURRENT_STATUS:** yes.
