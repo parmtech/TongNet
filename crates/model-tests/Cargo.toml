@@ -1,0 +1,12 @@
+[package]
+name = "model-tests"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+crypto-types = { path = "../crypto-types" }
+ledger-core = { path = "../ledger-core" }
+protocol-types = { path = "../protocol-types" }
+

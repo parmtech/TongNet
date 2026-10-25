@@ -23,3 +23,13 @@ All workers **append** a factual new session record, with local ISO date, timezo
 **Remaining blockers and exact next action:**
 **Updated HANDOFF/CURRENT_STATUS:** yes/no
 ```
+
+## 2026-10-25 — TN-ENG-001 Rust workspace foundation started (Australia/Sydney)
+**Worker:** Codex.  
+**Issue / branch / commit:** TN-ENG-001 / `work/TN-ENG-001-rust-workspace` / local scaffold commit `bf00e0ff8a6db3a8b4139a86a8ebf6671315f405`; GitHub branch created from `main`, code publication still pending.  
+**Changed files:** Added a four-crate Cargo workspace (`ledger-core`, `protocol-types`, `crypto-types`, `model-tests`), Rust 1.99.1 toolchain pin, lockfile, dependency-policy config, Rust CI workflow, scaffold notes, and E0 status update. No transaction, monetary, or cryptographic logic was added.  
+**Test command and actual PASS/FAIL results:** `cargo fmt --all -- --check` PASS after applying formatting; `cargo clippy --workspace --all-targets --locked -- -D warnings` PASS; `cargo metadata --locked --no-deps --format-version 1` PASS; `cargo test --workspace --all-targets --locked` FAIL on this Windows host because Visual Studio C++ linker/build tools are absent. Linux GitHub Actions and cargo-deny have not run yet.  
+**New risk / decision / owner approval:** No financial-right decision changed. Local Git CLI authentication has no selected Git Credential Manager provider; the GitHub connector is being used for publication.  
+**Completed acceptance criteria (with PR/evidence):** Local workspace parses, formats and passes Clippy. No PR or green remote run yet; issue remains open.  
+**Remaining blockers and exact next action:** Publish the scaffold commit to `work/TN-ENG-001-rust-workspace`, open a draft PR, then inspect the Rust CI run.  
+**Updated HANDOFF/CURRENT_STATUS:** yes.
