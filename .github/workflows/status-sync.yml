@@ -33,8 +33,15 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add docs/PROJECT_STATUS.md
+          # Single canonical status renderer writes docs/PROJECT_STATUS.md.
+          # Retain a dated read-only record in tracking/ for long-term handoff.
+          mkdir -p tracking/auto
+          cp docs/PROJECT_STATUS.md tracking/AUTO_STATUS.md
+          DAY=$(TZ=Australia/Sydney date +%F)
+          cp docs/PROJECT_STATUS.md "tracking/auto/${DAY}.md"
+          git add docs/PROJECT_STATUS.md tracking/AUTO_STATUS.md tracking/auto
           if ! git diff --cached --quiet; then
             git commit -m 'chore(status): reflect current GitHub Issue states'
-            git push
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
