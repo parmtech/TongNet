@@ -12,7 +12,7 @@
 - [RISKS.md](RISKS.md): issue-linked severity, owner and mitigation; RED release blockers.
 - [CURRENT_STATUS.md](CURRENT_STATUS.md): latest manually curated stable phase/milestone status.
 - [AGENTS.md](../AGENTS.md): required worker protocol.
-- [long-term review](../docs/A_TO_Z_LONG_TERM_REVIEW_V2.md), [build plan](../docs/BUILD_EXECUTION_PLAN_V2.md).
+- [long-term review](../docs/LONG_HORIZON_RISK_AUDIT.md), [build plan](../docs/BUILD_EXECUTION_PLAN.md).
 
 ## Status definitions
 - `OPEN`: ticket is not proven complete; may be PLANNED, RESEARCH, ACTIVE or BLOCKED in its text/PR.
@@ -22,4 +22,6 @@
 - `MAINNET_READY`: not a label a worker may set without security, legal, economic and owner gates.
 
 ## Anti-staleness mechanism
-Run `python3 scripts/check_tracking.py` on each PR; `.github/workflows/project-tracking.yml` validates references. A separate GitHub Actions workflow `tracking-daily.yml` can write a repository snapshot once daily and on issue events. Automatic snapshots only use verifiable issue states and GitHub commits; manual journal still requires worker action. Protected branches/disabled Actions may prevent automation; read workflow run health.
+Run `python3 scripts/check_tracking.py` on each PR; `.github/workflows/project-tracking.yml` validates references. A separate GitHub Actions workflow `status-sync.yml` can write a repository snapshot once daily and on issue events. Automatic snapshots only use verifiable issue states and GitHub commits; manual journal still requires worker action. Protected branches/disabled Actions may prevent automation; read workflow run health.
+
+**Reconciliation (2026-10-25):** 25 canonical issues are #24–#47 plus independent #3 (lost S private key). The other 22 legacy issues were closed with reason DUPLICATE, not DONE. [Migration](../docs/LEGACY_ISSUE_MIGRATION.md). Use only the canonical set for future work.
