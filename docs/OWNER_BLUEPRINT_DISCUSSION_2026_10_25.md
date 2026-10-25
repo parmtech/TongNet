@@ -16,3 +16,8 @@ Which acceptance event the owner means must be reconciled with existing FINAL_AC
 
 ## Next step
 Show the existing request/accept/settlement steps to the owner, identify the intended timer event, then prepare a specific ADR and canonical decision-register update. Keep #25 open; no code, tests, merge, or complete-blueprint claim follows from this intake.
+
+
+## Owner clarification — no receiver action after sender acceptance
+Owner stated: “Receiver ने बस अपना code claim request करनी है। उस तो बाद जे तो sender उनो accept कर लेगा, then... कुछ नहीं करना फिर”. Confirmed user flow: receiver submits a code-backed claim request; sender accepts it; receiver has no further manual action. This reinforces the existing CLAIM_REQUEST -> Sender FINAL_ACCEPT flow. It does not separately establish a post-acceptance 24-hour hold or resolve the purpose/start of the disputed timer. Do not introduce another receiver claim step.
+Next single question: if sender acceptance completes the payment flow, what is the 24-hour window intended to allow or limit? Establish its purpose before proposing another anchor.
