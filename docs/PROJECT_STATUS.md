@@ -1,41 +1,39 @@
 # TongNet — GitHub Issue-derived Project Status
 
-**Initial snapshot:** 2026-10-25 (GitHub repository issue data). This file will be overwritten by Actions-based factual issue status sync once the workflow runs.
+**Initial snapshot:** 2026-10-25. **Source:** actual repository GitHub Issues (not CI). When Actions run, workflow will generate this file automatically.
 
-**Tasks:** 24 canonical TN issues; 23 pre-existing legacy [G#] issues awaiting reconciliation. **Do not mistake documents or Issue creation for functioning blockchain code.**
+**Snapshot counts:** 24 canonical TN issues; 23 pre-existing legacy Issues. No production code or completed monetary features implied.
 
-## Canonical work items
+## Canonical TN tasks
 
-| ID / Issue | Status in issue body | Priority | Dependency |
-|---|---|---|---|
-| [[TN-GOV-001] Install GitHub worker resume / issue-based project control ](https://github.com/manbir6-ux/TongNet/issues/24) | ? | ? | ? |
-| [[TN-ARC-001] Resolve protocol authority, 24h timer t0 and exact payout state transitions ](https://github.com/manbir6-ux/TongNet/issues/25) | ? | ? | ? |
-| [[TN-SEC-001] Specify secure claim K_R lifecycle before funded LOCK ](https://github.com/manbir6-ux/TongNet/issues/26) | ? | ? | ? |
-| [[TN-SEC-002] Solve parent BlackBox archive conditional decryption or mark impossible ](https://github.com/manbir6-ux/TongNet/issues/27) | ? | ? | ? |
-| [[TN-SEC-003] Resolve late Sender K_S reclaim secret after original BlackBox loss ](https://github.com/manbir6-ux/TongNet/issues/28) | ? | ? | ? |
-| [[TN-SPEC-001] Formal native account ledger invariants and immutable transaction schema ](https://github.com/manbir6-ux/TongNet/issues/29) | ? | ? | ? |
-| [[TN-SPEC-002] Formal three-phase BlackBox escrow flow with bound receiver ](https://github.com/manbir6-ux/TongNet/issues/30) | ? | ? | ? |
-| [[TN-SPEC-003] Design verifiable network-delay compensation / protected-suspense exit ](https://github.com/manbir6-ux/TongNet/issues/31) | ? | ? | ? |
-| [[TN-SPEC-004] Ratify 60-day post-window unclaimed escrow owner rights ](https://github.com/manbir6-ux/TongNet/issues/32) | ? | ? | ? |
-| [[TN-SPEC-005] Formal active Recovery R lifecycle and S->R DEAD edge cases ](https://github.com/manbir6-ux/TongNet/issues/33) | ? | ? | ? |
-| [[TN-MONEY-001] Model TONG hard cap, emission, genesis distribution and stake attack cost ](https://github.com/manbir6-ux/TongNet/issues/34) | ? | ? | ? |
-| [[TN-ENG-001] Scaffold Rust test-only ledger workspace and CI ](https://github.com/manbir6-ux/TongNet/issues/35) | ? | ? | ? |
-| [[TN-TEST-001] Implement property-based money conservation and escrow state model ](https://github.com/manbir6-ux/TongNet/issues/36) | ? | ? | ? |
-| [[TN-CONS-001] Integrate pinned CometBFT with Rust deterministic state localnet ](https://github.com/manbir6-ux/TongNet/issues/37) | ? | ? | ? |
-| [[TN-CONS-002] Implement bonded PoS eligibility, safe epoch changes and slashing evidence ](https://github.com/manbir6-ux/TongNet/issues/38) | ? | ? | ? |
-| [[TN-ECON-001] Implement 3-stage sender fee budget, rewards and anti-farming ](https://github.com/manbir6-ux/TongNet/issues/39) | ? | ? | ? |
-| [[TN-ENG-002] Build wallet signer and BlackBox manual FINAL_ACCEPT test client ](https://github.com/manbir6-ux/TongNet/issues/40) | ? | ? | ? |
-| [[TN-ENG-003] Build encrypted Active Recovery Mirror with independent key-release review ](https://github.com/manbir6-ux/TongNet/issues/41) | ? | ? | ? |
-| [[TN-OPS-001] Implement P2P, state-sync, archives, signed builds and incident baseline ](https://github.com/manbir6-ux/TongNet/issues/42) | ? | ? | ? |
-| [[TN-TEST-002] Build full adversarial formal/differential and chaos test harness ](https://github.com/manbir6-ux/TongNet/issues/43) | ? | ? | ? |
-| [[TN-NET-001] Recruit independent operators and run public 90-day adversarial testnet ](https://github.com/manbir6-ux/TongNet/issues/44) | ? | ? | ? |
-| [[TN-LEGAL-001] Obtain external Australian crypto, privacy and cross-border legal assessment ](https://github.com/manbir6-ux/TongNet/issues/45) | ? | ? | ? |
-| [[TN-LAUNCH-001] Mainnet go/no-go after independent technical and monetary audits ](https://github.com/manbir6-ux/TongNet/issues/46) | ? | ? | ? |
-| [[TN-MAINT-001] Quarterly/annual protocol, tokenomics and long-lived recovery maintenance ](https://github.com/manbir6-ux/TongNet/issues/47) | ? | ? | ? |
+| Issue | Reported status | Priority | Gate | Dependencies |
+|---|---|---|---|---|
+| [TN-GOV-001 — Install GitHub worker resume / issue-based project control](https://github.com/manbir6-ux/TongNet/issues/24) | READY | P0 | G0 | None |
+| [TN-ARC-001 — Resolve protocol authority, 24h timer t0 and exact payout state transitions](https://github.com/manbir6-ux/TongNet/issues/25) | READY | P0 | G1 | None |
+| [TN-SEC-001 — Specify secure claim K_R lifecycle before funded LOCK](https://github.com/manbir6-ux/TongNet/issues/26) | READY | P0 | G1 | TN-ARC-001 |
+| [TN-SEC-002 — Solve parent BlackBox archive conditional decryption or mark impossible](https://github.com/manbir6-ux/TongNet/issues/27) | BLOCKED | P0 | G1 | TN-ARC-001 |
+| [TN-SEC-003 — Resolve late Sender K_S reclaim secret after original BlackBox loss](https://github.com/manbir6-ux/TongNet/issues/28) | BLOCKED | P0 | G1 | TN-ARC-001, TN-SEC-001 |
+| [TN-SPEC-001 — Formal native account ledger invariants and immutable transaction schema](https://github.com/manbir6-ux/TongNet/issues/29) | READY | P0 | G2 | None |
+| [TN-SPEC-002 — Formal three-phase BlackBox escrow flow with bound receiver](https://github.com/manbir6-ux/TongNet/issues/30) | BLOCKED | P0 | G2 | TN-ARC-001, TN-SEC-001, TN-SPEC-001 |
+| [TN-SPEC-003 — Design verifiable network-delay compensation / protected-suspense exit](https://github.com/manbir6-ux/TongNet/issues/31) | BLOCKED | P0 | G1 | TN-ARC-001 |
+| [TN-SPEC-004 — Ratify 60-day post-window unclaimed escrow owner rights](https://github.com/manbir6-ux/TongNet/issues/32) | BLOCKED | P0 | G1 | TN-ARC-001, TN-SPEC-003 |
+| [TN-SPEC-005 — Formal active Recovery R lifecycle and S->R DEAD edge cases](https://github.com/manbir6-ux/TongNet/issues/33) | BLOCKED | P0 | G1 | TN-ARC-001 |
+| [TN-MONEY-001 — Model TONG hard cap, emission, genesis distribution and stake attack cost](https://github.com/manbir6-ux/TongNet/issues/34) | READY | P0 | G1 | None |
+| [TN-ENG-001 — Scaffold Rust test-only ledger workspace and CI](https://github.com/manbir6-ux/TongNet/issues/35) | READY | P0 | E0 | None |
+| [TN-TEST-001 — Implement property-based money conservation and escrow state model](https://github.com/manbir6-ux/TongNet/issues/36) | BLOCKED | P0 | G2 | TN-SPEC-001, TN-ENG-001 |
+| [TN-CONS-001 — Integrate pinned CometBFT with Rust deterministic state localnet](https://github.com/manbir6-ux/TongNet/issues/37) | BLOCKED | P0 | G3 | TN-ENG-001, TN-TEST-001 |
+| [TN-CONS-002 — Implement bonded PoS eligibility, safe epoch changes and slashing evidence](https://github.com/manbir6-ux/TongNet/issues/38) | BLOCKED | P0 | G4 | TN-CONS-001, TN-MONEY-001 |
+| [TN-ECON-001 — Implement 3-stage sender fee budget, rewards and anti-farming](https://github.com/manbir6-ux/TongNet/issues/39) | BLOCKED | P1 | G4 | TN-SPEC-002, TN-MONEY-001, TN-CONS-001 |
+| [TN-ENG-002 — Build wallet signer and BlackBox manual FINAL_ACCEPT test client](https://github.com/manbir6-ux/TongNet/issues/40) | BLOCKED | P0 | G5 | TN-SPEC-002, TN-SEC-001, TN-ENG-001 |
+| [TN-ENG-003 — Build encrypted Active Recovery Mirror with independent key-release review](https://github.com/manbir6-ux/TongNet/issues/41) | BLOCKED | P0 | G6 | TN-SPEC-005, TN-SEC-002, TN-SEC-003, TN-CONS-001 |
+| [TN-OPS-001 — Implement P2P, state-sync, archives, signed builds and incident baseline](https://github.com/manbir6-ux/TongNet/issues/42) | BLOCKED | P1 | G3 | TN-CONS-001 |
+| [TN-TEST-002 — Build full adversarial formal/differential and chaos test harness](https://github.com/manbir6-ux/TongNet/issues/43) | BLOCKED | P0 | G7 | TN-CONS-002, TN-ENG-002, TN-ENG-003 |
+| [TN-NET-001 — Recruit independent operators and run public 90-day adversarial testnet](https://github.com/manbir6-ux/TongNet/issues/44) | BLOCKED | P0 | G8 | TN-TEST-002, TN-OPS-001, TN-ECON-001 |
+| [TN-LEGAL-001 — Obtain external Australian crypto, privacy and cross-border legal assessment](https://github.com/manbir6-ux/TongNet/issues/45) | READY | P0 | G9 | None |
+| [TN-LAUNCH-001 — Mainnet go/no-go after independent technical and monetary audits](https://github.com/manbir6-ux/TongNet/issues/46) | BLOCKED | P0 | G9 | TN-NET-001, TN-LEGAL-001, TN-MONEY-001, TN-SPEC-004, TN-ENG-003 |
+| [TN-MAINT-001 — Quarterly/annual protocol, tokenomics and long-lived recovery maintenance](https://github.com/manbir6-ux/TongNet/issues/47) | BLOCKED | P1 | G11 | TN-LAUNCH-001 |
 
-## Pre-existing legacy backlog (do not discard)
-
-Older Issues are retained until mapped to canonical TN IDs; no underlying work or evidence is erased by creating a new registry.
+## Legacy pre-existing Issues (preserved until triaged)
 
 - [#1 [G0][P0] Establish canonical spec and supersession map](https://github.com/manbir6-ux/TongNet/issues/1)
 - [#2 [G0][P0] Formal money and lifecycle threat model](https://github.com/manbir6-ux/TongNet/issues/2)
@@ -61,6 +59,6 @@ Older Issues are retained until mapped to canonical TN IDs; no underlying work o
 - [#22 [G4][P0] Security, legal and economics signoff before mainnet](https://github.com/manbir6-ux/TongNet/issues/22)
 - [#23 [G0][P0] Persistent GitHub project control and worker handoff](https://github.com/manbir6-ux/TongNet/issues/23)
 
-## Resume
+## Resume instructions
 
-1. [AGENTS.md](../AGENTS.md) 2. [Project Control](PROJECT_CONTROL.md) 3. [Decision Register](DECISION_REGISTER_CURRENT.md) 4. [Work Log](WORK_LOG.md) 5. [Risk Audit](LONG_HORIZON_RISK_AUDIT.md) 6. [Build Plan](BUILD_EXECUTION_PLAN.md). Then read the selected GitHub Issue and PR. Workflow updates task *reporting* only, never writes product code or changes completion state.
+Read [AGENTS.md](../AGENTS.md), [Project Control](PROJECT_CONTROL.md), [Decisions](DECISION_REGISTER_CURRENT.md), [Work Log](WORK_LOG.md), [50-risk audit](LONG_HORIZON_RISK_AUDIT.md), and [Build plan](BUILD_EXECUTION_PLAN.md); check selected issue's current comments/PRs. A daily status refresh is NOT new coding activity.
