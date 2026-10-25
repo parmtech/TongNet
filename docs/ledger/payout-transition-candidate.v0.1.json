@@ -1,0 +1,173 @@
+{
+  "spec_version": "0.1.0",
+  "status": "PROPOSED_CANDIDATE_REQUIRES_OWNER_RATIFICATION",
+  "authority": {
+    "confirmed": [
+      "Receiver CLAIM_REQUEST does not pay escrow",
+      "Sender BlackBox FINAL_ACCEPT is required for Receiver payout",
+      "nominal Receiver 24h priority followed by Sender manual 60 full-day reclaim",
+      "no automatic refund at 24h",
+      "no 3-hour Trigger"
+    ],
+    "architect_recommended_not_ratified": "Use BFT-final LOCK as t0.",
+    "owner_ratification_required_before_fund_movement": true
+  },
+  "candidate_policy": {
+    "t0": "canonical_consensus_time_of_bft_final_lock_block",
+    "receiver_duration_seconds": 86400,
+    "sender_duration_seconds": 5184000,
+    "sender_window_start_offset_seconds_from_t0": 86400,
+    "sender_window_end_offset_seconds_from_t0": 5270400,
+    "intervals": [
+      {
+        "id": "receiver_priority",
+        "start_offset_seconds": 0,
+        "start_inclusive": true,
+        "end_offset_seconds": 86400,
+        "end_inclusive": false,
+        "allowed_operations": [
+          "CLAIM_REQUEST",
+          "FINAL_ACCEPT"
+        ]
+      },
+      {
+        "id": "sender_manual_reclaim",
+        "start_offset_seconds": 86400,
+        "start_inclusive": true,
+        "end_offset_seconds": 5270400,
+        "end_inclusive": false,
+        "allowed_operations": [
+          "SENDER_RECLAIM"
+        ]
+      },
+      {
+        "id": "post_sender_window",
+        "start_offset_seconds": 5270400,
+        "start_inclusive": true,
+        "end_offset_seconds": null,
+        "end_inclusive": null,
+        "derived_state": "POLICY_PENDING",
+        "automatic_money_movement": false
+      }
+    ],
+    "pending_claim_at_receiver_cutoff": "EXPIRES_FOR_RECEIVER_PRIORITY_CANDIDATE_OWNER_DECISION_REQUIRED",
+    "clock": "versioned_consensus_time_policy_required; no client_or_wall_clock",
+    "state_changes_only_from": "verified_bft_finalized_transactions"
+  },
+  "finalized_evidence_context": [
+    "chain_id",
+    "protocol_version",
+    "epoch",
+    "height",
+    "block_hash",
+    "validator_set_hash",
+    "consensus_time",
+    "transaction_index",
+    "transaction_hash",
+    "verified_block_inclusion_and_finality_evidence"
+  ],
+  "transitions": [
+    {
+      "from": "NONE",
+      "operation": "LOCK",
+      "condition": "valid Sender-authenticated transaction is BFT-final",
+      "to": "LOCKED",
+      "monetary_effect": "sender spendable to unique escrow atomically"
+    },
+    {
+      "from": "LOCKED",
+      "operation": "CLAIM_REQUEST",
+      "condition": "finalized_time >= t0 and < t0+86400s; addressed Receiver and valid one-use proof",
+      "to": "CLAIM_PENDING",
+      "monetary_effect": "none"
+    },
+    {
+      "from": "LOCKED|CLAIM_PENDING",
+      "operation": "FINAL_ACCEPT",
+      "condition": "finalized_time >= t0 and < t0+86400s; Sender BlackBox binds exact escrow, claim, Receiver, amount",
+      "to": "PAID",
+      "monetary_effect": "escrow to Receiver once"
+    },
+    {
+      "from": "LOCKED|CLAIM_PENDING",
+      "operation": "SENDER_RECLAIM",
+      "condition": "finalized_time >= t0+86400s and < t0+5270400s; valid Sender authorization",
+      "to": "RECLAIMED",
+      "monetary_effect": "escrow to original Sender once"
+    },
+    {
+      "from": "LOCKED|CLAIM_PENDING",
+      "operation": "POLICY_EVALUATION",
+      "condition": "finalized_time >= t0+5270400s",
+      "to": "POLICY_PENDING",
+      "monetary_effect": "none; no automatic refund, reserve transfer, or burn",
+      "stored_timer_transition": false
+    }
+  ],
+  "finality_order": {
+    "same_block": "increasing_transaction_index",
+    "across_blocks": "increasing_epoch_then_height",
+    "terminal_outcome": "at_most_one_of_PAID_or_RECLAIMED",
+    "replay_or_conflict": "later_or_duplicate terminal action fails atomically"
+  },
+  "unresolved_owner_decisions": [
+    "t0 anchor",
+    "exact deadline intervals",
+    "treatment of pending claims at receiver cutoff",
+    "consensus time representation, drift, height mapping, and delay compensation",
+    "K_S availability after Sender BlackBox loss",
+    "post-window rights",
+    "Sender DEAD with open escrow"
+  ],
+  "property_test_matrix": [
+    {
+      "id": "PT-ARC-001",
+      "property": "Receiver interval boundaries",
+      "cases": [
+        "t0-1 tick",
+        "t0",
+        "t0+86400s-1 tick",
+        "t0+86400s"
+      ]
+    },
+    {
+      "id": "PT-ARC-002",
+      "property": "Sender interval boundaries",
+      "cases": [
+        "t0+86400s",
+        "t0+5270400s-1 tick",
+        "t0+5270400s"
+      ]
+    },
+    {
+      "id": "PT-ARC-003",
+      "property": "Finality fail-closed",
+      "cases": [
+        "mempool only",
+        "unverified certificate",
+        "wrong chain/version",
+        "bad inclusion",
+        "missing time policy"
+      ]
+    },
+    {
+      "id": "PT-ARC-004",
+      "property": "One terminal winner",
+      "cases": [
+        "same-block conflicting operations by transaction index",
+        "cross-block replay",
+        "accept after reclaim",
+        "reclaim after accept"
+      ]
+    },
+    {
+      "id": "PT-ARC-005",
+      "property": "Pending-claim cutoff choice",
+      "cases": [
+        "claim one tick before cutoff and accept at cutoff",
+        "claim finalized at cutoff",
+        "claim finalized after cutoff"
+      ]
+    }
+  ]
+}
