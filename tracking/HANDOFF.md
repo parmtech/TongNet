@@ -18,3 +18,8 @@
 - **Done (documents):** V1.1 master whitepaper, 50 + 15 long-horizon conceptual risks, detailed G0–G11 plan, canonical issue tracker, issue-migration, GitHub worker instructions, two GitHub workflows committed (one checks, one status-sync).
 - **Not verified:** Actual passing workflow run, independent crypto review, blockchain code, tests, full nodes, any mined/minted TONG or mainnet. No code-execution success claim.
 - **Last branch/commit to resume:** Re-read live HEAD in GitHub; this static file avoids inventing a SHA because concurrent workers created commits. GitHub Issues and PRs are authoritative.
+
+
+## 2026-10-25 — Owner blueprint intake
+Issue: TN-ARC-001 #25. Branch: `work/TN-ARC-001-owner-blueprint-intake`. Discussion commit: `cdd41e39accb6ea541e20b6cb3a002014e09e9de`.
+Saved `docs/OWNER_BLUEPRINT_DISCUSSION_2026_10_25.md` with the owner's timer corrections, request for one question at a time, and authorization for ongoing GitHub saves. Documentation intake only; no code or runtime tests. Canonical timer remains unresolved: latest owner wording starts time when sender accepts receiver request; reconcile with existing FINAL_ACCEPT settlement before ADR or implementation. Do not overwrite earlier rules from ambiguous transcript. Next: read the intake and existing manual P2P flow, identify exact event with owner, then draft ADR/canonical updates. Existing implementation PRs #48/#49 are separate; no completion or merge claimed.
