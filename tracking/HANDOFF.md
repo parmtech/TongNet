@@ -7,18 +7,14 @@
 **Do NOT claim a working blockchain.**
 
 ## Immediate next step for any new human/AI worker
-1. Pull latest main; read `AGENTS.md`, `tracking/CURRENT_STATUS.md`, `tracking/TASKS.md`, `tracking/RISKS.md`, `tracking/DECISIONS.md`, and `docs/A_TO_Z_LONG_TERM_REVIEW_V2.md`.
-2. Read GitHub Issues [#1](https://github.com/manbir6-ux/TongNet/issues/1) (canonical spec), [#2](https://github.com/manbir6-ux/TongNet/issues/2) (formal invariants), [#3](https://github.com/manbir6-ux/TongNet/issues/3) (lost original private-key paradox), and [#23](https://github.com/manbir6-ux/TongNet/issues/23) (tracking system). Select earliest unblocked.
-3. Begin a feature branch and narrow PR; do not duplicate unfinished work. Record actual branch, HEAD SHA, files and test commands in daily journal before session ends.
-4. Owner-confirmed rules: native TONG-only chain; no 3h Trigger; Sender final BlackBox approval; Receiver 24h then Sender 60d; ACTIVE independent R with sealed S BlackBox copy; R DEAD auto-unbind A, **never** forward automatically to C. Prior fresh-at-binding R restriction preserved pending owner clarification.
-5. Development candidate: Rust deterministic ledger; version-pinned reviewed BFT; voluntary bonded PoS; optional non-voting PoTP; Fee+Earn. **Mainnet token issuance, delegation, fee split, stake amount, validator counts and claim-key changes not ratified final rules.**
-6. RED unresolved: lost key recovery, cryptographically sealed parent archive, late K_S, objective delay credit, reserve forfeiture legality, genesis-stake concentration and source staked bond successor. STOP before real funds.
+1. Read `AGENTS.md`, `tracking/TASKS.md`, `tracking/RISKS.md`, `docs/DECISION_REGISTER_CURRENT.md`, `docs/LONG_HORIZON_RISK_AUDIT.md`, `docs/LONG_HORIZON_AUDIT_SUPPLEMENT.md` and `docs/BUILD_EXECUTION_PLAN.md`.
+2. **Canonical task set:** [24 structured TN-ID issues #24–#47](https://github.com/manbir6-ux/TongNet/issues) plus [#3 = TN-SEC-004 original S private-key-loss critical blocker](https://github.com/manbir6-ux/TongNet/issues/3). The remaining 22 older #1–#23 issues were CLOSED AS DUPLICATES, NOT completed. Do not work or close them as built features.
+3. Earliest independent unblocked work: [TN-ARC-001 #25](https://github.com/manbir6-ux/TongNet/issues/25), [TN-SPEC-001 #29](https://github.com/manbir6-ux/TongNet/issues/29), [TN-MONEY-001 #34](https://github.com/manbir6-ux/TongNet/issues/34), [TN-ENG-001 #35](https://github.com/manbir6-ux/TongNet/issues/35). Root-key recovery [TN-SEC-004 #3](https://github.com/manbir6-ux/TongNet/issues/3) needs OWNER DECISION; no silent signer bypass.
+4. Project-control issue [TN-GOV-001 #24](https://github.com/manbir6-ux/TongNet/issues/24) remains IN_REVIEW until one actual successful [status-sync](https://github.com/manbir6-ux/TongNet/actions/workflows/status-sync.yml) run and valid status commit are VERIFIED. Files committed ≠ workflow successfully executed.
+5. For each session use a per-issue branch, actual tests, issue update and append factual `tracking/DAILY_LOG.md`. Update this handoff BEFORE stopping: issue, branch, SHA, tests, next exact task, blockers.
+6. Do not launch money/claim complete chain from docs. Latest owner rules: native TONG only; BlackBox Sender FINAL_ACCEPT, Receiver 24h then Sender next 60d, both recovery wallets ACTIVE, sealed S-parent archive, no S→C cascade when B dies. Read Active R V4.
 
-## Important: continuity after weeks/months
-**GitHub Issues define current task truth.** `tracking/AUTO_STATUS.md` when generated contains last verified snapshot; `tracking/DAILY_LOG.md` contains worker-by-worker factual notes. The next worker must cross-check GitHub main branch and current PR status, not copy old percent complete. If this handoff is stale, the *worker who resumes* must update it as their first documentation commit.
-
-## Active assignment (as of this initial handoff)
-- Owner instructed A-to-Z audit + persistent tracking; no dedicated implementation task in progress.
-- Next recommended technical assignment: TN-001 (spec priority), TN-002 (invariants), followed by TN-013 (Rust workspace only after spec direction).
-- Risk of outdated docs: V1.0 and earlier V2/V3 payment/frozen-recovery text still exists historically; use latest owner rules and V1.1 plus security audit as overrides.
-- Never store API tokens, private keys or claim codes in the repository.
+## What is done / not done (2026-10-25)
+- **Done (documents):** V1.1 master whitepaper, 50 + 15 long-horizon conceptual risks, detailed G0–G11 plan, canonical issue tracker, issue-migration, GitHub worker instructions, two GitHub workflows committed (one checks, one status-sync).
+- **Not verified:** Actual passing workflow run, independent crypto review, blockchain code, tests, full nodes, any mined/minted TONG or mainnet. No code-execution success claim.
+- **Last branch/commit to resume:** Re-read live HEAD in GitHub; this static file avoids inventing a SHA because concurrent workers created commits. GitHub Issues and PRs are authoritative.
