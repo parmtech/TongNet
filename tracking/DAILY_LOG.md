@@ -32,3 +32,9 @@ Saved `docs/OWNER_BLUEPRINT_DISCUSSION_2026_10_25.md` with the owner's timer cor
 
 ## 2026-10-25 — Receiver flow clarification
 Owner confirmed receiver only submits code-backed CLAIM_REQUEST and has no further manual step after sender acceptance. Saved exact statement and interpretation in owner blueprint discussion on PR #50. Timer purpose remains unresolved; no new delay or fund right inferred. Documentation only; no runtime tests applicable.
+
+
+## 2026-10-25 — Owner confirms acceptance completes payment/window
+In response to the explicit question whether sender acceptance sends funds to the receiver and ends the transaction's 24-hour window, the owner said: “बिल्कुल, बिल्कुल यही समझो तुसी की फिर पैसे चले जाणे ऐ receiver नू”. This confirms sender acceptance completes the receiver payment flow and ends the applicable window; there is no additional receiver action or deliberate post-acceptance 24-hour waiting period. Ledger settlement still requires valid transaction execution and network finality; a local button click alone is not proof of payout. Settled escrow cannot subsequently be reclaimed.
+The window START remains unresolved: earlier voice wording placed start at acceptance, which now also ends payment/window. Preserve the latest completion clarification, but do not invent a start anchor. Next single question: does the 24-hour countdown begin when receiver submits the code-backed claim request, giving sender that period to accept? This is a question, not an approved rule. Existing following 60-day reclaim policy is not changed here.
+Documentation intake on draft PR #50 for issue #25; no implementation or runtime test result claimed.
