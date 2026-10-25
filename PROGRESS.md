@@ -1,5 +1,10 @@
 # TongNet — Progress Tracker
 
+## 2026-10-25 — Long-horizon audit and issue control installed (documentation, not implementation)
+
+Completed as DOCUMENTATION: 50-risk audit, G0–G11 build execution plan, AGENTS.md, current decisions register, initial Issue-derived status, legacy migration map, 24 new canonical issues, automated status script and GitHub Actions workflow configuration. NOT DONE: working Rust chain, any production node/testnet, functioning auto status cron (not tested yet), crypto audit, fees, recovery key release and mainnet. Link actual work via [Project status](docs/PROJECT_STATUS.md) and [Work Log](docs/WORK_LOG.md).
+
+
 > **CURRENT SECURITY-REVIEWED ARCHITECTURE REFERENCE — V1.1 (2026-10-25):** Read [Corrected TongNet Master V1.1](docs/WHITEPAPER_MASTER_V1_1_SECURITY_REVIEW.md) and the [24-finding logic/security audit](docs/LOGIC_SECURITY_AUDIT_V1_1.md) BEFORE building. V1.0 is HISTORICAL, not current guidance on tokenomics/blocks/claims. The V1.1 design withdraws previously proposed 12m genesis, 17.6m first-era issuance, potentially related 50% genesis allocation, absolute 25k TONG stake and 5% slash trial; replaces 2MiB/4sec max with conservative 256KiB/6sec experiment and adds pre-LOCK K_R persistence and safe validator-exit epoch rules. **Owner-confirmed 24h Receiver + next 60d Sender, mandatory Sender BlackBox FINAL_ACCEPT, ACTIVE Recovery Mirror and R DEAD auto-unbinding remain unchanged.** RED mainnet blockers persist. Design only: no code, audits or deployed TONG.
 
 
