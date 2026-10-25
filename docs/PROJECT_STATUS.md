@@ -8,7 +8,7 @@
 
 | Issue | Reported status | Priority | Gate | Dependencies |
 |---|---|---|---|---|
-| [TN-GOV-001 — Install GitHub worker resume / issue-based project control](https://github.com/manbir6-ux/TongNet/issues/24) | READY | P0 | G0 | None |
+| [TN-GOV-001 — Install GitHub worker resume / issue-based project control](https://github.com/manbir6-ux/TongNet/issues/24) | IN_REVIEW | P0 | G0 | None |
 | [TN-ARC-001 — Resolve protocol authority, 24h timer t0 and exact payout state transitions](https://github.com/manbir6-ux/TongNet/issues/25) | READY | P0 | G1 | None |
 | [TN-SEC-001 — Specify secure claim K_R lifecycle before funded LOCK](https://github.com/manbir6-ux/TongNet/issues/26) | READY | P0 | G1 | TN-ARC-001 |
 | [TN-SEC-002 — Solve parent BlackBox archive conditional decryption or mark impossible](https://github.com/manbir6-ux/TongNet/issues/27) | BLOCKED | P0 | G1 | TN-ARC-001 |
