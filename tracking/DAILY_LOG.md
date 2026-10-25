@@ -53,3 +53,13 @@ All workers **append** a factual new session record, with local ISO date, timezo
 **Completed acceptance criteria (with PR/evidence):** Draft PR is published and issue #35 is linked; scaffold structure and dependency policy pass local checks. The issue remains open pending green CI and review.  
 **Remaining blockers and exact next action:** Restore GitHub Actions runner availability, then rerun PR checks. Do not close or merge while CI is unverified.  
 **Updated HANDOFF/CURRENT_STATUS:** yes.
+
+## 2026-10-25 — TN-ENG-001 continued local verification (Australia/Sydney)
+**Worker:** Codex.  
+**Issue / branch / commit:** TN-ENG-001 / `work/TN-ENG-001-rust-workspace` / draft PR [TN-ENG-001 Rust workspace and CI](https://github.com/manbir6-ux/TongNet/pull/48).  
+**Changed files:** No protocol or workspace code changes; recorded an additional local compile check and current CI blocker.  
+**Test command and actual PASS/FAIL results:** `cargo check --workspace --all-targets --locked` PASS. Prior local formatting, Clippy, Cargo metadata, and cargo-deny checks remain PASS. `cargo test` still cannot link locally; GitHub Actions still does not start because of the account billing limit.  
+**New risk / decision / owner approval:** No design or owner decision changed. A Linux test environment is unavailable on this machine.  
+**Completed acceptance criteria (with PR/evidence):** PR #48 remains open and draft; remote CI is still unverified.  
+**Remaining blockers and exact next action:** Restore GitHub Actions runner availability and rerun PR checks; alternatively install a Windows C++ toolchain and rerun `cargo test` locally.  
+**Updated HANDOFF/CURRENT_STATUS:** yes.
