@@ -14,11 +14,11 @@ This register is for *current decisive questions*, with **Confirmed Owner** dist
 | ADR-008 | ARCHITECT BASELINE | Deterministic account ledger, Rust engine + reviewed BFT, low Fee+Earn | Proof/economics incomplete. |
 | ADR-009 | PROPOSED ONLY | 64 active /32 standby node targets, 6s /256KiB testnet target | Not security guarantees or approved mainnet parameters. |
 | ADR-010 | WITHDRAWN | V1.0 12m genesis / 17.6m first-era / founder-linked distribution guesses | Removed as unsafe/unbalanced; [V1.1](../docs/WHITEPAPER_MASTER_V1_1_SECURITY_REVIEW.md). |
-| ADR-011 | BLOCKED — OWNER POLICY CONFLICT | K_S only generated after 24h vs lost/dead Sender BlackBox | Needs explicit owner ratification of alternative [#5](https://github.com/manbir6-ux/TongNet/issues/5). |
+| ADR-011 | BLOCKED — OWNER POLICY CONFLICT | K_S only generated after 24h vs lost/dead Sender BlackBox | Needs explicit owner ratification of alternative [#5](https://github.com/manbir6-ux/TongNet/issues/28). |
 | ADR-012 | BLOCKED | S private key required for S disaster means lost key irrecoverable | [#3](https://github.com/manbir6-ux/TongNet/issues/3) must resolve; no unilateral admin bypass. |
-| ADR-013 | BLOCKED | R genuinely unable to decrypt S archive before authorised recovery | Key-share threat model and independent audit [#4](https://github.com/manbir6-ux/TongNet/issues/4). |
-| ADR-014 | CONFIRMED INTENT, BLOCKED RELEASE | Post-60d reserve transfer of unclaimed user funds | Consumer/legal/denial attacks [#7](https://github.com/manbir6-ux/TongNet/issues/7). No implementation into mainnet yet. |
-| ADR-015 | BLOCKED DESIGN | Strict one-to-one network fault deadline compensation | Exact attribution impossible in all asynchronous adversarial settings [#6](https://github.com/manbir6-ux/TongNet/issues/6). |
-| ADR-016 | ARCHITECT BASELINE/OWNER SIGNOFF NEEDED | S validator stake stays slashable after S DEAD, with R delayed withdrawal right | [#12](https://github.com/manbir6-ux/TongNet/issues/12), cannot evict active BFT signer mid-epoch. |
+| ADR-013 | BLOCKED | R genuinely unable to decrypt S archive before authorised recovery | Key-share threat model and independent audit [#4](https://github.com/manbir6-ux/TongNet/issues/27). |
+| ADR-014 | CONFIRMED INTENT, BLOCKED RELEASE | Post-60d reserve transfer of unclaimed user funds | Consumer/legal/denial attacks [#7](https://github.com/manbir6-ux/TongNet/issues/32). No implementation into mainnet yet. |
+| ADR-015 | BLOCKED DESIGN | Strict one-to-one network fault deadline compensation | Exact attribution impossible in all asynchronous adversarial settings [#6](https://github.com/manbir6-ux/TongNet/issues/31). |
+| ADR-016 | ARCHITECT BASELINE/OWNER SIGNOFF NEEDED | S validator stake stays slashable after S DEAD, with R delayed withdrawal right | [#12](https://github.com/manbir6-ux/TongNet/issues/33), cannot evict active BFT signer mid-epoch. |
 
 **ADR template:** `ADR-017 | YYYY-MM-DD | status | problem | considered alternatives | accepted solution | affected fund/legal/security guarantees | links owner decision/issue/PR | rollback/migration`. Do not edit confirmed owner rules because an old README says otherwise.
