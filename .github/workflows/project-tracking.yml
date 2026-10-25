@@ -1,0 +1,32 @@
+name: TongNet project-control checks
+
+on:
+  push:
+    paths:
+      - 'AGENTS.md'
+      - 'tracking/**'
+      - 'docs/PROJECT_CONTROL.md'
+      - 'docs/LONG_HORIZON_*'
+      - 'scripts/**'
+      - '.github/workflows/project-tracking.yml'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout pinned action
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Structural tracking consistency
+        run: python3 scripts/check_tracking.py
+      - name: Python syntax check
+        run: python3 -m py_compile scripts/check_tracking.py scripts/daily_snapshot.py
+      - name: Explain scope
+        run: |
+          echo "Tracking consistency only; no blockchain or security test performed." >> "$GITHUB_STEP_SUMMARY"
+          echo "Task truth: https://github.com/${GITHUB_REPOSITORY}/issues" >> "$GITHUB_STEP_SUMMARY"
