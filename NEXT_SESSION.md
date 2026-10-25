@@ -1,5 +1,10 @@
 # TongNet — Next Session Handoff
 
+## START HERE — 2026-10-25 CANONICAL RESUME NOTE
+
+New worker: read [AGENTS.md](AGENTS.md), [Project Status](docs/PROJECT_STATUS.md), [Project Control](docs/PROJECT_CONTROL.md), [Decisions](docs/DECISION_REGISTER_CURRENT.md), [50-risk audit](docs/LONG_HORIZON_RISK_AUDIT.md), [build execution plan](docs/BUILD_EXECUTION_PLAN.md), then claim one READY [TN-...] GitHub issue. 24 canonical new TN Issues, 23 prior legacy Issues (#1–#23) cross-mapped in [Legacy migration](docs/LEGACY_ISSUE_MIGRATION.md); avoid duplication and do not close without review. The status-sync workflow is committed but SUCCESSFUL RUN NOT YET VERIFIED. First safe engineering task: TN-ENG-001 test-only Rust workspace and TN-SPEC-001 money conservation schema. K_S, encrypted parent archive key release, reserve forfeiture and exact network-delay seconds are P0 blockers; do not silently reassign funds or deploy.
+
+
 > **CURRENT SECURITY-REVIEWED ARCHITECTURE REFERENCE — V1.1 (2026-10-25):** Read [Corrected TongNet Master V1.1](docs/WHITEPAPER_MASTER_V1_1_SECURITY_REVIEW.md) and the [24-finding logic/security audit](docs/LOGIC_SECURITY_AUDIT_V1_1.md) BEFORE building. V1.0 is HISTORICAL, not current guidance on tokenomics/blocks/claims. The V1.1 design withdraws previously proposed 12m genesis, 17.6m first-era issuance, potentially related 50% genesis allocation, absolute 25k TONG stake and 5% slash trial; replaces 2MiB/4sec max with conservative 256KiB/6sec experiment and adds pre-LOCK K_R persistence and safe validator-exit epoch rules. **Owner-confirmed 24h Receiver + next 60d Sender, mandatory Sender BlackBox FINAL_ACCEPT, ACTIVE Recovery Mirror and R DEAD auto-unbinding remain unchanged.** RED mainnet blockers persist. Design only: no code, audits or deployed TONG.
 
 
