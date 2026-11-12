@@ -27,6 +27,7 @@
     "amount_atomic_u128_decimal": {
       "type": "string",
       "pattern": "^(0|[1-9][0-9]*)$",
+      "not": {"pattern": "[^0-9]"},
       "minLength": 1,
       "maxLength": 39,
       "description": "Test-model unsigned decimal integer; parser must reject values greater than u128::MAX."
@@ -34,6 +35,7 @@
     "positive_amount_atomic_u128_decimal": {
       "type": "string",
       "pattern": "^[1-9][0-9]*$",
+      "not": {"pattern": "[^0-9]"},
       "minLength": 1,
       "maxLength": 39,
       "description": "Positive test-model amount; parser must reject values greater than u128::MAX."
@@ -41,6 +43,7 @@
     "nonce_u64_decimal": {
       "type": "string",
       "pattern": "^(0|[1-9][0-9]*)$",
+      "not": {"pattern": "[^0-9]"},
       "minLength": 1,
       "maxLength": 20,
       "description": "Test-model unsigned decimal nonce; parser must reject values greater than u64::MAX."
