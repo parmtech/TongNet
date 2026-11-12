@@ -26,9 +26,35 @@ REQUIRED = (
     "docs/BUILD_EXECUTION_PLAN.md",
     "docs/DECISION_REGISTER_CURRENT.md",
     ".github/workflows/project-tracking.yml",
-    ".github/workflows/tracking-daily.yml",
-    "scripts/daily_snapshot.py",
+    ".github/workflows/status-sync.yml",
+    ".github/scripts/build_status.py",
 )
+
+def validate_task_rows(text: str) -> list[str]:
+    """Validate local register structure, not the live state of GitHub issues."""
+    errors: list[str] = []
+    rows = re.findall(
+        r"(?m)^\|\s*(TN-[A-Z]+-\d{3})\s*\|\s*\[#(\d+)\]\(https://github\.com/([^/]+)/TongNet/issues/(\d+)\)",
+        text,
+    )
+    if len(rows) != 25:
+        errors.append(f"Expected 25 canonical task rows, found {len(rows)}.")
+    seen_ids: set[str] = set()
+    seen_numbers: set[int] = set()
+    for key, number, owner, tail in rows:
+        if owner not in {"parmtech", "manbir6-ux"}:
+            errors.append(f"Unexpected issue owner for {key}: {owner}")
+        if key in seen_ids or int(number) in seen_numbers:
+            errors.append(f"Duplicated task key or issue number: {key}/#{number}")
+        if number != tail:
+            errors.append(f"Broken issue number mapping for {key}: #{number} vs #{tail}")
+        seen_ids.add(key)
+        seen_numbers.add(int(number))
+    expected_numbers = {3, *range(24, 48)}
+    if seen_numbers != expected_numbers:
+        errors.append("Canonical issue numbers must be #3 and #24–#47.")
+    return errors
+
 
 def validate() -> list[str]:
     errors = []
@@ -38,20 +64,7 @@ def validate() -> list[str]:
     tasks = ROOT / "tracking/TASKS.md"
     if tasks.exists():
         text = tasks.read_text(encoding="utf-8")
-        rows = re.findall(
-            r"(?m)^\|\s*(TN-\d{3})\s*\|\s*\[#(\d+)\]\((https://github\.com/manbir6-ux/TongNet/issues/(\d+))\)",
-            text,
-        )
-        if len(rows) < 23:
-            errors.append(f"Only {len(rows)} issue-backed tasks: expected at least 23.")
-        seen_ids, seen_numbers = set(), set()
-        for key, number, url, tail in rows:
-            if key in seen_ids or number in seen_numbers:
-                errors.append(f"Duplicated task key or issue number: {key}/#{number}")
-            if number != tail:
-                errors.append(f"Broken mapping {key} #{number} vs {url}")
-            seen_ids.add(key)
-            seen_numbers.add(number)
+        errors.extend(validate_task_rows(text))
     for relative in ("tracking/HANDOFF.md", "tracking/DAILY_LOG.md"):
         p = ROOT / relative
         if p.exists():

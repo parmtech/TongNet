@@ -23,3 +23,11 @@ All workers **append** a factual new session record, with local ISO date, timezo
 **Remaining blockers and exact next action:**
 **Updated HANDOFF/CURRENT_STATUS:** yes/no
 ```
+
+## 2026-11-12 — TN-GOV-001 tracking integrity repair (Australia/Sydney)
+
+**Branch:** `work/TN-GOV-001-tracking-integrity-20261112`, based on main `886329931341c4faa1d5fdb59c90493d9ff9fe38`. The existing structural checker failed locally: it required two deleted/renamed files and parsed only obsolete task IDs and the previous owner URL. The workflow also syntax-checked a missing script, and status-sync's repository guard still named the previous owner. This draft checks the current 25 canonical rows and current files, tests duplicate/missing/mismatched rows, updates the workflow syntax target and updates the guard to the current repository.
+
+**Validation:** `python -m unittest discover -s tests -p test_tracking_integrity.py -v` — four tests passed; `python scripts/check_tracking.py` — passed; `python -m py_compile scripts/check_tracking.py .github/scripts/build_status.py` — passed; staged whitespace check — passed. These are local structural checks only, not live issue status, successful Actions execution, or blockchain/security evidence. No hosted workflow was run.
+
+**Review and effects:** If merged, the existing scheduled/issue-triggered status-sync job can run in the current repository and may write its existing status snapshots to main, subject to GitHub permissions and branch protections. Review that behavior and its permissions before merge. Mainnet, protocol, ownership, money and cryptographic decisions are unchanged. Next: review this draft and authorize an actual workflow run; verify its exact-head result and snapshot behavior. TN-GOV-001 remains open until its required evidence exists.
