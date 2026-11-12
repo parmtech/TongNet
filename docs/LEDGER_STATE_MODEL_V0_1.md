@@ -87,3 +87,9 @@ The machine-readable matrix defines the v0.1 cases for conservation across trans
 - State-root hash/codec and upgrade/migration rules.
 
 Closing TN-SPEC-001 requires owner/architect review of this proposal and implementation-ready bounded invariants. It does not close TN-TEST-001, validate real assets, or clear any mainnet blocker.
+
+## Schema audit checkpoint — 2026-11-12
+
+The draft JSON Schema now rejects any non-ASCII digit in the amount and nonce decimal strings. Before this change, the anchored regular expressions accepted a trailing newline with the tested Draft 2020-12 validator. This is input-shape hardening for the test-only proposal, not an approved transaction format or a financial policy decision. The schema still permits decimal strings above u128/u64 maxima and does not verify signatures or base64 content; the eventual parser and cryptographic verifier must reject invalid values. Candidate timing and funds-rights decisions remain unratified.
+
+Reproduce the focused checks with Python 3 and `jsonschema==4.25.1` installed in an isolated environment: `python -m unittest discover -s tests -p test_candidate_schema.py -v`. They test schema structure, rejected malformed decimals, operation/payload mismatches, explicit schema limitations and candidate interval structure. They do not execute a ledger, validate finality or authorize money movement.

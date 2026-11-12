@@ -53,3 +53,11 @@ All workers **append** a factual new session record, with local ISO date, timezo
 **Completed acceptance criteria (with PR/evidence):** Draft table and JSON define candidate inclusive/exclusive intervals, verified BFT-final evidence fields, deterministic conflict ordering, one-winner payouts, and cutoff/property cases. [PR #51](https://github.com/parmtech/TongNet/pull/51); issue #25 remains OPEN.  
 **Remaining blockers and exact next action:** Owner must ratify or revise t0, cutoff behavior, and consensus-time assumptions. Keep PR #51 draft and stacked until PR #49 is merged; then retarget to main and address review. Resolve GitHub Actions billing eligibility before expecting runner validation.  
 **Updated HANDOFF/CURRENT_STATUS:** yes.
+
+## 2026-11-12 — TN-SPEC-001 candidate schema audit (Australia/Sydney)
+
+**Branch:** `audit/tn-spec-validation-20261112`, based on PR #51 head `5dcc3169ce3c2b1e2841fd3e14423eef532fc60d` (stacked on PR #49). **Work:** reproduced a Draft 2020-12 regex edge case accepting a terminal newline in decimal amount/nonce strings; added an ASCII-digit exclusion and focused schema/candidate-boundary tests. No financial policy was decided.
+
+**Validation:** Python 3.13 and `jsonschema==4.25.1`: four focused tests passed; schema parsed and meta-schema validation passed. The tests explicitly demonstrate that the schema alone accepts out-of-range u128/u64 decimals and does not verify base64/signatures; parser and cryptographic checks remain mandatory. Existing `python scripts/check_tracking.py` failed before these edits because two referenced files are absent and its obsolete task-link pattern found zero canonical rows. This is a separate project-control defect; no GitHub CI success is claimed.
+
+**Remaining:** owner/architect decisions on t0, cutoff and pending claims, key-loss/recovery and post-window rights; independent cryptographic/security review, executable implementation and tests. Review the draft on its exact head; do not move real value or declare a working blockchain. Issue acceptance and remote CI remain open.

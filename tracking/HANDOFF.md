@@ -20,3 +20,7 @@
 - **Done (documents):** V1.1 master whitepaper, 50 + 15 long-horizon conceptual risks, detailed G0–G11 plan, canonical issue tracker, issue-migration, GitHub worker instructions, two GitHub workflows committed (one checks, one status-sync).
 - **Not verified:** Actual passing workflow run, independent crypto review, blockchain code, tests, full nodes, any mined/minted TONG or mainnet. No code-execution success claim.
 - **Last branch/commit to resume:** Re-read live HEAD in GitHub; this static file avoids inventing a SHA because concurrent workers created commits. GitHub Issues and PRs are authoritative.
+
+## Latest audit checkpoint — 2026-11-12
+
+See branch `audit/tn-spec-validation-20261112` and its draft PR for the test-only schema hardening and evidence. Re-run `python -m unittest discover -s tests -p test_candidate_schema.py -v` with `jsonschema==4.25.1`, then review the exact head against PR #51/#49. Schema validation does not enforce numeric machine bounds, signatures, consensus or economic correctness. The pre-existing tracking check also failed due stale required paths and task-link parsing; investigate separately. Owner policy decisions and independent review remain open. Do not treat this as phase completion.
