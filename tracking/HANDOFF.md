@@ -18,3 +18,7 @@
 - **Done (documents):** V1.1 master whitepaper, 50 + 15 long-horizon conceptual risks, detailed G0–G11 plan, canonical issue tracker, issue-migration, GitHub worker instructions, two GitHub workflows committed (one checks, one status-sync).
 - **Not verified:** Actual passing workflow run, independent crypto review, blockchain code, tests, full nodes, any mined/minted TONG or mainnet. No code-execution success claim.
 - **Last branch/commit to resume:** Re-read live HEAD in GitHub; this static file avoids inventing a SHA because concurrent workers created commits. GitHub Issues and PRs are authoritative.
+
+## Tracking integrity draft — 2026-11-12
+
+A separate TN-GOV-001 branch `work/TN-GOV-001-tracking-integrity-20261112` repairs the stale local structural checker and current-owner workflow guard. Four local regression tests and the checker passed; no hosted Action ran. Review the scheduled job's existing write behavior before merging, then verify an authorized exact-head workflow run and snapshot. This does not approve or implement any financial protocol.

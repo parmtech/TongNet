@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   sync:
-    if: github.repository == 'manbir6-ux/TongNet'
+    if: github.repository == 'parmtech/TongNet'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
