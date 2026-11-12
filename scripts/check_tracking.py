@@ -30,6 +30,16 @@ REQUIRED = (
     ".github/scripts/build_status.py",
 )
 
+EXPECTED_TASKS = {
+    "TN-GOV-001": 24, "TN-ARC-001": 25, "TN-SEC-001": 26, "TN-SEC-002": 27,
+    "TN-SEC-003": 28, "TN-SEC-004": 3, "TN-SPEC-001": 29, "TN-SPEC-002": 30,
+    "TN-SPEC-003": 31, "TN-SPEC-004": 32, "TN-SPEC-005": 33, "TN-MONEY-001": 34,
+    "TN-ENG-001": 35, "TN-TEST-001": 36, "TN-CONS-001": 37, "TN-CONS-002": 38,
+    "TN-ECON-001": 39, "TN-ENG-002": 40, "TN-ENG-003": 41, "TN-OPS-001": 42,
+    "TN-TEST-002": 43, "TN-NET-001": 44, "TN-LEGAL-001": 45, "TN-LAUNCH-001": 46,
+    "TN-MAINT-001": 47,
+}
+
 def validate_task_rows(text: str) -> list[str]:
     """Validate local register structure, not the live state of GitHub issues."""
     errors: list[str] = []
@@ -46,13 +56,15 @@ def validate_task_rows(text: str) -> list[str]:
             errors.append(f"Unexpected issue owner for {key}: {owner}")
         if key in seen_ids or int(number) in seen_numbers:
             errors.append(f"Duplicated task key or issue number: {key}/#{number}")
+        if EXPECTED_TASKS.get(key) != int(number):
+            errors.append(f"Unexpected canonical mapping for {key}: #{number}")
         if number != tail:
             errors.append(f"Broken issue number mapping for {key}: #{number} vs #{tail}")
         seen_ids.add(key)
         seen_numbers.add(int(number))
-    expected_numbers = {3, *range(24, 48)}
+    expected_numbers = set(EXPECTED_TASKS.values())
     if seen_numbers != expected_numbers:
-        errors.append("Canonical issue numbers must be #3 and #24–#47.")
+        errors.append("Canonical issue numbers must be #3 and #24â€“#47.")
     return errors
 
 

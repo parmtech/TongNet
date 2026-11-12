@@ -15,7 +15,7 @@ def row(key, number, owner="parmtech", target=None):
 
 
 def fixture():
-    return "\n".join([row("TN-SEC-004", 3)] + [row(f"TN-X-{n:03}", n) for n in range(24, 48)])
+    return "\n".join(row(key, number) for key, number in checker.EXPECTED_TASKS.items())
 
 
 class TrackingStructureTests(unittest.TestCase):
@@ -33,6 +33,10 @@ class TrackingStructureTests(unittest.TestCase):
     def test_wrong_owner_or_mismatched_issue_fails(self):
         self.assertTrue(checker.validate_task_rows(fixture().replace("parmtech", "other", 1)))
         self.assertTrue(checker.validate_task_rows(fixture().replace("issues/24)", "issues/25)", 1)))
+
+    def test_swapped_stable_ids_fail_even_with_same_issue_set(self):
+        text = fixture().replace("TN-GOV-001", "TEMP").replace("TN-ARC-001", "TN-GOV-001").replace("TEMP", "TN-ARC-001")
+        self.assertTrue(checker.validate_task_rows(text))
 
     def test_missing_required_file_is_detected(self):
         original = checker.REQUIRED
